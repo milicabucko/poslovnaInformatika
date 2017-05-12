@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: Fakturisanje
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: milica
+Implementation-Vendor-Id: com.poslovna
+Build-Jdk: 1.8.0_112
+Implementation-URL: http://projects.spring.io/spring-boot/fakturisanje
+ /
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
