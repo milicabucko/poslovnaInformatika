@@ -3,6 +3,30 @@
 	<div layout="column" flex=25 layout-margin>
 
 		<md-input-container>
+			<label>Document number</label>
+    		<input ng-model="docNumber">
+		</md-input-container>
+	
+		<md-input-container>
+			<label>Date</label>
+    		<md-datepicker ng-model="date" md-placeholder="Enter date"></md-datepicker>
+		</md-input-container>
+		
+		<md-input-container>
+			<label>Delivery date</label>
+    		<md-datepicker ng-model="deliveryDate" md-placeholder="Enter date"></md-datepicker>
+		</md-input-container>
+		
+		<md-input-container>
+			<label>Booking date</label>
+    		<md-datepicker ng-model="bookingDate" md-placeholder="Enter date"></md-datepicker>
+		</md-input-container>
+		
+	</div>
+
+	<div layout="column" flex=25 layout-margin>
+
+		<md-input-container>
 			<label>Executor name</label>
     		<input ng-model="exName">
 		</md-input-container>
@@ -61,37 +85,112 @@
 		</md-input-container>
 		
 	</div>
+	
+	
+	
+	
+	
 </div>
+
+<md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <h2 flex md-truncate>Items table</h2>
+        
+        <md-button class="md-icon-button" aria-label="Add new item" ng-click="addNewItem()">
+        <ng-md-icon icon="exposure_plus_1" style="fill: white" size="24"></ng-md-icon> 
+        </md-button>
+      </div>
+</md-toolbar>
+
 
 <md-content>
 <md-table-container>
   <table md-table md-row-select multiple ng-model="selected">
     <thead md-head md-order="myOrder" >
       <tr md-row>
-        <th md-column md-order-by="name"><span>Dessert (100g serving)</span></th>
-        <th md-column md-numeric md-order-by="calories"><span>Calories</span></th>
-        <th md-column md-numeric>Fat (g)</th>
-        <th md-column md-numeric>Carbs (g)</th>
-        <th md-column md-numeric>Protein (g)</th>
-        <th md-column md-numeric>Sodium (mg)</th>
-        <th md-column md-numeric>Calcium (%)</th>
-        <th md-column md-numeric>Iron (%)</th>
+        <th md-column md-numeric><span>Num.</span></th>
+        <th md-column md-numeric md-order-by="id"><span>ID</span></th>
+        <th md-column>Name</th>
+        <th md-column>Unit of measure</th>
+        <th md-column md-numeric>Amount</th>
+        <th md-column md-numeric>Price per unit</th>
+        <th md-column md-numeric>Rebate (%)</th>
+        <th md-column md-numeric>Tax base</th>
+        <th md-column md-numeric>Tax rate</th>
+        <th md-column md-numeric>Amount of tax</th>
+        <th md-column md-numeric>Total</th>
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="dessert in desserts | orderBy: myOrder">
-        <td md-cell>{{dessert.name}}</td>
-        <td md-cell>{{dessert.calories}}</td>
-        <td md-cell>{{dessert.fat.value | number: 1}}</td>
-        <td md-cell>{{dessert.carbs.value}}</td>
-        <td md-cell>{{dessert.protein.value | number: 1}}</td>
-        <td md-cell>{{dessert.sodium.value}}</td>
-        <td md-cell>{{dessert.calcium.value}}{{dessert.calcium.unit}}</td>
-        <td md-cell>{{dessert.iron.value}}{{dessert.iron.unit}}</td>
+      <tr md-row md-select="item" md-select-id="name" md-auto-select ng-repeat="item in items | orderBy: myOrder">
+        <td md-cell>{{$index+1}}</td>
+        <td md-cell>{{item.id}}</td>
+        <td md-cell>{{item.name}}</td>
+        <td md-cell>{{item.unitOfMeasure}}</td>
+        <td md-cell>{{item.amount}}</td>
+        <td md-cell>{{item.pricePerUnit}}</td>
+        <td md-cell>{{item.rebate}}</td>
+        <td md-cell>{{item.taxBase}}</td>
+      	<td md-cell>{{item.taxRate}}</td>
+      	<td md-cell>{{item.amountOfTax}}</td>
+      	<td md-cell>{{item.pricePerUnit*item.amount}}</td>      	
       </tr>
     </tbody>
   </table>  
 </md-table-container>	
 <md-table-pagination md-limit="query.limit" md-page="query.page" md-total="9" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
 </md-content>
+
+	<md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <h2 flex md-truncate>Total cost</h2>
+      </div>
+    </md-toolbar>
+
+<div layout="row">
+
+	<div layout="column" flex=25 layout-margin>
+
+		<md-input-container>
+			<label>Contact person (Name and Surname)</label>
+    		<input ng-model="docNumber">
+		</md-input-container>
+		
+		
+	</div>
+
+
+	<div layout="column" flex=25 layout-margin>
+
+		<md-input-container>
+			<label>Vehicle ID</label>
+    		<input ng-model="docNumber">
+		</md-input-container>
+		
+		<md-input-container>
+			<label>Vehicle number</label>
+    		<input ng-model="docNumber">
+		</md-input-container>
+	
+		<md-input-container>
+			<label>Shipper</label>
+    		<input ng-model="docNumber">
+		</md-input-container>
+		
+		<md-input-container>
+			<label>Transportation cost</label>
+    		<input ng-model="docNumber">
+		</md-input-container>
+		
+	</div>
+	
+	
+	
+</div>
+
+	<md-toolbar class="md-hue-2">
+      <div class="md-toolbar-tools">
+        <h2 flex md-truncate>Total transportation cost</h2>
+      </div>
+    </md-toolbar>
 
