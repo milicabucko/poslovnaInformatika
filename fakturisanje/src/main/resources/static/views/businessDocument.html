@@ -1,0 +1,97 @@
+<div layout="row">
+
+	<div layout="column" flex=25 layout-margin>
+
+		<md-input-container>
+			<label>Executor name</label>
+    		<input ng-model="exName">
+		</md-input-container>
+
+		<md-input-container>
+			<label>Executor address</label>
+    		<input ng-model="exAddress">
+		</md-input-container>
+	
+		<div layout="row">
+			<md-input-container>
+				<label>PIB</label>
+    			<input ng-model="exPIB">
+			</md-input-container>
+	
+			<md-input-container>
+				<label>CIN</label>
+    			<input ng-model="exCIN">
+			</md-input-container>
+		</div>
+	
+		<md-input-container>
+			<label>Executor account</label>
+    		<input ng-model="exAccount">
+		</md-input-container>
+		
+	</div>
+
+	<div layout="column" flex=25 layout-margin>
+
+		<md-input-container>
+			<label>Buyer name</label>
+    		<input ng-model="buyName">
+		</md-input-container>
+
+		<md-input-container>
+			<label>Buyer address</label>
+    		<input ng-model="buyAddress">
+		</md-input-container>
+	
+		<div layout="row">
+			<md-input-container>
+				<label>PIB</label>
+    			<input ng-model="buyPIB">
+			</md-input-container>
+	
+			<md-input-container>
+				<label>CIN</label>
+    			<input ng-model="buyCIN">
+			</md-input-container>
+		</div>
+	
+		<md-input-container>
+			<label>Buyer account</label>
+    		<input ng-model="buyAccount">
+		</md-input-container>
+		
+	</div>
+</div>
+
+<md-content>
+<md-table-container>
+  <table md-table md-row-select multiple ng-model="selected">
+    <thead md-head md-order="myOrder" >
+      <tr md-row>
+        <th md-column md-order-by="name"><span>Dessert (100g serving)</span></th>
+        <th md-column md-numeric md-order-by="calories"><span>Calories</span></th>
+        <th md-column md-numeric>Fat (g)</th>
+        <th md-column md-numeric>Carbs (g)</th>
+        <th md-column md-numeric>Protein (g)</th>
+        <th md-column md-numeric>Sodium (mg)</th>
+        <th md-column md-numeric>Calcium (%)</th>
+        <th md-column md-numeric>Iron (%)</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="dessert" md-select-id="name" md-auto-select ng-repeat="dessert in desserts | orderBy: myOrder">
+        <td md-cell>{{dessert.name}}</td>
+        <td md-cell>{{dessert.calories}}</td>
+        <td md-cell>{{dessert.fat.value | number: 1}}</td>
+        <td md-cell>{{dessert.carbs.value}}</td>
+        <td md-cell>{{dessert.protein.value | number: 1}}</td>
+        <td md-cell>{{dessert.sodium.value}}</td>
+        <td md-cell>{{dessert.calcium.value}}{{dessert.calcium.unit}}</td>
+        <td md-cell>{{dessert.iron.value}}{{dessert.iron.unit}}</td>
+      </tr>
+    </tbody>
+  </table>  
+</md-table-container>	
+<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="9" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+</md-content>
+

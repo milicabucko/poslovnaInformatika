@@ -1,5 +1,9 @@
 app.controller('homeController',['$scope', '$location', '$mdDialog', 'companyService', function($scope, $location, $mdDialog, companyService){
 	
+	$scope.goToBusinessDocument = function() {
+		$location.path("/businessDocument");
+	}
+	
 	//deo za dialog
 	$scope.addCompanyDialog = function(ev) {
 	    $mdDialog.show({

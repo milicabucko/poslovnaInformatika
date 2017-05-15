@@ -1,1 +1,1 @@
-var app = angular.module('projectPI',['ngRoute', 'ngMaterial']);
+var app = angular.module('projectPI',['ngRoute', 'ngMaterial', 'md.data.table']);
