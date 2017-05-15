@@ -1,0 +1,64 @@
+<md-dialog layout="column" style="border:gray" flex="80">
+	<div flex="10">
+  		<h2 style="color:black" > Add Company! </h2>
+  	</div>
+  	
+	<div flex="150">
+		<md-dialog-content>
+      		<br>
+      	
+			<md-input-container class="md-block">
+        		<label>Name: </label>
+        		<input md-maxlength="30" required name="name" ng-model="companyName" />
+        	</md-input-container>	
+        	<md-input-container class="md-block">
+        		<label>PIB</label>
+        		<input md-maxlength="30" required name="pib" ng-model="companyPib" />
+        	</md-input-container>	
+        	<md-input-container class="md-block">
+        		<label>Company address: </label>
+        		<input md-maxlength="30" required name="address" ng-model="companyAddress" />
+        	</md-input-container>	
+        	<md-input-container class="md-block">
+        		<label>Phone number: </label>
+        		<input md-maxlength="30" required name="phoneNumber" ng-model="companyPhoneNumber" />
+        	</md-input-container>	
+        	<md-input-container class="md-block">
+        		<label>Email: </label>
+        		<input md-maxlength="30" required name="email" ng-model="companyEmail" />
+        	</md-input-container>	
+        	<md-input-container class="md-block">
+        		<label>Company ID number: </label>
+        		<input md-maxlength="30" required name="cIdNumber" ng-model="companyIdNumber" />
+        	</md-input-container>	
+        	<md-input-container class="md-block">
+        		<label>Activity code: </label>
+        		<input md-maxlength="30" required name="activityCode" ng-model="companyActivityCode" />
+        	</md-input-container>	
+        	<md-input-container class="md-block">
+        		<label>Account: </label>
+        		<input md-maxlength="30" required name="account" ng-model="companyAccount" />
+        	</md-input-container>	
+        	<md-input-container class="md-block">
+        		<label>Bank: </label>
+        		<input md-maxlength="30" required name="bank" ng-model="companyBank" />
+			</md-input-container>
+    	</md-dialog-content>
+	</div>
+
+
+	<div flex="10">
+		<md-dialog-actions layout="row">
+      
+      		<md-button class="md-raised md-success" ng-click="addCompanyDialog()">
+       			Apply
+      		</md-button>
+      
+      		<md-button class="md-raised md-warn" ng-click="closeDialog()" >
+        		Cancel
+      		</md-button>
+      
+    	</md-dialog-actions>
+	</div>
+	
+</md-dialog>
