@@ -1,4 +1,4 @@
-app.controller('businessDocumentController',['$scope', '$location', '$mdDialog', 'companyService', function($scope, $location, $mdDialog, companyService){
+app.controller('businessDocumentController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout', function($scope, $location, $mdDialog, companyService, $timeout){
 
 	$scope.options = {
 		    //autoSelect: true,
@@ -20,8 +20,21 @@ app.controller('businessDocumentController',['$scope', '$location', '$mdDialog',
 	
 	$scope.selected = [];
 	
+	$scope.removeItems = function() {
+		
+		for (var i = 0; i < $scope.selected.length; i++ ) {
+			for (var j = 0; j < $scope.items.length; j++) {
+				if ($scope.selected[i].id == $scope.items[j].id) {
+					var index = $scope.items.indexOf($scope.items[j]);
+					$scope.items.splice(index, 1); 
+				}
+			}
+		}
+		
+	}
 	
 	$scope.addNewItem = function() {
+		
 		$scope.items.push({
 			 id: 2000,
 			 name: "Mouse321321",
@@ -33,7 +46,27 @@ app.controller('businessDocumentController',['$scope', '$location', '$mdDialog',
 		     taxRate : 10,
 		     amountOfTax : 200
 		 });
+		
 	}
+	
+	$scope.user = null;
+	$scope.users = null;
+	
+	$scope.loadUsers = function() {
+
+	    // Use timeout to simulate a 650ms request.
+	    return $timeout(function() {
+
+	      $scope.users =  $scope.users  || [
+	        { id: 1, name: 'Scooby Doo' },
+	        { id: 2, name: 'Shaggy Rodgers' },
+	        { id: 3, name: 'Fred Jones' },
+	        { id: 4, name: 'Daphne Blake' },
+	        { id: 5, name: 'Velma Dinkley' }
+	      ];
+
+	    }, 650);
+	  };
 	
 	$scope.items = [
 	 {

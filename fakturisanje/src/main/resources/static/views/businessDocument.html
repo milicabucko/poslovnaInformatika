@@ -39,12 +39,12 @@
 		<div layout="row">
 			<md-input-container>
 				<label>PIB</label>
-    			<input ng-model="exPIB">
+    			<input ng-model="exPIB" ng-pattern="/^[0-9]{10}$/">
 			</md-input-container>
 	
 			<md-input-container>
 				<label>CIN</label>
-    			<input ng-model="exCIN">
+    			<input ng-model="exCIN" ng-pattern="/^[0-9]{8}$/">
 			</md-input-container>
 		</div>
 	
@@ -52,6 +52,13 @@
 			<label>Executor account</label>
     		<input ng-model="exAccount">
 		</md-input-container>
+		
+		<div layout="column">
+    		<md-select placeholder="Select existing executor" ng-model="user" md-on-open="loadUsers()" style="min-width: 200px;">
+      			<md-option ng-value="user" ng-repeat="user in users">{{user.name}}</md-option>
+    		</md-select>
+  		</div>
+		
 		
 	</div>
 
@@ -99,6 +106,11 @@
         <md-button class="md-icon-button" aria-label="Add new item" ng-click="addNewItem()">
         <ng-md-icon icon="exposure_plus_1" style="fill: white" size="24"></ng-md-icon> 
         </md-button>
+        
+        <md-button class="md-icon-button" aria-label="Remove item/s" ng-click="removeItems()">
+        <ng-md-icon icon="remove" style="fill: white" size="24"></ng-md-icon> 
+        </md-button>
+        
       </div>
 </md-toolbar>
 
@@ -122,7 +134,7 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="item" md-select-id="name" md-auto-select ng-repeat="item in items | orderBy: myOrder">
+      <tr md-row md-select="item" md-select-id="name" md-auto-select ng-repeat="item in items | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit">
         <td md-cell>{{$index+1}}</td>
         <td md-cell>{{item.id}}</td>
         <td md-cell>{{item.name}}</td>
@@ -138,7 +150,7 @@
     </tbody>
   </table>  
 </md-table-container>	
-<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="9" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
 </md-content>
 
 	<md-toolbar class="md-hue-2">
