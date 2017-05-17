@@ -1,0 +1,38 @@
+<md-dialog layout="column" style="border:gray" flex="80">
+	<div flex="10">
+  		<h2 style="color:black" > Add Company! </h2>
+  	</div>
+  	
+	<div flex="100">
+		<md-content>
+    	  <md-list flex="50">
+       		 <md-subheader class="md-no-sticky">All companies</md-subheader>
+       		 <md-list-item class="md-3-line" ng-repeat="company in companies" ng-click="null">
+         	 <div class="md-list-item-text" layout="column">
+           		 <h3>{{ company.name }}</h3>
+           		 <h4>{{ company.pib }}</h4>
+          		  <p>{{ company.phonenumber }}</p>
+         	 </div>
+          
+          	<md-checkbox class="md-secondary" ng-model="company.check"></md-checkbox>
+          
+        	</md-list-item>
+      	  </md-list>
+		</md-content>
+	</div>
+
+
+	<div flex="10">
+		<md-dialog-actions layout="row">
+      
+      		<md-button class="md-raised md-success" ng-click="addBusinessPartners()">
+       			Apply
+      		</md-button>
+      
+      		<md-button class="md-raised md-warn" ng-click="closeDialog()" >
+        		Cancel
+      		</md-button>
+      
+    	</md-dialog-actions>
+	</div>
+

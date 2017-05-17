@@ -6,6 +6,7 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,7 +57,7 @@ public class Company implements Serializable{
 	@Column(name = "bank")
 	private String bank;
 	
-	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Collection<BusinessPartner> businessPartners;
 	
 	
@@ -149,7 +150,6 @@ public class Company implements Serializable{
 		return businessPartners;
 	}
 	
-	@JsonIgnore
 	public void setBusinessPartners(Collection<BusinessPartner> businessPartners) {
 		this.businessPartners = businessPartners;
 	}

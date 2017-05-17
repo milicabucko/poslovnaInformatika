@@ -1,5 +1,9 @@
 app.controller('homeController',['$scope', '$location', '$mdDialog', 'companyService', function($scope, $location, $mdDialog, companyService){
 	
+	$scope.goToPregledPreduzeca = function() {
+		$location.path("/pregledPreduzeca");
+	}
+	
 	$scope.goToBusinessDocument = function() {
 		$location.path("/businessDocument");
 	}
@@ -46,6 +50,55 @@ app.controller('homeController',['$scope', '$location', '$mdDialog', 'companySer
 		 }
 		 
 	 }
+	 
+	 companyService.getAllCompanies().then(function(response){
+		 
+		 $scope.companies = response.data;
+	 
+	 });
+	 
+	 $scope.addBusinessPartner = function(comId) {
+		
+		 companyService.id = comId;
+		 
+		    $mdDialog.show({
+			      controller: BusinessPartnerController,
+			      templateUrl: '/views/dialogs/addBusinessPartner.html',
+			      parent: angular.element(document.body),
+			      //scope: $scope,
+			      clickOutsideToClose:true,
+			      fullscreen: false // Only for -xs, -sm breakpoints.
+			    })
+			    .then(function(answer) {
+			      
+			    }, function() {
+			     
+			    });
+			 };
+
+			 function BusinessPartnerController($scope, $mdDialog,companyService, $route) {
+				 
+				 companyService.getAllCompaniesExceptCurrent(companyService.id).then(function(response){
+					 	
+					 $scope.companies = response.data;
+					/* for (var i = 0; i <  $scope.companies.length; )*/
+				 });
+					
+				 $scope.addBusinessPartners = function(){
+					for(var i = 0; i < $scope.companies.length; i++){
+						if($scope.companies[i].check == true){
+							console.log($scope.companies[i].name);
+						}
+					}
+					 
+				 }
+				 
+				 $scope.closeDialog = function() {
+					 $mdDialog.cancel();
+				 }
+				 
+			 }	 
+	 
 	 
 	 
 }]);

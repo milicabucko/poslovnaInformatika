@@ -21,5 +21,9 @@ public class CompanyService {
 	public Collection<Company> getAll(){
 		return companyRepository.findAll();
 	}
+	
+	public Collection<Company> findByIdNot(Integer id){
+		return companyRepository.findByIdNot(id);
+	}
 
 }

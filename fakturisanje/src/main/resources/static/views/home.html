@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
 	<md-toolbar class="md-small-tall" style="background-color:rgb(0,0,0); opacity:0.6 ; height:20px;">
       	<div class="md-toolbar-tools">
         	<h2>
@@ -12,13 +12,164 @@
         	</md-button>
         	
         	<md-button class="md-primary" ng-click="goToBusinessDocument()">
-          		Crete Business Document
+          		Create Business Document
         	</md-button>
         	
 		</div>
  	</md-toolbar>
+ 	
+ 	<md-menu-bar>
+          <md-menu>
+            <button ng-click="$mdMenu.open()">
+              Dokument
+            </button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Faktura
+                </md-button>
+              </md-menu-item>
+               <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Otpremnica
+                </md-button>
+              </md-menu-item>
+               <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Narudzbenica
+                </md-button>
+              </md-menu-item>
+               <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Primka
+                </md-button>
+              </md-menu-item>
+             </md-menu-content>
+       	 </md-menu>
+       	 
+       	 
+       	 <md-menu>
+            <button ng-click="$mdMenu.open()">
+              Preduzece
+            </button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="addCompanyDialog()">
+                  Dodaj preduzeće
+                </md-button>
+              </md-menu-item>
+               <md-menu-item>
+                <md-button ng-click="goToPregledPreduzeca()">
+                  Pregled preduzeća
+                </md-button>
+              </md-menu-item>
+              
+             </md-menu-content>
+       	 </md-menu>
+       	 
+       	 <md-menu>
+            <button ng-click="$mdMenu.open()">
+              Cenovnik
+            </button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Dodaj cenovnik
+                </md-button>
+              </md-menu-item>
+               <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Pregled cenovnika
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Kopiraj cenovnik
+                </md-button>
+              </md-menu-item>
+             </md-menu-content>
+       	 </md-menu>
+       	 
+       	 <md-menu>
+            <button ng-click="$mdMenu.open()">
+              Artikli
+            </button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Dodaj grupu artikala
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Dodaj artikal
+                </md-button>
+              </md-menu-item>
+               <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Pregled artikala
+                </md-button>
+              </md-menu-item>
+             </md-menu-content>
+       	 </md-menu>
+       	 
+       	 <md-menu>
+            <button ng-click="$mdMenu.open()">
+              PDV
+            </button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Stopa PDV-a
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Vrsta PDV-a
+                </md-button>
+              </md-menu-item>
+             </md-menu-content>
+       	 </md-menu>
+       	 
+        <md-menu>
+            <button ng-click="$mdMenu.open()">
+              Magacin
+            </button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Stopa PDV-a
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                  Vrsta PDV-a
+                </md-button>
+              </md-menu-item>
+             </md-menu-content>
+       	 </md-menu>
+    </md-menu-bar>
+ 	
+ 	
+ 	<md-content>
+      <md-list flex="50">
+        <md-subheader class="md-no-sticky">All companies</md-subheader>
+        <md-list-item class="md-3-line" ng-repeat="company in companies" ng-click="null">
+          <div class="md-list-item-text" layout="column">
+            <h3>{{ company.name }}</h3>
+            <h4>{{ company.pib }}</h4>
+            <p>{{ company.phonenumber }}</p>
+          </div>
+          
+          <md-button class="md-icon-button" aria-label="Add business partner" ng-click="addBusinessPartner(company.id)">
+        	<ng-md-icon icon="exposure_plus_1" style="fill: blue" size="24"></ng-md-icon> 
+          </md-button>
+          
+        </md-list-item>
+      </md-list>
+     </md-content>
 
 
 
-</div>
+</div> -->
 

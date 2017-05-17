@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "businesspartner")
 public class BusinessPartner implements Serializable {
@@ -103,6 +105,15 @@ public class BusinessPartner implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+	
+	@JsonIgnore
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 	
 

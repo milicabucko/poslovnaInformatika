@@ -21,5 +21,21 @@ app.factory('companyService', function companyService($http){
 		});
 	}
 	
+	companyService.getAllCompanies = function(){
+		return $http({
+			method: 'GET',
+			url: 'api/company/getAllCompanies'
+		});
+	}
+	
+	companyService.getAllCompaniesExceptCurrent = function(id){
+		return $http({
+			method: 'GET',
+			url: 'api/company/findByIdNot/' + id
+		});
+	}
+	
+	companyService.id = {};
+	
 	return companyService;
 });

@@ -8,6 +8,10 @@ app.config(function($routeProvider){
 		templateUrl : "views/businessDocument.html",
 		controller : 'businessDocumentController'
 	})
+	.when("/pregledPreduzeca",{
+		templateUrl : "views/pregledPreduzeca.html",
+		controller : 'pregledPreduzecaController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'
