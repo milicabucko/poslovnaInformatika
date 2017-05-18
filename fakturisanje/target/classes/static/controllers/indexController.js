@@ -30,6 +30,10 @@ app.controller('indexController',['$scope', '$location', '$mdDialog', 'loginServ
 		$location.path("/pregledPreduzeca");
 	}
 	
+	$scope.goToFaktura = function() {
+		$location.path("/faktura");
+	}
+	
 	
 	
 	
