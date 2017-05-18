@@ -16,6 +16,10 @@ app.config(function($routeProvider){
 		templateUrl : "views/faktura.html",
 		controller : 'fakturaController'
 	})
+	.when("/narudzbenica",{
+		templateUrl : "views/narudzbenica.html",
+		controller : 'narudzbenicaController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'
