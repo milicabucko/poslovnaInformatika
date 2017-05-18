@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="item" md-select-id="name" md-auto-select ng-repeat="item in items | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" ng-click="ispisiNesto()">
+      <tr md-row md-select="item" md-on-select="onSelectEvent()" md-select-id="name"  md-auto-select ng-repeat="item in items | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
         <td md-cell>{{item.name}}</td>
         <td md-cell>{{item.pib}}</td>
         <td md-cell>{{item.address}}</td>
