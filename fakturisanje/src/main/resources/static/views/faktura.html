@@ -1,3 +1,16 @@
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Firme</h2>
+	
+	<md-button class="md-icon-button" aria-label="Pretrazi">
+        <ng-md-icon icon="search" style="fill: white" size="24"></ng-md-icon> 
+    </md-button>
+    
+    <input ng-model="imeZaPretragu" ng-change="pretraziPoImenu()">
+    
+    
+</div>
+</md-toolbar>
 <md-content>
 <md-table-container>
   <table md-table md-row-select  ng-model="selected">
@@ -35,6 +48,7 @@
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Poslovni partneri</h2>
+    
 </div>
 </md-toolbar>
 
@@ -159,9 +173,56 @@
 		</md-input-container>
 		
 	</div>
-	
-	
-	
-	
-	
 </div>
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Stavke dokumenta</h2>
+	
+	<md-button class="md-icon-button" aria-label="Pretrazi po sifri stavke">
+        <ng-md-icon icon="search" style="fill: white" size="24"></ng-md-icon> 
+    </md-button>
+    
+    <input ng-model="sifraZaPretragu" ng-change="pretraziPoSifri()">
+    <input ng-model="kolicina" ng-change="pretraziPoSifri()">
+    
+    
+	</div>
+</md-toolbar>
+<md-content>
+<md-table-container>
+  <table md-table md-row-select multiple ng-model="selektovaneStavke">
+    <thead md-head md-order="myOrder" >
+      <tr md-row>
+        <th md-column md-numeric><span>Red.br.</span></th>
+        <th md-column md-numeric md-order-by="sifra"><span>Sifra</span></th>
+        <th md-column>Naziv</th>
+        <th md-column>Jedinica mere</th>
+        <th md-column md-numeric>Kolicina</th>
+        <th md-column md-numeric>Cena po jedinici</th>
+        <th md-column md-numeric>Rabat (%)</th>
+        <th md-column md-numeric>Poreska osnovica</th>
+        <th md-column md-numeric>Stopa PDV</th>
+        <th md-column md-numeric>Iznos PDV</th>
+        <th md-column md-numeric>Ukupna naknada</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="stavka" md-select-id="naziv" md-auto-select ng-repeat="stavka in stavke | orderBy: myOrder | limitTo: queryStavke.limit: (query.page - 1) * queryStavke.limit">
+        <td md-cell>{{$index+1}}</td>
+        <td md-cell>{{stavka.sifra}}</td>
+        <td md-cell>{{stavka.naziv}}</td>
+        <td md-cell>{{stavka.jedMere}}</td>
+        <td md-cell>{{stavka.kolicina}}</td>
+        <td md-cell>{{stavka.cenaPoJed}}</td>
+        <td md-cell>{{stavka.rabat}}</td>
+        <td md-cell>{{stavka.porOsnovica}}</td>
+      	<td md-cell>{{stavka.stopaPDV}}</td>
+      	<td md-cell>{{stavka.iznosPDV}}</td>
+      	<td md-cell>{{stavka.jedMere*stavka.kolicina}}</td>      	
+      </tr>
+    </tbody>
+  </table>  
+</md-table-container>	
+<md-table-pagination md-limit="queryStavke.limit" md-limit-options="[5, 10, 15]" md-page="queryStavke.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+</md-content>

@@ -50,6 +50,16 @@ public class CompanyController {
         return new ResponseEntity<Collection<Company>>(allCompanies, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/company/findByNameContaining/{name}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Company>> findByNameContaining(@PathVariable String name) {
+		Collection<Company> allCompanies = companyService.findByNameContaining(name);
+        return new ResponseEntity<Collection<Company>>(allCompanies, HttpStatus.OK);
+    }
+	
 	
 
 }

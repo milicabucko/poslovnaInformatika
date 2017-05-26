@@ -35,6 +35,14 @@ app.factory('companyService', function companyService($http){
 		});
 	}
 	
+	companyService.findByNameContaining = function(name){
+		return $http({
+			method: 'GET',
+			url: 'api/company/findByNameContaining/' + name
+		});
+	}
+	
+	
 	companyService.id = {};
 	
 	return companyService;

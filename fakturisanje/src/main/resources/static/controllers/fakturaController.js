@@ -1,5 +1,22 @@
 app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', function($scope, $location, $mdDialog, companyService, businessPartnerService){
 
+	$scope.pretraziPoImenu = function() {
+		console.log("Uneseni naziv: " + $scope.imeZaPretragu);
+
+		if($scope.imeZaPretragu == "") {
+			companyService.getAllCompanies().then(function(response){ 
+				 $scope.items = response.data;
+			});
+		}
+		else {	
+			companyService.findByNameContaining($scope.imeZaPretragu).then(function(response){ 
+				$scope.items = response.data;
+			});
+		}
+	}
+	
+	
+	
 	$scope.onSelectBPEvent = function() {
 		if ($scope.bpselected[0] === undefined) {
 			$scope.knaziv = ""; 
@@ -75,6 +92,13 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 				    page: 1
 		};
 		
+		$scope.queryStavke = {
+			    order: 'naziv',
+			    limit: 5,
+			    page: 1
+		};
+		
+		$scope.selektovaneStavke = [];
 		$scope.selected = [];
 		$scope.bpselected = [];
 		
