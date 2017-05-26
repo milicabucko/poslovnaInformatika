@@ -1,16 +1,107 @@
-app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', function($scope, $location, $mdDialog, companyService, businessPartnerService){
+app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService){
 
+	$scope.stavke = [];
+	$scope.stavkeSize = 0;
+	$scope.businessPartnersSize = 0;
+	$scope.omogucenoDodavanje = false;
+	$scope.omogucenaIzmena = false;
+	$scope.omogucenoBrisanje = false;
+	
+	$scope.obrisiStavku = function() {
+		for(var i = 0; i < $scope.stavke.length; i++) {
+			if ($scope.sifraZaPretragu == $scope.stavke[i].sifra) {
+				var index = $scope.stavke.indexOf($scope.stavke[i]);
+				$scope.stavke.splice(index, 1);
+				$scope.stavkeSize = $scope.stavke.length;
+				$scope.kolicina = "";
+				$scope.sifraZaPretragu = "";
+				$scope.nazArtikla = "";
+				$scope.jmArtikla = "";
+				$scope.omogucenoDodavanje = false;
+				$scope.omogucenaIzmena = false;
+				$scope.omogucenoBrisanje = false;
+			}
+		}
+	}
+	
+	$scope.izmeniStavku = function() {
+		for(var i = 0; i < $scope.stavke.length; i++) {
+			if ($scope.sifraZaPretragu == $scope.stavke[i].sifra) {
+				$scope.stavke[i].kolicina = $scope.kolicina;
+				$scope.omogucenaIzmena = true;
+				$scope.omogucenoBrisanje = true;
+				$scope.stavkeSize = $scope.stavke.length;
+				return;
+			}
+		}
+	}
+	
+	$scope.dodajStavku = function(){
+		
+		var stavkaZaDodavanje = {	naziv : $scope.nazArtikla, 
+									kolicina : $scope.kolicina, 
+									sifra: $scope.sifraZaPretragu,
+									jedMere: $scope.jmArtikla
+								};
+		$scope.stavke.push(stavkaZaDodavanje);
+		$scope.stavkeSize = $scope.stavke.length;
+		$scope.omogucenaIzmena = true;
+		$scope.omogucenoBrisanje = true;
+		$scope.omogucenoDodavanje = false;
+	}
+	
+	
+	
+	$scope.pretraziPoSifriArtikla = function(){
+		if($scope.sifraZaPretragu == "") {
+			$scope.nazArtikla = "";
+			$scope.jmArtikla = "";
+			$scope.omogucenaIzmena = false;
+			$scope.omogucenoBrisanje = false;
+		}
+		else {	
+			artikalService.findBySifra($scope.sifraZaPretragu).then(function(response){ 
+				$scope.nazArtikla = response.data.naziv;
+				$scope.jmArtikla = response.data.jedMere;
+				if ($scope.nazArtikla !== undefined) {
+					
+					for(var i = 0; i < $scope.stavke.length; i++) {
+						if ($scope.sifraZaPretragu == $scope.stavke[i].sifra) {
+							$scope.kolicina = $scope.stavke[i].kolicina;
+							$scope.omogucenaIzmena = true;
+							$scope.omogucenoBrisanje = true;
+							return;
+						}
+					}
+					if ($scope.omogucenaIzmena == false) {
+						$scope.omogucenoDodavanje = true;
+					}
+					else {
+						$scope.omogucenoDodavanje = false;
+					}
+				}
+				else {
+					$scope.omogucenoDodavanje = false;
+					$scope.omogucenaIzmena = false;
+					$scope.omogucenoBrisanje = false;
+				}
+			});
+			
+		}
+	}
+	
 	$scope.pretraziPoImenu = function() {
-		console.log("Uneseni naziv: " + $scope.imeZaPretragu);
 
 		if($scope.imeZaPretragu == "") {
 			companyService.getAllCompanies().then(function(response){ 
 				 $scope.items = response.data;
+				 $scope.itemsSize = $scope.items.length;
 			});
 		}
 		else {	
 			companyService.findByNameContaining($scope.imeZaPretragu).then(function(response){ 
 				$scope.items = response.data;
+				$scope.itemsSize = $scope.items.length;
 			});
 		}
 	}
@@ -61,6 +152,7 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 			$scope.mbr = $scope.selected[0].cidnumber;
 			$scope.racun = $scope.selected[0].account;
 			$scope.businessPartners = $scope.selected[0].businessPartners;
+			$scope.businessPartnersSize = $scope.businessPartners.length;
 			
 			$scope.knaziv = ""; 
 			$scope.kadresa = ""; 
@@ -74,6 +166,7 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 	companyService.getAllCompanies().then(function(response){
 		 
 		 $scope.items = response.data;
+		 $scope.itemsSize = $scope.items.length;
 	 
 	});
 	

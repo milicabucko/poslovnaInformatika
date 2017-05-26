@@ -42,7 +42,7 @@
     </tbody>
   </table>  
 </md-table-container>	
-<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{itemsSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
 
 <md-toolbar class="md-hue-2">
@@ -77,7 +77,7 @@
     </tbody>
   </table>  
 </md-table-container>	
-<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{businessPartnersSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
 
 <div layout="row">
@@ -177,15 +177,48 @@
 
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
-	<h2 flex md-truncate>Stavke dokumenta</h2>
+	<h2 flex md-truncate>Dodavanje nove stavke</h2>    
+    
+	</div>
+</md-toolbar>
+
+<div layout="row">
+			<md-input-container>
+				<label>Sifra artikla</label>
+    			<input ng-model="sifraZaPretragu" ng-change="pretraziPoSifriArtikla()">
+			</md-input-container>
 	
-	<md-button class="md-icon-button" aria-label="Pretrazi po sifri stavke">
-        <ng-md-icon icon="search" style="fill: white" size="24"></ng-md-icon> 
-    </md-button>
-    
-    <input ng-model="sifraZaPretragu" ng-change="pretraziPoSifri()">
-    <input ng-model="kolicina" ng-change="pretraziPoSifri()">
-    
+			<md-input-container>
+				<label>Kolicina</label>
+    			<input ng-model="kolicina">
+			</md-input-container>
+			
+			<md-input-container>
+				<label>Naziv artikla</label>
+    			<input ng-model="nazArtikla" ng-readonly="true">
+			</md-input-container>
+
+			<md-input-container>
+				<label>Jedinica mere</label>
+    			<input ng-model="jmArtikla" ng-readonly="true">
+			</md-input-container>
+			
+			<div layout="column">
+				<md-button class="md-raised md-primary" ng-show="omogucenoDodavanje" ng-click="dodajStavku()">Dodaj</md-button>
+			</div>
+			<div layout="column">
+				<md-button class="md-raised md-primary" ng-show="omogucenaIzmena" ng-click="izmeniStavku()">Izmeni</md-button>
+			</div>
+			<div layout="column">
+				<md-button class="md-raised md-warn" ng-show="omogucenoBrisanje" ng-click="obrisiStavku()">Obrisi</md-button>
+			</div>
+			
+</div>
+
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Stavke dokumenta</h2>
     
 	</div>
 </md-toolbar>
@@ -224,5 +257,5 @@
     </tbody>
   </table>  
 </md-table-container>	
-<md-table-pagination md-limit="queryStavke.limit" md-limit-options="[5, 10, 15]" md-page="queryStavke.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+<md-table-pagination md-limit="queryStavke.limit" md-limit-options="[5, 10, 15]" md-page="queryStavke.page" md-total="{{stavkeSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
 </md-content>

@@ -9,6 +9,8 @@ import com.poslovna.fakturisanje.models.Artikal;
 public interface ArtikalRepository extends JpaRepository<Artikal, Integer>{
 
 	public Collection<Artikal> findByNazivContaining(String naziv);
+
+	public Artikal findBySifra(String sifra);
 	
 	
 }

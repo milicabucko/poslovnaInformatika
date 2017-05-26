@@ -21,13 +21,13 @@ public class ArtikalController {
 	private ArtikalService artikalService;
 	
 	@RequestMapping(
-            value    = "/api/artikal/findByNazivContaining/{naziv}",
+            value    = "/api/artikal/findBySifra/{sifra}",
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Collection<Artikal>> findByNazivContaining(@PathVariable String naziv) {
-		Collection<Artikal> sviArtikli = artikalService.findByNazivContaining(naziv);
-        return new ResponseEntity<Collection<Artikal>>(sviArtikli, HttpStatus.OK);
+    public ResponseEntity<Artikal> findBySifra(@PathVariable String sifra) {
+		Artikal artikal = artikalService.findBySifra(sifra);
+        return new ResponseEntity<Artikal>(artikal, HttpStatus.OK);
     }
 
 }

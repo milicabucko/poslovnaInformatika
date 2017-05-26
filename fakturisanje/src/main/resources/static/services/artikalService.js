@@ -1,9 +1,9 @@
 app.factory('artikalService', function artikalService($http){
 	
-	artikalService.findByNazivContaining = function(naziv){
+	artikalService.findBySifra = function(sifra){
 		return $http({
 			method: 'GET',
-			url: 'api/artikal/findByNazivContaining/' + naziv
+			url: 'api/artikal/findBySifra/' + sifra
 		});
 	}
 	

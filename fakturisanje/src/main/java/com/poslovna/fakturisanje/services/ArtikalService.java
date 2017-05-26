@@ -17,6 +17,10 @@ public class ArtikalService {
 	public Collection<Artikal> findByNazivContaining(String naziv) {
 		return artikalRepository.findByNazivContaining(naziv);
 	}
+
+	public Artikal findBySifra(String sifra) {
+		return artikalRepository.findBySifra(sifra);
+	}
 	
 	
 
