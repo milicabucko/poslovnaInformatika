@@ -1,5 +1,7 @@
 app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService){
 
+	$scope.statusDok = "U izdradi";
+	
 	$scope.promenaDatumaDokumenta = function() {
 		var now = $scope.datumDok;
 		now.setDate(now.getDate() + 30);

@@ -1,13 +1,23 @@
 package com.poslovna.fakturisanje.models;
 
 import java.io.Serializable;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "faktura")
@@ -24,6 +34,9 @@ public class Faktura implements Serializable{
 	@Column(name = "brojDokumenta")
 	private Integer brojDokumenta;
 	
+	@Column(name = "statusDokumenta")
+	private String statusDokumenta;
+	
 	@Column(name = "datumDokumenta")
 	private String datumDokumenta;
 	
@@ -32,6 +45,16 @@ public class Faktura implements Serializable{
 	
 	@Column(name = "datumKnjizenja")
 	private String datumKnjizenja;
+	
+	@ManyToOne
+	private Company izdavaocRacuna;
+	
+	@ManyToOne
+	private BusinessPartner kupac;
+	
+	@OneToMany(mappedBy = "dokument", cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Collection<StavkaDokumenta> stavkeDokumenta;
 	
 	
 	public Faktura() {
@@ -86,6 +109,46 @@ public class Faktura implements Serializable{
 
 	public void setDatumKnjizenja(String datumKnjizenja) {
 		this.datumKnjizenja = datumKnjizenja;
+	}
+
+
+	public String getStatusDokumenta() {
+		return statusDokumenta;
+	}
+
+
+	public void setStatusDokumenta(String statusDokumenta) {
+		this.statusDokumenta = statusDokumenta;
+	}
+
+
+	public Company getIzdavaocRacuna() {
+		return izdavaocRacuna;
+	}
+
+	
+	public void setIzdavaocRacuna(Company izdavaocRacuna) {
+		this.izdavaocRacuna = izdavaocRacuna;
+	}
+
+
+	public BusinessPartner getKupac() {
+		return kupac;
+	}
+
+	
+	public void setKupac(BusinessPartner kupac) {
+		this.kupac = kupac;
+	}
+
+
+	public Collection<StavkaDokumenta> getStavkeDokumenta() {
+		return stavkeDokumenta;
+	}
+
+
+	public void setStavkeDokumenta(Collection<StavkaDokumenta> stavkeDokumenta) {
+		this.stavkeDokumenta = stavkeDokumenta;
 	}
 	
 	

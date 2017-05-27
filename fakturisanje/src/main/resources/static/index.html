@@ -35,11 +35,17 @@
               Dokument
             </button>
             <md-menu-content>
+            
               <md-menu-item>
-                <md-button ng-click="goToFaktura()">
-                  Faktura
-                </md-button>
+                <md-menu>
+                  <md-button ng-click="$mdOpenMenu()">Faktura</md-button>
+                  <md-menu-content>
+                    <md-menu-item><md-button ng-click="goToFaktura()">Nova faktura</md-button></md-menu-item>
+                    <md-menu-item><md-button ng-click="gotToSveFakture()">Lista postojecih faktura</md-button></md-menu-item>
+                  </md-menu-content>
+                </md-menu>
               </md-menu-item>
+              
                <md-menu-item>
                 <md-button ng-click="goToNarudzbenica()">
                   Narudzbenica
