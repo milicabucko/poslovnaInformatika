@@ -80,13 +80,20 @@
 <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{businessPartnersSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
 
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Zaglavlje dokumenta</h2>
+    
+</div>
+</md-toolbar>
+
 <div layout="row">
 
 	<div layout="column" flex=25 layout-margin>
 
 		<md-input-container>
 			<label>Broj dokumenta</label>
-    		<input ng-model="brDok">
+    		<input ng-model="brDok" ng-readonly="true">
 		</md-input-container>
 		
 		<md-input-container>
@@ -96,7 +103,7 @@
 	
 		<md-input-container>
 			<label>Datum dokumenta</label>
-    		<md-datepicker ng-model="datumDok" md-placeholder="Enter date"></md-datepicker>
+    		<md-datepicker ng-model="datumDok" md-placeholder="Enter date" ng-change="promenaDatumaDokumenta()"></md-datepicker>
 		</md-input-container>
 		
 		<md-input-container>

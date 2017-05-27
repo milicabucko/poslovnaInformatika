@@ -1,5 +1,22 @@
-app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService){
+app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService){
 
+	$scope.promenaDatumaDokumenta = function() {
+		var now = $scope.datumDok;
+		now.setDate(now.getDate() + 30);
+		$scope.datumVal = now;
+	}
+	
+	$scope.datumDok = new Date();
+	
+	var now = new Date();
+	now.setDate(now.getDate() + 30);
+	
+	$scope.datumVal = now;
+	
+	fakturaService.nadjiSledeciBrojDokumenta().then(function(response){ 
+		$scope.brDok = response.data + 1;
+	});
+	
 	$scope.stavke = [];
 	$scope.stavkeSize = 0;
 	$scope.businessPartnersSize = 0;

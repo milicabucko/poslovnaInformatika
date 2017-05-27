@@ -4,28 +4,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poslovna.fakturisanje.models.Artikal;
-import com.poslovna.fakturisanje.services.ArtikalService;
+import com.poslovna.fakturisanje.services.FakturaService;
 
 @RestController
-public class ArtikalController {
-	
+public class FakturaController {
+
 	@Autowired
-	private ArtikalService artikalService;
+	private FakturaService fakturaService;
 	
 	@RequestMapping(
-            value    = "/api/artikal/findBySifra/{sifra}",
+            value    = "/api/faktura/nadjiSledeciBrojDokumenta",
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Artikal> findBySifra(@PathVariable String sifra) {
-		Artikal artikal = artikalService.findBySifra(sifra);
-        return new ResponseEntity<Artikal>(artikal, HttpStatus.OK);
+    public ResponseEntity<Integer> findBySifra() {
+		Integer brojDok = fakturaService.nadjiSlececiBrojDokumenta();
+        return new ResponseEntity<Integer>(brojDok, HttpStatus.OK);
     }
-
+	
 }
