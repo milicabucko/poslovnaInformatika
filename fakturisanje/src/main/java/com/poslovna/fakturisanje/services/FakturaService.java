@@ -19,6 +19,10 @@ public class FakturaService {
 	public Faktura save(Faktura faktura) {
 		return fakturaRepository.save(faktura);
 	}
+
+	public Faktura findOne(Integer fakturaId) {
+		return fakturaRepository.findOne(fakturaId);
+	}
 	
 	
 	

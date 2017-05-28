@@ -1,10 +1,15 @@
-app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService){
-
+app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService){
+	
 	$scope.posaljiFakturu = function() {
 		console.log($scope.selected[0].id);
 		
 		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal).then(function(response){ 
-			console.log(response.data);
+			for(var i = 0; i < $scope.stavke.length; i++) {
+				stavkaDokumentaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla).then(function(response){ 
+					console.log(response.data);
+				});
+			}
+			
 		});
 	}
 	
@@ -65,16 +70,22 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 	
 	$scope.dodajStavku = function(){
 		
-		var stavkaZaDodavanje = {	naziv : $scope.nazArtikla, 
-									kolicina : $scope.kolicina, 
-									sifra: $scope.sifraZaPretragu,
-									jedMere: $scope.jmArtikla
-								};
-		$scope.stavke.push(stavkaZaDodavanje);
-		$scope.stavkeSize = $scope.stavke.length;
-		$scope.omogucenaIzmena = true;
-		$scope.omogucenoBrisanje = true;
-		$scope.omogucenoDodavanje = false;
+		var id = {};
+		artikalService.findBySifra($scope.sifraZaPretragu).then(function(response){
+			var stavkaZaDodavanje = {	
+					naziv : $scope.nazArtikla, 
+					kolicina : $scope.kolicina, 
+					sifra: $scope.sifraZaPretragu,
+					jedMere: $scope.jmArtikla,
+					idArtikla : response.data.id
+				};
+			$scope.stavke.push(stavkaZaDodavanje);
+			$scope.stavkeSize = $scope.stavke.length;
+			$scope.omogucenaIzmena = true;
+			$scope.omogucenoBrisanje = true;
+			$scope.omogucenoDodavanje = false;
+
+		});
 	}
 	
 	

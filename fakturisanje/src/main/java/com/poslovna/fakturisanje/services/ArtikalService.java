@@ -21,6 +21,10 @@ public class ArtikalService {
 	public Artikal findBySifra(String sifra) {
 		return artikalRepository.findBySifra(sifra);
 	}
+
+	public Artikal findOne(Integer artikalId) {
+		return artikalRepository.findOne(artikalId);
+	}
 	
 	
 
