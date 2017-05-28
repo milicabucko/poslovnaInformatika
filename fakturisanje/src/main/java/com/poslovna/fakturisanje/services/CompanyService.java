@@ -30,4 +30,8 @@ public class CompanyService {
 		return companyRepository.findByNameContaining(name);
 	}
 
+	public Company findOne(Integer izdId) {
+		return companyRepository.findOne(izdId);
+	}
+
 }

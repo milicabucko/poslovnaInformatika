@@ -24,4 +24,8 @@ public class BusinessPartnerService {
 		return businessPartnerRepository.findByCompany(company);
 	}
 
+	public BusinessPartner findOne(Integer kupId) {
+		return businessPartnerRepository.findOne(kupId);
+	}
+
 }

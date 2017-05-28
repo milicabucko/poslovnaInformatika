@@ -266,3 +266,14 @@
 </md-table-container>	
 <md-table-pagination md-limit="queryStavke.limit" md-limit-options="[5, 10, 15]" md-page="queryStavke.page" md-total="{{stavkeSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
 </md-content>
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Zakljucak</h2>
+	
+	<md-button class="md-warn" aria-label="Posalji" ng-click="posaljiFakturu()">
+        Posalji
+    </md-button>
+    
+	</div>
+</md-toolbar>

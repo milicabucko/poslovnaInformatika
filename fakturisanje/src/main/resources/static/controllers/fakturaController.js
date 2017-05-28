@@ -1,5 +1,13 @@
 app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService){
 
+	$scope.posaljiFakturu = function() {
+		console.log($scope.selected[0].id);
+		
+		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal).then(function(response){ 
+			console.log(response.data);
+		});
+	}
+	
 	$scope.statusDok = "U izdradi";
 	
 	$scope.promenaDatumaDokumenta = function() {
