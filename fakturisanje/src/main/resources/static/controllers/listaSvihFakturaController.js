@@ -28,16 +28,16 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 	
 	
 	
-	$scope.pretraziPoImenu = function() {
+	$scope.pretraziPoBrojuDokumenta = function() {
 
-		if($scope.brojZaPretragu == "") {
+		if($scope.brojZaPretragu == "" || $scope.brojZaPretragu == null) {
 			fakturaService.sveFakture().then(function(response){ 
 				 $scope.items = response.data;
 				 $scope.itemsSize = $scope.items.length;
 			});
 		}
 		else {	
-			fakturaService.nadjiPoBrojuFakture($scope.brojZaPretragu).then(function(response){ 
+			fakturaService.nadjiPoBrojuDokumenta($scope.brojZaPretragu).then(function(response){ 
 				$scope.items = response.data;
 				$scope.itemsSize = $scope.items.length;
 			});

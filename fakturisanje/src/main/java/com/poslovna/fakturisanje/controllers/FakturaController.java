@@ -77,6 +77,16 @@ public class FakturaController {
         return new ResponseEntity<Integer>(st, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/faktura/nadjiPoBrojuDokumenta/{brojDokumenta}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Faktura>> nadjiPoBrojuDokumenta(@PathVariable Integer brojDokumenta) {
+		Collection<Faktura> faktura = fakturaService.findByBrojDokumenta(brojDokumenta);
+        return new ResponseEntity<Collection<Faktura>>(faktura, HttpStatus.OK);
+    }
+	
 	
 	
 	

@@ -28,6 +28,13 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
+	fakturaService.nadjiPoBrojuDokumenta = function(brojDokumenta){
+		return $http({
+			method: 'GET',
+			url: 'api/faktura/nadjiPoBrojuDokumenta/' + brojDokumenta
+		});
+	}
+	
 	fakturaService.sveFakture = function(){
 		return $http({
 			method: 'GET',
