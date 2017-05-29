@@ -14,12 +14,27 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
+	fakturaService.promeniStatus = function(fakturaId, status){
+		return $http({
+			method: 'POST',
+			url: 'api/faktura/promeniStatusDokumenta/' + fakturaId + '/' + status
+		});
+	}
+	
 	fakturaService.nadjiSledeciBrojDokumenta = function(){
 		return $http({
 			method: 'GET',
 			url: 'api/faktura/nadjiSledeciBrojDokumenta'
 		});
 	}
+	
+	fakturaService.sveFakture = function(){
+		return $http({
+			method: 'GET',
+			url: 'api/faktura/sveFakture'
+		});
+	}
+	
 	
 	return fakturaService;
 	

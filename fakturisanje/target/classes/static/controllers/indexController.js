@@ -34,6 +34,10 @@ app.controller('indexController',['$scope', '$location', '$mdDialog', 'loginServ
 		$location.path("/faktura");
 	}
 	
+	$scope.goToSveFakture = function() {
+		$location.path("/listaSvihFaktura");
+	}
+	
 	$scope.goToNarudzbenica = function() {
 		$location.path("/narudzbenica");
 	}

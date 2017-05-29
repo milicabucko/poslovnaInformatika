@@ -1,12 +1,12 @@
 app.factory('stavkaDokumentaService', function stavkaDokumentaService($http){
 	
 	
-	stavkaDokumentaService.sacuvajStavku = function(fakturaId, artikalId){
+	stavkaDokumentaService.sacuvajStavku = function(fakturaId, artikalId, kolicina){
 		return $http({
 			method: 'POST',
 			url: 'api/stavkaDokumenta/sacuvajStavku/' + fakturaId + '/' + artikalId,
 			data: {
-				"id" : null
+				"kolicina" : kolicina
 			}
 		});
 	}

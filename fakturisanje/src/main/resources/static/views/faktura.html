@@ -248,7 +248,7 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="stavka" md-select-id="naziv" md-auto-select ng-repeat="stavka in stavke | orderBy: myOrder | limitTo: queryStavke.limit: (query.page - 1) * queryStavke.limit">
+      <tr md-row md-select="stavka" md-select-id="naziv" md-auto-select ng-repeat="stavka in stavke | orderBy: myOrder | limitTo: queryStavke.limit: (queryStavke.page - 1) * queryStavke.limit">
         <td md-cell>{{$index+1}}</td>
         <td md-cell>{{stavka.sifra}}</td>
         <td md-cell>{{stavka.naziv}}</td>

@@ -1,5 +1,7 @@
 package com.poslovna.fakturisanje.services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,14 @@ public class FakturaService {
 
 	public Faktura findOne(Integer fakturaId) {
 		return fakturaRepository.findOne(fakturaId);
+	}
+
+	public Collection<Faktura> getAll() {
+		return fakturaRepository.findAll();
+	}
+	
+	public Integer setStatusDokumentaForFaktura(String status, Integer id) {
+		return fakturaRepository.setStatusDokumentaForFaktura(status, id);
 	}
 	
 	

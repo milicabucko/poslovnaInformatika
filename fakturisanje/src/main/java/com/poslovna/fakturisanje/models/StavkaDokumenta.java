@@ -27,6 +27,9 @@ public class StavkaDokumenta implements Serializable{
 	@ManyToOne
 	private Artikal artikal;
 	
+	@Column(name = "kolicina")
+	private Integer kolicina;
+	
 	@ManyToOne
 	private Faktura dokument;
 	
@@ -58,6 +61,14 @@ public class StavkaDokumenta implements Serializable{
 	@JsonIgnore
 	public void setDokument(Faktura dokument) {
 		this.dokument = dokument;
+	}
+
+	public Integer getKolicina() {
+		return kolicina;
+	}
+
+	public void setKolicina(Integer kolicina) {
+		this.kolicina = kolicina;
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.poslovna.fakturisanje.controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -53,6 +55,29 @@ public class FakturaController {
 		Faktura fakturaa = fakturaService.save(faktura);
         return new ResponseEntity<Faktura>(fakturaa, HttpStatus.OK);
     }
+	
+
+	@RequestMapping(
+            value    = "/api/faktura/sveFakture",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Faktura>> sveFakture() {
+		Collection<Faktura> sveFakture = fakturaService.getAll();
+        return new ResponseEntity<Collection<Faktura>>(sveFakture, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "/api/faktura/promeniStatusDokumenta/{fakturaId}/{status}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> promeniStatusDokumenta(@PathVariable Integer fakturaId, @PathVariable String status) {
+		Integer st = fakturaService.setStatusDokumentaForFaktura(status, fakturaId);
+        return new ResponseEntity<Integer>(st, HttpStatus.OK);
+    }
+	
+	
 	
 	
 }
