@@ -34,6 +34,10 @@ public class FakturaService {
 		return fakturaRepository.setStatusDokumentaForFaktura(status, id);
 	}
 	
+	public Collection<Faktura> findByBrojDokumenta(Integer brojDokumenta) {
+		return fakturaRepository.findByBrojDokumenta(brojDokumenta);
+	}
+	
 	
 	
 }
