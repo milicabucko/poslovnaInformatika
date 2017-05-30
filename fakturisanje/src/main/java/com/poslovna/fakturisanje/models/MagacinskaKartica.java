@@ -53,7 +53,7 @@ public class MagacinskaKartica implements Serializable{
 	
 	//fali Poslovna godina 
 	
-	@OneToMany(mappedBy = "analitike", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "stavkaDok", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Collection<AnalitikaMagacinskeKartice> analitike;
 	
