@@ -1,4 +1,4 @@
-app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService){
+app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'companyService', 'artikalService', 'stavkaCenovnikaService','cenovnikService', function($scope, $location, $mdDialog, companyService, artikalService, stavkaCenovnikaService, cenovnikService){
 
 	companyService.getAllCompanies().then(function(response){
 		 
@@ -131,6 +131,23 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 				}
 			}
 		}
+		
+		$scope.kreirajCenovnik = function(){
+			
+			
+			
+			cenovnikService.kreirajCenovnik($scope.selected[0].id,$scope.datumPocetakVazenja,$scope.datumKrajVazenja).then(function(response){
+
+				for(var i = 0; i < $scope.stavke.length; i++) {
+					stavkaCenovnikaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla, $scope.stavke[i].cena).then(function(response){ 
+					});
+				}
+			});
+			
+			
+			
+		};
+		
 		
 		$scope.stavke = [];
 		$scope.stavkeSize = 0;

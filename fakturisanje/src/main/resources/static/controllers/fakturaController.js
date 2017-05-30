@@ -2,7 +2,6 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 	
 	$scope.posaljiFakturu = function() {
 		console.log("posiljalac: " + $scope.selected[0].id + " kupac: " + $scope.bpselected[0].id);
-		
 		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal).then(function(response){ 
 			for(var i = 0; i < $scope.stavke.length; i++) {
 				stavkaDokumentaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla, $scope.stavke[i].kolicina).then(function(response){ 

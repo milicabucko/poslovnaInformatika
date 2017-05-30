@@ -43,6 +43,8 @@ app.factory('companyService', function companyService($http){
 	}
 	
 	
+	
+	
 	companyService.id = {};
 	
 	return companyService;
