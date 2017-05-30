@@ -24,6 +24,10 @@ app.config(function($routeProvider){
 		templateUrl : "views/narudzbenica.html",
 		controller : 'narudzbenicaController'
 	})
+	.when("/cenovnik",{
+		templateUrl : "views/cenovnik.html",
+		controller : 'cenovnikController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'

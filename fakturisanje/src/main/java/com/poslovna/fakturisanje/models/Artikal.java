@@ -1,12 +1,17 @@
 package com.poslovna.fakturisanje.models;
 
 import java.io.Serializable;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +40,8 @@ public class Artikal implements Serializable {
 	@Column(name = "vrsta")
 	private String vrsta;
 	
+	@OneToMany(mappedBy = "artikal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Collection<StavkaCenovnika> stavkecenovnika;
 	
 	
 	public Artikal() {
@@ -87,6 +94,14 @@ public class Artikal implements Serializable {
 
 	public void setVrsta(String vrsta) {
 		this.vrsta = vrsta;
+	}
+
+	public Collection<StavkaCenovnika> getStavkecenovnika() {
+		return stavkecenovnika;
+	}
+
+	public void setStavkecenovnika(Collection<StavkaCenovnika> stavkecenovnika) {
+		this.stavkecenovnika = stavkecenovnika;
 	}
 	
 	

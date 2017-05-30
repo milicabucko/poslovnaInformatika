@@ -42,6 +42,10 @@ app.controller('indexController',['$scope', '$location', '$mdDialog', 'loginServ
 		$location.path("/narudzbenica");
 	}
 	
+	$scope.dodajCenovnik = function() {
+		$location.path("/cenovnik");
+	}
+	
 	
 	
 	

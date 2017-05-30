@@ -1,14 +1,21 @@
 package com.poslovna.fakturisanje.models;
 
 import java.io.Serializable;
+import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -24,8 +31,15 @@ public class Cenovnik implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "datumVazenja")
-	private String datumVazenja;
+	@Column(name = "datumVazenjaPocetak")
+	private String datumVazenjaPocetak;
+	
+	@Column(name = "datumVazenjaKraj")
+	private String datumVazenjaKraj;
+	
+	@OneToMany(mappedBy = "cenovnik", cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Collection<StavkaCenovnika> stavkecenovnika;
 	
 	@ManyToOne
 	private Company company;
@@ -42,13 +56,6 @@ public class Cenovnik implements Serializable {
 		this.id = id;
 	}
 
-	public String getDatumVazenja() {
-		return datumVazenja;
-	}
-
-	public void setDatumVazenja(String datumVazenja) {
-		this.datumVazenja = datumVazenja;
-	}
 
 	public Company getCompany() {
 		return company;
@@ -57,6 +64,30 @@ public class Cenovnik implements Serializable {
 	@JsonIgnore
 	public void setCompany(Company company) {
 		this.company = company;
+	}
+
+	public Collection<StavkaCenovnika> getStavkecenovnika() {
+		return stavkecenovnika;
+	}
+
+	public void setStavkecenovnika(Collection<StavkaCenovnika> stavkecenovnika) {
+		this.stavkecenovnika = stavkecenovnika;
+	}
+
+	public String getDatumVazenjaPocetak() {
+		return datumVazenjaPocetak;
+	}
+
+	public void setDatumVazenjaPocetak(String datumVazenjaPocetak) {
+		this.datumVazenjaPocetak = datumVazenjaPocetak;
+	}
+
+	public String getDatumVazenjaKraj() {
+		return datumVazenjaKraj;
+	}
+
+	public void setDatumVazenjaKraj(String datumVazenjaKraj) {
+		this.datumVazenjaKraj = datumVazenjaKraj;
 	}
 	
 
