@@ -28,6 +28,10 @@ app.config(function($routeProvider){
 		templateUrl : "views/cenovnik.html",
 		controller : 'cenovnikController'
 	})
+	.when("/preduzece",{
+		templateUrl : "views/preduzece.html",
+		controller : 'preduzeceController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'

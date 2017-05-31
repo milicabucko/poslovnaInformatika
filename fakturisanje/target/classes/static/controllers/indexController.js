@@ -46,6 +46,9 @@ app.controller('indexController',['$scope', '$location', '$mdDialog', 'loginServ
 		$location.path("/cenovnik");
 	}
 	
+	$scope.goToPreduzece = function() {
+		$location.path("/preduzece");
+	}
 	
 	
 	
