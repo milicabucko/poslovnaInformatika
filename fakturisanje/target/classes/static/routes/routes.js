@@ -32,6 +32,10 @@ app.config(function($routeProvider){
 		templateUrl : "views/preduzece.html",
 		controller : 'preduzeceController'
 	})
+	.when("/magacin", {
+		templateUrl : "views/magacin.html",
+		controller : 'magacinController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'

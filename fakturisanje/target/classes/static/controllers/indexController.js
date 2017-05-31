@@ -50,6 +50,8 @@ app.controller('indexController',['$scope', '$location', '$mdDialog', 'loginServ
 		$location.path("/preduzece");
 	}
 	
-	
+	$scope.dodajMagacin = function() {
+		$location.path("/magacin");
+	}
 	
 }]);
