@@ -1,9 +1,20 @@
 app.factory('magacinService', function magacinService($http){
 	
-	magacinService.getAllCompanies = function(){
+	magacinService.findBySifra = function(sifra) {
 		return $http({
-			method: 'GET',
-			url: 'api/company/getAllCompanies'
+			method: "GET",
+			url: 'api/magacin/findBySifra/' + sifra
+		});
+	}
+	
+	magacinService.dodajMagacin = function(sifraMagacina, nazivMagacina, firmaId) {
+		return $http({
+			method: "POST",
+			url: 'api/magacin/dodajMagacin/' + firmaId,
+			data: {
+				"sifra" : sifraMagacina,
+				"naziv" : nazivMagacina
+			}
 		});
 	}
 	

@@ -1,6 +1,6 @@
 var app = angular.module('projectPI',['ngRoute', 'ngMaterial', 'md.data.table', 'ngMdIcons']);
 
-app.controller('indexController',['$scope', '$location', '$mdDialog', 'loginService', function($scope, $location, $mdDialog, loginService){
+app.controller('indexController',['$scope', '$location', '$window','$mdDialog', 'loginService', function($scope, $location, $window, $mdDialog, loginService){
 	
 	$scope.ulogovan = false;
 	

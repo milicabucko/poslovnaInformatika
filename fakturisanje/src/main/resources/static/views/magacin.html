@@ -1,16 +1,13 @@
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
-	<h2 flex md-truncate>Firme</h2>
-	
-	<md-button class="md-icon-button" aria-label="Pretrazi">
-        <ng-md-icon icon="search" style="fill: white" size="24"></ng-md-icon> 
-    </md-button>
-    
-    <input ng-model="imeZaPretragu" ng-change="pretraziPoImenu()">
-    
-    
-</div>
+		<h2 flex md-truncate>Firme</h2>
+		<md-button class="md-icon-button" aria-label="Pretrazi">
+        	<ng-md-icon icon="search" style="fill: white" size="24"></ng-md-icon> 
+    	</md-button>
+    	<input ng-model="imeZaPretragu" ng-change="pretraziPoImenu()"> 
+	</div>
 </md-toolbar>
+
 <md-content>
 <md-table-container>
   <table md-table md-row-select  ng-model="selected">
@@ -44,3 +41,25 @@
 </md-table-container>	
 <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{itemsSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+		<h2 flex md-truncate>Magacin</h2>     
+	</div>
+</md-toolbar>
+
+<div layout="row">
+	<md-input-container>
+		<label>Sifra</label>
+		<input string-to-number ng-model="sifraMagacina" ng-change="pretragaPoSifri()">
+	</md-input-container>
+	
+	<md-input-container>
+		<label>Naziv</label>
+		<input ng-model="nazivMagacina">
+	</md-input-container>
+	
+	<div layout="column">
+		<md-button class="md-raised md-primary" ng-show="omogucenoDodavanje" ng-click="dodajMagacin()">Dodaj</md-button>
+	</div>
+</div>

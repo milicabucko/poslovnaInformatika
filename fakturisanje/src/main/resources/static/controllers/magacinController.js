@@ -1,7 +1,7 @@
-app.controller('magacinController', [ '$scope', '$location', '$mdDialog',
-		'companyService',
-		function($scope, $location, $mdDialog, companyService) {
+app.controller('magacinController', [ '$scope', '$location', '$window', '$mdDialog', 'companyService', 'magacinService', function($scope, $location, $window, $mdDialog, companyService, magacinService) {
 
+			$scope.omogucenoDodavanje = false;
+	
 			companyService.getAllCompanies().then(function(response) {
 
 				$scope.items = response.data;
@@ -23,6 +23,27 @@ app.controller('magacinController', [ '$scope', '$location', '$mdDialog',
 						$scope.itemsSize = $scope.items.length;
 					});
 				}
+			}
+			
+			$scope.pretragaPoSifri = function() {
+				
+				if($scope.sifraMagacina == "" || $scope.nazivMagacina == ""){
+					$scope.omogucenoDodavanje = false;
+					//toastr.options.timeOut = 1500;
+					//toastr.info("Potrebno je izabrati barem jedan sto.");
+				}else{
+					magacinService.findBySifra($scope.sifraMagacina).then(function(response){
+						if($scope.sifraMagacina == response.data.sifra){
+							$scope.omogucenoDodavanje = false;
+						}else{
+							$scope.omogucenoDodavanje = true;
+						}
+					});	
+				}	
+			}
+			
+			$scope.dodajMagacin = function() {
+				magacinService.dodajMagacin($scope.sifraMagacina, $scope.nazivMagacina, $scope.selected[0].id);
 			}
 			
 			$scope.onSelectEvent = function() {
