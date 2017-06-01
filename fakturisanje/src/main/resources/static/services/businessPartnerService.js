@@ -7,5 +7,19 @@ app.factory('businessPartnerService', function businessPartnerService($http){
 		});
 	}
 	
+	businessPartnerService.kreirajPartnera = function(idCompany1,idCompany2){
+		return $http({
+			method: 'POST',
+			url: 'api/businessPartner/poslovniPartner/' + idCompany1 + "/" + idCompany2,
+			data: {
+				
+			}
+			
+		});
+	}
+	
+	var aktivnaFirma = {};
+	
+	
 	return businessPartnerService;
 });

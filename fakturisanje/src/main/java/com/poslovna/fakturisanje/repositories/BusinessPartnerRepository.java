@@ -9,5 +9,5 @@ import com.poslovna.fakturisanje.models.Company;
 
 public interface BusinessPartnerRepository extends JpaRepository<BusinessPartner, Integer> {
 
-	public Collection<BusinessPartner> findByCompany(Company company);
+	public Collection<BusinessPartner> findByCompany1(Company company1);
 }

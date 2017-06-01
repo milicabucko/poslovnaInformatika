@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poslovna.fakturisanje.models.User;
+import com.poslovna.fakturisanje.models.Korisnik;
 import com.poslovna.fakturisanje.services.UserService;
 
 @RestController
@@ -23,9 +23,9 @@ public class UserController {
 			value = "/api/users/findByUsername/{username}",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> findByUsername(@PathVariable String username){
-		User user = userService.findByUsername(username);
-		return new ResponseEntity<User>(user,HttpStatus.OK);
+	public ResponseEntity<Korisnik> findByUsername(@PathVariable String username){
+		Korisnik user = userService.findByUsername(username);
+		return new ResponseEntity<Korisnik>(user,HttpStatus.OK);
 	}
 	
 

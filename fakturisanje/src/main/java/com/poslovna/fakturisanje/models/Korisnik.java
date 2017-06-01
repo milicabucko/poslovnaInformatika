@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user")
-public class User implements Serializable{
+@Table(name = "korisnik")
+public class Korisnik implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -26,7 +26,7 @@ public class User implements Serializable{
 	@Column(name = "password")
 	private String password;
 	
-	public User() {
+	public Korisnik() {
 		// TODO Auto-generated constructor stub
 	}
 

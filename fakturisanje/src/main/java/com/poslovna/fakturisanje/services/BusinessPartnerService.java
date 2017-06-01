@@ -19,13 +19,19 @@ public class BusinessPartnerService {
 	@Autowired
 	private CompanyRepository companyRepository;
 	
-	public Collection<BusinessPartner> findByCompany(Integer id){
-		Company company = companyRepository.findOne(id);
-		return businessPartnerRepository.findByCompany(company);
+	public Collection<BusinessPartner> findByCompany1(Integer id){
+		Company company1 = companyRepository.findOne(id);
+		return businessPartnerRepository.findByCompany1(company1);
 	}
 
 	public BusinessPartner findOne(Integer kupId) {
 		return businessPartnerRepository.findOne(kupId);
 	}
+	
+	public BusinessPartner save(BusinessPartner bp) {
+		return businessPartnerRepository.save(bp);
+	}
+	
+	
 
 }

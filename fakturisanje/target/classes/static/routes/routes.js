@@ -32,6 +32,10 @@ app.config(function($routeProvider){
 		templateUrl : "views/preduzece.html",
 		controller : 'preduzeceController'
 	})
+		.when("/listaSvihPreduzecaPP",{
+		templateUrl : "views/listaSvihPreduzecaPP.html",
+		controller : 'listaSvihPreduzecaPPController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'

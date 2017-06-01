@@ -57,8 +57,6 @@ public class Company implements Serializable{
 	@Column(name = "bank")
 	private String bank;
 	
-	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Collection<BusinessPartner> businessPartners;
 	
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Collection<Cenovnik> cenovnici;
@@ -149,13 +147,6 @@ public class Company implements Serializable{
 		this.bank = bank;
 	}
 	
-	public Collection<BusinessPartner> getBusinessPartners() {
-		return businessPartners;
-	}
-	
-	public void setBusinessPartners(Collection<BusinessPartner> businessPartners) {
-		this.businessPartners = businessPartners;
-	}
 
 	public Collection<Cenovnik> getCenovnici() {
 		return cenovnici;
