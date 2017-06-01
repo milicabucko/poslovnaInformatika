@@ -60,6 +60,16 @@ public class CompanyController {
         return new ResponseEntity<Collection<Company>>(allCompanies, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/company/findById/{id}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Company> findById(@PathVariable Integer id) {
+		Company company = companyService.findOne(id);
+        return new ResponseEntity<Company>(company, HttpStatus.OK);
+    }
+	
 	
 
 }

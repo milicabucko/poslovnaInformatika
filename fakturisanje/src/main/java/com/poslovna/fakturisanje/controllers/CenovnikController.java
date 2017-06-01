@@ -1,5 +1,8 @@
 package com.poslovna.fakturisanje.controllers;
 
+
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,6 +36,16 @@ public class CenovnikController {
 		cenovnik.setCompany(idCompany);
 		Cenovnik dodavanjeCenovnika= cenovnikService.add(cenovnik);
         return new ResponseEntity<Cenovnik>(dodavanjeCenovnika, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "/api/cenovnik/findByCompany/{id}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Cenovnik>> findByCompany(@PathVariable Integer id) {
+		Collection<Cenovnik> sviCenovnici = cenovnikService.findByCompany(id);
+        return new ResponseEntity<Collection<Cenovnik>>(sviCenovnici, HttpStatus.OK);
     }
 	
 

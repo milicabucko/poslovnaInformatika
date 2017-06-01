@@ -53,5 +53,8 @@ app.controller('indexController',['$scope', '$location', '$window','$mdDialog', 
 	$scope.dodajMagacin = function() {
 		$location.path("/magacin");
 	}
+	$scope.pregledCenovnika = function() {
+		$location.path("/pregledCenovnika");
+	}
 	
 }]);

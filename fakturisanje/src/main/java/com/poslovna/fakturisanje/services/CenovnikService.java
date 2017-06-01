@@ -27,4 +27,7 @@ public class CenovnikService {
 		return cenovnikRepository.findOne(cenovnikId);
 	}
 
+	public Collection<Cenovnik> findByCompany(Integer companyId) {
+		return cenovnikRepository.findByCompany(companyId);
+	}
 }
