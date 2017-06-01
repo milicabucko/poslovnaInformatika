@@ -32,15 +32,17 @@ app.config(function($routeProvider){
 		templateUrl : "views/preduzece.html",
 		controller : 'preduzeceController'
 	})
-<<<<<<< HEAD
-		.when("/listaSvihPreduzecaPP",{
+	.when("/listaSvihPreduzecaPP",{
 		templateUrl : "views/listaSvihPreduzecaPP.html",
 		controller : 'listaSvihPreduzecaPPController'
-=======
+	})
 	.when("/magacin", {
 		templateUrl : "views/magacin.html",
 		controller : 'magacinController'
->>>>>>> c1a3924dcdb82b54c0b19ca200a7b2054e222954
+	})
+	.when("/pregledMagacina", {
+		templateUrl : "views/pregledMagacina.html",
+		controller : 'pregledMagacinaController'
 	})
 	.when("/home",{
 		templateUrl : "views/home.html",

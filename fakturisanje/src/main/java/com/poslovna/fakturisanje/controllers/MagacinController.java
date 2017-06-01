@@ -1,5 +1,7 @@
 package com.poslovna.fakturisanje.controllers;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -45,4 +47,15 @@ public class MagacinController {
 		Magacin m = magacinService.save(magacin);
 		return new ResponseEntity<Magacin>(m, HttpStatus.OK);
 	}
+	
+	@RequestMapping(
+            value    = "/api/magacin/sviMagacini",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+	public ResponseEntity<Collection<Magacin>> sviMagacini() {
+		Collection<Magacin> magacini = magacinService.findAll();
+		return new ResponseEntity<Collection<Magacin>>(magacini, HttpStatus.OK);
+	}
+	
 }

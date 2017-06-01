@@ -1,0 +1,27 @@
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Magacini</h2>
+</div>
+</md-toolbar>
+
+<md-content>
+<md-table-container>
+  <table md-table md-row-select  ng-model="selected">
+    <thead md-head md-order="myOrder">
+      <tr md-row>
+        <th md-column>Sifra</th>
+        <th md-column>Naziv</th>
+        <th md-column>Preduzece</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="item" md-on-select="onSelectEvent()" md-select-id="name"  md-auto-select ng-repeat="item in items | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
+        <td md-cell>{{item.sifra}}</td>
+        <td md-cell>{{item.naziv}}</td>
+        <td md-cell>{{item.preduzece.name}}</td>     	
+      </tr>
+    </tbody>
+  </table>  
+</md-table-container>	
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+</md-content>

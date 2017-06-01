@@ -54,4 +54,8 @@ app.controller('indexController',['$scope', '$location', '$window','$mdDialog', 
 		$location.path("/magacin");
 	}
 	
+	$scope.pregledMagacina = function() {
+		$location.path("/pregledMagacina");
+	}
+	
 }]);
