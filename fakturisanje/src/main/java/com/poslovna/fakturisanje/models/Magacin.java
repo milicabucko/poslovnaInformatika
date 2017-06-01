@@ -24,6 +24,9 @@ public class Magacin implements Serializable{
 	@Column(name = "id")
 	private Integer id;
 	
+	@Column(name = "sifra")
+	private String sifra;
+	
 	@Column(name = "naziv")
 	private String naziv;
 	
@@ -49,6 +52,15 @@ public class Magacin implements Serializable{
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
+	}
+
+	
+	public String getSifra() {
+		return sifra;
+	}
+
+	public void setSifra(String sifra) {
+		this.sifra = sifra;
 	}
 
 	public Company getPreduzece() {

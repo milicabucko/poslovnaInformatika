@@ -23,6 +23,10 @@
 		<!-- icons -->
 		<script src="libs/angular-material-icons/angular-material-icons.min.js"></script> 
 		
+		<!-- TOASTR -->
+		<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"></link>
+		
 	</head>
 	
 	<body data-ng-app="projectPI" ng-controller="indexController">
@@ -149,8 +153,8 @@
             </button>
             <md-menu-content>
               <md-menu-item>
-                <md-button ng-click="ctrl.sampleAction('share', $event)">
-                  Stopa PDV-a
+                <md-button ng-click="dodajMagacin()">
+                  Dodaj magacin
                 </md-button>
               </md-menu-item>
               <md-menu-item>
@@ -177,6 +181,7 @@
 		<script src="services/cenovnikService.js"></script>
 		<script src="services/stavkaCenovnikaService.js"></script>
 		<script src="services/stavkaDokumentaService.js"></script>
+		<script src="services/magacinService.js"></script>
 		
 		
 		<script src="controllers/loginController.js"></script>
@@ -188,7 +193,11 @@
 		<script src="controllers/narudzbenicaController.js"></script>
 		<script src="controllers/cenovnikController.js"></script>
 		<script src="controllers/preduzeceController.js"></script>
+<<<<<<< HEAD
 		<script src="controllers/poslovniPartnerController.js"></script>
+=======
+		<script src="controllers/magacinController.js"></script>
+>>>>>>> c1a3924dcdb82b54c0b19ca200a7b2054e222954
 		<script src="routes/routes.js"></script>
 	</body>
 
