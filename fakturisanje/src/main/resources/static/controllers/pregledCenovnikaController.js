@@ -51,12 +51,29 @@ app.controller('pregledCenovnikaController',['$scope', '$location', '$mdDialog',
 		$scope.onSelectEvent = function() {
 			if ($scope.selected[0] === undefined) {
 				$scope.cenovnici = [];
+				$scope.cenovniciSize = 0;
 			}
 			else{
 				$scope.cenovnici = $scope.selected[0].cenovnici;
+				$scope.cenovniciSize = $scope.cenovnici.length;
 			}
+		}
+		
+		$scope.onSelectEventCenovnik = function() {
+			if ($scope.selectedCenovnik[0] === undefined) {
+				$scope.stavke = [];
+				$scope.stavkeSize = 0;
 			}
+			else{
+				console.log($scope.selectedCenovnik[0].stavkecenovnika[0]);
+				$scope.stavke = $scope.selectedCenovnik[0].stavkecenovnika;
+				$scope.stavkeSize = $scope.stavke.length;
+			}
+		}
 		
 		$scope.selected = [];
-		$scope.bpselected = [];
+		$scope.selectedCenovnik = [];
+		$scope.cenovniciSize = 0;
+		$scope.selectedStavka = [];
+		$scope.stavkeSize = 0;
 }]);

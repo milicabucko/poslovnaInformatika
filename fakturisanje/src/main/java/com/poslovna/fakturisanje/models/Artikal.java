@@ -14,6 +14,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "artikal")
 public class Artikal implements Serializable {
@@ -40,9 +43,11 @@ public class Artikal implements Serializable {
 	@Column(name = "vrsta")
 	private String vrsta;
 	
-	@OneToMany(mappedBy = "artikal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Collection<StavkaCenovnika> stavkecenovnika;
 	
+	/*@OneToMany(mappedBy = "artikal", cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private Collection<StavkaCenovnika> stavkecenovnika;
+	*/
 	
 	public Artikal() {
 		
@@ -96,14 +101,14 @@ public class Artikal implements Serializable {
 		this.vrsta = vrsta;
 	}
 
-	public Collection<StavkaCenovnika> getStavkecenovnika() {
+/*	public Collection<StavkaCenovnika> getStavkecenovnika() {
 		return stavkecenovnika;
 	}
 
 	public void setStavkecenovnika(Collection<StavkaCenovnika> stavkecenovnika) {
 		this.stavkecenovnika = stavkecenovnika;
 	}
-	
+	*/
 	
 	
 }

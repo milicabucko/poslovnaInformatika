@@ -39,7 +39,6 @@ public class StavkaCenovnika implements Serializable {
 	private Cenovnik cenovnik;
 	
 	public StavkaCenovnika() {
-	// TODO Auto-generated constructor stub
 	}
 
 	public Integer getId() {
@@ -57,12 +56,12 @@ public class StavkaCenovnika implements Serializable {
 	public void setCena(Float cena) {
 		this.cena = cena;
 	}
-
+	
+	
 	public Artikal getArtikal() {
 		return artikal;
 	}
 	
-	@JsonIgnore
 	public void setArtikal(Artikal artikal) {
 		this.artikal = artikal;
 	}
