@@ -57,4 +57,8 @@ app.controller('indexController',['$scope', '$location', '$window','$mdDialog', 
 		$location.path("/pregledCenovnika");
 	}
 	
+	$scope.pregledMagacina = function() {
+		$location.path("/pregledMagacina");
+	}
+	
 }]);

@@ -18,5 +18,12 @@ app.factory('magacinService', function magacinService($http){
 		});
 	}
 	
+	magacinService.sviMagacini = function() {
+		return $http({
+			method: "GET",
+			url: 'api/magacin/sviMagacini'
+		});
+	}
+	
 	return magacinService;
 });

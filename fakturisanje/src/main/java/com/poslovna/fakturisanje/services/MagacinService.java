@@ -1,5 +1,7 @@
 package com.poslovna.fakturisanje.services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,9 @@ public class MagacinService {
 	
 	public Magacin save(Magacin magacin){
 		return magacinRepository.save(magacin);
+	}
+	
+	public Collection<Magacin> findAll() {
+		return magacinRepository.findAll();
 	}
 }
