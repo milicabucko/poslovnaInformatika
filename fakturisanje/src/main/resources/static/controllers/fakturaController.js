@@ -6,6 +6,10 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 			for(var i = 0; i < $scope.stavke.length; i++) {
 				stavkaDokumentaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla, $scope.stavke[i].kolicina).then(function(response){ 
 					console.log(response.data);
+					magacinService.dodajAnalitikuMK(response.data.artikal.id, $scope.pib, response.data.id).then(function(response){ 
+						
+					});
+					
 				});
 			}
 			

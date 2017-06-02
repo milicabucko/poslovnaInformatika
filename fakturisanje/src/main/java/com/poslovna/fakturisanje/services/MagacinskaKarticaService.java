@@ -24,4 +24,8 @@ public class MagacinskaKarticaService {
 		return magacinskaKarticaRepository.findByMagacinAndArtikal(magacin, artikal);
 	} 
 	
+	public MagacinskaKartica findOne(Integer id) {
+		return magacinskaKarticaRepository.findOne(id);
+	}
+	
 }

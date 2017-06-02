@@ -17,4 +17,8 @@ public class StavkaDokumentaService {
 		return stavkaDokumentaRepository.save(stavkaDokumenta);
 	}
 	
+	public StavkaDokumenta findOne(Integer id) {
+		return stavkaDokumentaRepository.findOne(id);
+	}
+	
 }
