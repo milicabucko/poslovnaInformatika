@@ -5,28 +5,28 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.poslovna.fakturisanje.models.Faktura;
-import com.poslovna.fakturisanje.repositories.FakturaRepository;
+import com.poslovna.fakturisanje.models.Dokument;
+import com.poslovna.fakturisanje.repositories.DokumentRepository;
 
 @Service
-public class FakturaService {
+public class DokumentService {
 
 	@Autowired
-	private FakturaRepository fakturaRepository;
+	private DokumentRepository fakturaRepository;
 
 	public Integer nadjiSlececiBrojDokumenta() {
 		return fakturaRepository.getMaxBrojDokumenta();
 	}
 
-	public Faktura save(Faktura faktura) {
+	public Dokument save(Dokument faktura) {
 		return fakturaRepository.save(faktura);
 	}
 
-	public Faktura findOne(Integer fakturaId) {
+	public Dokument findOne(Integer fakturaId) {
 		return fakturaRepository.findOne(fakturaId);
 	}
 
-	public Collection<Faktura> getAll() {
+	public Collection<Dokument> getAll() {
 		return fakturaRepository.findAll();
 	}
 	
@@ -34,7 +34,7 @@ public class FakturaService {
 		return fakturaRepository.setStatusDokumentaForFaktura(status, id);
 	}
 	
-	public Collection<Faktura> findByBrojDokumenta(Integer brojDokumenta) {
+	public Collection<Dokument> findByBrojDokumenta(Integer brojDokumenta) {
 		return fakturaRepository.findByBrojDokumenta(brojDokumenta);
 	}
 	

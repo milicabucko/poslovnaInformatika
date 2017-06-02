@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.poslovna.fakturisanje.models.Company;
 import com.poslovna.fakturisanje.models.Magacin;
 import com.poslovna.fakturisanje.repositories.MagacinRepository;
 
@@ -18,11 +19,19 @@ public class MagacinService {
 		return magacinRepository.findBySifra(sifra);
 	}
 	
+	public Magacin findById(Integer id) {
+		return magacinRepository.findOne(id);
+	}
+	
 	public Magacin save(Magacin magacin){
 		return magacinRepository.save(magacin);
 	}
 	
 	public Collection<Magacin> findAll() {
 		return magacinRepository.findAll();
+	}
+
+	public Magacin findByPreduzece(Company preduzece) {
+		return magacinRepository.findByPreduzece(preduzece);
 	}
 }

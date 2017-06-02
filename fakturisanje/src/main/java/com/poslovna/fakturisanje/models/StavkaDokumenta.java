@@ -31,7 +31,7 @@ public class StavkaDokumenta implements Serializable{
 	private Integer kolicina;
 	
 	@ManyToOne
-	private Faktura dokument;
+	private Dokument dokument;
 	
 	
 	public StavkaDokumenta() {
@@ -54,12 +54,12 @@ public class StavkaDokumenta implements Serializable{
 		this.artikal = artikal;
 	}
 
-	public Faktura getDokument() {
+	public Dokument getDokument() {
 		return dokument;
 	}
 	
 	@JsonIgnore
-	public void setDokument(Faktura dokument) {
+	public void setDokument(Dokument dokument) {
 		this.dokument = dokument;
 	}
 

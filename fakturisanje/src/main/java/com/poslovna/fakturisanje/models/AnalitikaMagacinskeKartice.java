@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "analitika")
 public class AnalitikaMagacinskeKartice implements Serializable{
@@ -31,7 +33,10 @@ public class AnalitikaMagacinskeKartice implements Serializable{
 	private String smer;
 	
 	@ManyToOne
-	private StavkaDokumenta stavkaDok;
+	private StavkaDokumenta stavkaDokumenta;
+	
+	@ManyToOne
+	private MagacinskaKartica magacinskaKartica;
 	
 	public AnalitikaMagacinskeKartice() {
 		
@@ -61,13 +66,24 @@ public class AnalitikaMagacinskeKartice implements Serializable{
 		this.smer = smer;
 	}
 
-	public StavkaDokumenta getStavkaDok() {
-		return stavkaDok;
+	public MagacinskaKartica getMagacinskaKartica() {
+		return magacinskaKartica;
 	}
 
-	public void setStavkaDok(StavkaDokumenta stavkaDok) {
-		this.stavkaDok = stavkaDok;
+	@JsonIgnore
+	public void setMagacinskaKartica(MagacinskaKartica magacinskaKartica) {
+		this.magacinskaKartica = magacinskaKartica;
 	}
+
+	public StavkaDokumenta getStavkaDokumenta() {
+		return stavkaDokumenta;
+	}
+
+	public void setStavkaDokumenta(StavkaDokumenta stavkaDokumenta) {
+		this.stavkaDokumenta = stavkaDokumenta;
+	}
+
+
 	
 	
 }

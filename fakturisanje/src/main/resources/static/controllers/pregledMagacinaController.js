@@ -7,11 +7,25 @@ app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 
 	});
 	
 	$scope.onSelectEvent = function() {
+		
 		if ($scope.selected[0] === undefined) {
-			
+			$scope.kartice = [];
+			$scope.analitike = [];
+
 		}
 		else {
-			
+			$scope.kartice = $scope.selected[0].kartice;
+		}
+	}
+	
+	$scope.onSelectKartica = function() {
+		
+		if ($scope.selectedMK[0] === undefined) {
+			$scope.analitike = [];
+
+		}
+		else {
+			$scope.analitike = $scope.selectedMK[0].analitike;
 		}
 	}
 	
@@ -28,5 +42,12 @@ app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 
 	    limit: 5,
 	    page: 1
 	};
+	
 	$scope.selected = [];
+	$scope.selectedMK = [];
+	$scope.selectedAnalitika = [];
+	
+	
+	
+	
 }]);

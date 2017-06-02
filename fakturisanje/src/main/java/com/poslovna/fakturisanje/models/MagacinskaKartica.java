@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "kartica")
 public class MagacinskaKartica implements Serializable{
@@ -31,29 +33,35 @@ public class MagacinskaKartica implements Serializable{
 	private Integer id;
 	
 	@Column(name = "pocStanjeKol")
-	private Float pocStanjeKolicinski;
+	private Float pocStanjeKol;
 	
 	@Column(name = "pocStanjeVred")
-	private Float pocStanjeVrednosno;
+	private Float pocStanjeVred;
 	
 	@Column(name = "prometUlKol")
-	private Float prometUlazaKol;
+	private Float prometUlKol;
 	
 	@Column(name = "prometIzKol")
-	private Float prometIzlazaKol;
+	private Float prometIzKol;
 	
 	@Column(name = "prometUlVred")
-	private Float prometUlazaVred;
+	private Float prometUlVred;
 	
 	@Column(name = "prometIzVred")
-	private Float prometIzlazaVred;
+	private Float prometIzVred;
+	
+	@ManyToOne
+	private StavkaCenovnika stavkaCenovnika;
+	
+	@ManyToOne
+	private Artikal artikal;
 	
 	@ManyToOne
 	private Magacin magacin;
 	
 	//fali Poslovna godina 
 	
-	@OneToMany(mappedBy = "stavkaDok", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "magacinskaKartica", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Collection<AnalitikaMagacinskeKartice> analitike;
 	
@@ -69,58 +77,12 @@ public class MagacinskaKartica implements Serializable{
 		this.id = id;
 	}
 
-	public Float getPocStanjeKolicinski() {
-		return pocStanjeKolicinski;
-	}
-
-	public void setPocStanjeKolicinski(Float pocStanjeKolicinski) {
-		this.pocStanjeKolicinski = pocStanjeKolicinski;
-	}
-
-	public Float getPocStanjeVrednosno() {
-		return pocStanjeVrednosno;
-	}
-
-	public void setPocStanjeVrednosno(Float pocStanjeVrednosno) {
-		this.pocStanjeVrednosno = pocStanjeVrednosno;
-	}
-
-	public Float getPrometUlazaKol() {
-		return prometUlazaKol;
-	}
-
-	public void setPrometUlazaKol(Float prometUlazaKol) {
-		this.prometUlazaKol = prometUlazaKol;
-	}
-
-	public Float getPrometIzlazaKol() {
-		return prometIzlazaKol;
-	}
-
-	public void setPrometIzlazaKol(Float prometIzlazaKol) {
-		this.prometIzlazaKol = prometIzlazaKol;
-	}
-
-	public Float getPrometUlazaVred() {
-		return prometUlazaVred;
-	}
-
-	public void setPrometUlazaVred(Float prometUlazaVred) {
-		this.prometUlazaVred = prometUlazaVred;
-	}
-
-	public Float getPrometIzlazaVred() {
-		return prometIzlazaVred;
-	}
-
-	public void setPrometIzlazaVred(Float prometIzlazaVred) {
-		this.prometIzlazaVred = prometIzlazaVred;
-	}
-
+	
 	public Magacin getMagacin() {
 		return magacin;
 	}
 
+	@JsonIgnore
 	public void setMagacin(Magacin magacin) {
 		this.magacin = magacin;
 	}
@@ -131,6 +93,70 @@ public class MagacinskaKartica implements Serializable{
 
 	public void setAnalitike(Collection<AnalitikaMagacinskeKartice> analitike) {
 		this.analitike = analitike;
+	}
+
+	public Artikal getArtikal() {
+		return artikal;
+	}
+
+	public void setArtikal(Artikal artikal) {
+		this.artikal = artikal;
+	}
+
+	public Float getPocStanjeKol() {
+		return pocStanjeKol;
+	}
+
+	public void setPocStanjeKol(Float pocStanjeKol) {
+		this.pocStanjeKol = pocStanjeKol;
+	}
+
+	public Float getPocStanjeVred() {
+		return pocStanjeVred;
+	}
+
+	public void setPocStanjeVred(Float pocStanjeVred) {
+		this.pocStanjeVred = pocStanjeVred;
+	}
+
+	public Float getPrometUlKol() {
+		return prometUlKol;
+	}
+
+	public void setPrometUlKol(Float prometUlKol) {
+		this.prometUlKol = prometUlKol;
+	}
+
+	public Float getPrometIzKol() {
+		return prometIzKol;
+	}
+
+	public void setPrometIzKol(Float prometIzKol) {
+		this.prometIzKol = prometIzKol;
+	}
+
+	public Float getPrometUlVred() {
+		return prometUlVred;
+	}
+
+	public void setPrometUlVred(Float prometUlVred) {
+		this.prometUlVred = prometUlVred;
+	}
+
+	public Float getPrometIzVred() {
+		return prometIzVred;
+	}
+
+	public void setPrometIzVred(Float prometIzVred) {
+		this.prometIzVred = prometIzVred;
+	}
+
+	public StavkaCenovnika getStavkaCenovnika() {
+		return stavkaCenovnika;
+	}
+
+	public void setStavkaCenovnika(StavkaCenovnika stavkaCenovnika) {
+		this.stavkaCenovnika = stavkaCenovnika;
 	}
 
 	

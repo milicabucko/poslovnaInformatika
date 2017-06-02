@@ -28,7 +28,7 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="item" md-on-select="onSelectEvent()" md-select-id="name"  md-auto-select ng-repeat="item in items | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
+      <tr md-row md-select="item" ng-click="onSelectEvent()" md-select-id="name"  md-auto-select ng-repeat="item in items | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
         <td md-cell>{{item.name}}</td>
         <td md-cell>{{item.pib}}</td>
         <td md-cell>{{item.address}}</td>
@@ -67,12 +67,12 @@
     </thead>
     <tbody md-body>
       <tr md-row md-select="bpitem" md-on-select="onSelectBPEvent()" md-select-id="name" md-auto-select ng-repeat="bpitem in businessPartners | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit">
-        <td md-cell>{{bpitem.name}}</td>
-        <td md-cell>{{bpitem.pib}}</td>
-        <td md-cell>{{bpitem.address}}</td>
-        <td md-cell>{{bpitem.cidnumber}}</td>
-      	<td md-cell>{{bpitem.type}}</td>
-      	<td md-cell>{{bpitem.account}}</td>
+        <td md-cell>{{bpitem.company2.name}}</td>
+        <td md-cell>{{bpitem.company2.pib}}</td>
+        <td md-cell>{{bpitem.company2.address}}</td>
+        <td md-cell>{{bpitem.company2.cidnumber}}</td>
+      	<td md-cell>{{bpitem.company2.type}}</td>
+      	<td md-cell>{{bpitem.company2.account}}</td>
       </tr>
     </tbody>
   </table>  
@@ -197,7 +197,7 @@
 	
 			<md-input-container>
 				<label>Kolicina</label>
-    			<input ng-model="kolicina">
+    			<input ng-model="kolicina" type="number" ng-change="unesiKolicinu()">
 			</md-input-container>
 			
 			<md-input-container>

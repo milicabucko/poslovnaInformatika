@@ -20,8 +20,8 @@ import org.hibernate.annotations.LazyCollectionOption;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "faktura")
-public class Faktura implements Serializable{
+@Table(name = "dokument")
+public class Dokument implements Serializable{
 
 	
 	private static final long serialVersionUID = 1L;
@@ -40,6 +40,9 @@ public class Faktura implements Serializable{
 	@Column(name = "datumDokumenta")
 	private String datumDokumenta;
 	
+	@Column(name = "vrstaDokumenta")
+	private String vrstaDokumenta;
+	
 	@Column(name = "datumValute")
 	private String datumValute;
 	
@@ -57,7 +60,7 @@ public class Faktura implements Serializable{
 	private Collection<StavkaDokumenta> stavkeDokumenta;
 	
 	
-	public Faktura() {
+	public Dokument() {
 		
 	}
 
@@ -149,6 +152,16 @@ public class Faktura implements Serializable{
 
 	public void setStavkeDokumenta(Collection<StavkaDokumenta> stavkeDokumenta) {
 		this.stavkeDokumenta = stavkeDokumenta;
+	}
+
+
+	public String getVrstaDokumenta() {
+		return vrstaDokumenta;
+	}
+
+
+	public void setVrstaDokumenta(String vrstaDokumenta) {
+		this.vrstaDokumenta = vrstaDokumenta;
 	}
 	
 	

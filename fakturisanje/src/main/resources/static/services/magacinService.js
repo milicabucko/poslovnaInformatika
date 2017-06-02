@@ -7,6 +7,13 @@ app.factory('magacinService', function magacinService($http){
 		});
 	}
 	
+	magacinService.findByPreduzecePib = function(preduzecePib) {
+		return $http({
+			method: "GET",
+			url: 'api/magacin/findByPreduzece/' + preduzecePib
+		});
+	}
+	
 	magacinService.dodajMagacin = function(sifraMagacina, nazivMagacina, firmaId) {
 		return $http({
 			method: "POST",
@@ -22,6 +29,13 @@ app.factory('magacinService', function magacinService($http){
 		return $http({
 			method: "GET",
 			url: 'api/magacin/sviMagacini'
+		});
+	}
+	
+	magacinService.nadjiMagacinskuKarticuArtikla = function(magacinId, artikalSifra) {
+		return $http({
+			method: "GET",
+			url: 'api/magacinskaKartica/nadjiKarticuArtikla/' + magacinId + '/' + artikalSifra
 		});
 	}
 	

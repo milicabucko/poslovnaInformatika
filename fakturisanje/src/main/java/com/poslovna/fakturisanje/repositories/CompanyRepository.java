@@ -11,5 +11,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 	public Collection<Company> findByIdNot(Integer id);
 	
 	public Collection<Company> findByNameContaining(String name);
+	
+	public Company findByPib(Integer pib);
 
 }

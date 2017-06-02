@@ -9,7 +9,8 @@ app.factory('fakturaService', function fakturaService($http){
 				"brojDokumenta" : brojDokumenta,
 				"statusDokumenta" : statusDokumenta,
 				"datumDokumenta" : datumDokumenta,
-				"datumValute" : datumValute
+				"datumValute" : datumValute,
+				"vrstaDokumenta" : "FO"
 			}
 		});
 	}

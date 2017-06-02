@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poslovna.fakturisanje.models.Artikal;
 import com.poslovna.fakturisanje.models.Cenovnik;
-import com.poslovna.fakturisanje.models.Faktura;
+import com.poslovna.fakturisanje.models.Dokument;
 import com.poslovna.fakturisanje.models.StavkaCenovnika;
 import com.poslovna.fakturisanje.models.StavkaDokumenta;
 import com.poslovna.fakturisanje.services.ArtikalService;

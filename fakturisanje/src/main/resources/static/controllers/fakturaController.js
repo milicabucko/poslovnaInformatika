@@ -1,4 +1,4 @@
-app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService){
+app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService){
 	
 	$scope.posaljiFakturu = function() {
 		console.log("posiljalac: " + $scope.selected[0].id + " kupac: " + $scope.bpselected[0].id);
@@ -88,6 +88,18 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 	}
 	
 	
+	$scope.unesiKolicinu = function() {
+			magacinService.findByPreduzecePib($scope.pib).then(function(response){
+				magacinService.nadjiMagacinskuKarticuArtikla(response.data.id, $scope.sifraZaPretragu).then(function(response){
+					if((response.data.pocStanjeKol + response.data.prometUlKol - response.data.prometIzKol) >= $scope.kolicina) {
+						
+					}
+					else {
+						
+					}
+				});
+			});	
+	}
 	
 	$scope.pretraziPoSifriArtikla = function(){
 		if($scope.sifraZaPretragu == "") {
@@ -97,6 +109,8 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 			$scope.omogucenoBrisanje = false;
 		}
 		else {	
+			
+			
 			artikalService.findBySifra($scope.sifraZaPretragu).then(function(response){ 
 				$scope.nazArtikla = response.data.naziv;
 				$scope.jmArtikla = response.data.jedMere;
@@ -155,17 +169,19 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		}
 		else {
 			
-			$scope.knaziv = $scope.bpselected[0].name; 
-			$scope.kadresa = $scope.bpselected[0].address;
-			$scope.kpib = $scope.bpselected[0].pib;
-			$scope.kmbr = $scope.bpselected[0].cidnumber;
-			$scope.kracun = $scope.bpselected[0].account;
+			$scope.knaziv = $scope.bpselected[0].company2.name; 
+			$scope.kadresa = $scope.bpselected[0].company2.address;
+			$scope.kpib = $scope.bpselected[0].company2.pib;
+			$scope.kmbr = $scope.bpselected[0].company2.cidnumber;
+			$scope.kracun = $scope.bpselected[0].company2.account;
 			
 		}
 	}
 	
 	
 	$scope.onSelectEvent = function() {
+		
+		
 		if ($scope.selected[0] === undefined) {
 			$scope.businessPartners = [];
 			
@@ -188,8 +204,12 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 			$scope.pib = $scope.selected[0].pib;
 			$scope.mbr = $scope.selected[0].cidnumber;
 			$scope.racun = $scope.selected[0].account;
-			$scope.businessPartners = $scope.selected[0].businessPartners;
-			$scope.businessPartnersSize = $scope.businessPartners.length;
+			
+			businessPartnerService.getAllBusinessPartners($scope.selected[0].id).then(function(response){
+				console.log(response.data[0].company2);
+				$scope.businessPartners = response.data;
+					
+			});
 			
 			$scope.knaziv = ""; 
 			$scope.kadresa = ""; 

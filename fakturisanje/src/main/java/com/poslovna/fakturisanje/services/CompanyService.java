@@ -33,5 +33,9 @@ public class CompanyService {
 	public Company findOne(Integer izdId) {
 		return companyRepository.findOne(izdId);
 	}
+	
+	public Company findByPib(Integer pib){
+		return companyRepository.findByPib(pib);
+	}
 
 }

@@ -58,4 +58,16 @@ public class MagacinController {
 		return new ResponseEntity<Collection<Magacin>>(magacini, HttpStatus.OK);
 	}
 	
+	@RequestMapping(
+            value    = "/api/magacin/findByPreduzece/{preduzecePib}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+	public ResponseEntity<Magacin> findByPreduzece(@PathVariable Integer preduzecePib) {
+		Company preduzece = companyService.findByPib(preduzecePib);
+		Magacin magacin = magacinService.findByPreduzece(preduzece);
+        return new ResponseEntity<Magacin>(magacin, HttpStatus.OK);
+    }
+	
+	
 }

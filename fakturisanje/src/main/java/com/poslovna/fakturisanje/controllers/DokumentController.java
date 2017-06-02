@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poslovna.fakturisanje.models.BusinessPartner;
 import com.poslovna.fakturisanje.models.Company;
-import com.poslovna.fakturisanje.models.Faktura;
+import com.poslovna.fakturisanje.models.Dokument;
 import com.poslovna.fakturisanje.services.BusinessPartnerService;
 import com.poslovna.fakturisanje.services.CompanyService;
-import com.poslovna.fakturisanje.services.FakturaService;
+import com.poslovna.fakturisanje.services.DokumentService;
 
 @RestController
-public class FakturaController {
+public class DokumentController {
 
 	@Autowired
-	private FakturaService fakturaService;
+	private DokumentService fakturaService;
 	
 	@Autowired
 	private CompanyService companyService;
@@ -47,13 +47,13 @@ public class FakturaController {
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Faktura> sacuvajFakturu(@RequestBody Faktura faktura, @PathVariable Integer izdId, @PathVariable Integer kupId) {
+    public ResponseEntity<Dokument> sacuvajFakturu(@RequestBody Dokument faktura, @PathVariable Integer izdId, @PathVariable Integer kupId) {
 		Company izdavaoc = companyService.findOne(izdId);
 		BusinessPartner kupac = businessPartnerService.findOne(kupId);
 		faktura.setIzdavaocRacuna(izdavaoc);
 		faktura.setKupac(kupac);
-		Faktura fakturaa = fakturaService.save(faktura);
-        return new ResponseEntity<Faktura>(fakturaa, HttpStatus.OK);
+		Dokument fakturaa = fakturaService.save(faktura);
+        return new ResponseEntity<Dokument>(fakturaa, HttpStatus.OK);
     }
 	
 
@@ -62,9 +62,9 @@ public class FakturaController {
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Collection<Faktura>> sveFakture() {
-		Collection<Faktura> sveFakture = fakturaService.getAll();
-        return new ResponseEntity<Collection<Faktura>>(sveFakture, HttpStatus.OK);
+    public ResponseEntity<Collection<Dokument>> sveFakture() {
+		Collection<Dokument> sveFakture = fakturaService.getAll();
+        return new ResponseEntity<Collection<Dokument>>(sveFakture, HttpStatus.OK);
     }
 	
 	@RequestMapping(
@@ -82,9 +82,9 @@ public class FakturaController {
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Collection<Faktura>> nadjiPoBrojuDokumenta(@PathVariable Integer brojDokumenta) {
-		Collection<Faktura> faktura = fakturaService.findByBrojDokumenta(brojDokumenta);
-        return new ResponseEntity<Collection<Faktura>>(faktura, HttpStatus.OK);
+    public ResponseEntity<Collection<Dokument>> nadjiPoBrojuDokumenta(@PathVariable Integer brojDokumenta) {
+		Collection<Dokument> faktura = fakturaService.findByBrojDokumenta(brojDokumenta);
+        return new ResponseEntity<Collection<Dokument>>(faktura, HttpStatus.OK);
     }
 	
 	

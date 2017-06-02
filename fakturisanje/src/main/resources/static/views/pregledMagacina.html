@@ -25,3 +25,74 @@
 </md-table-container>	
 <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Magacinske kartice</h2>
+</div>
+</md-toolbar>
+
+<md-content>
+<md-table-container>
+  <table md-table md-row-select  ng-model="selectedMK">
+    <thead md-head md-order="myOrder">
+      <tr md-row>
+        <th md-column>Naziv artikla</th>
+        <th md-column md-numeric>Pocetno stanje kolicina</th>
+        <th md-column md-numeric>Pocetno stanje vrednost</th>
+        <th md-column md-numeric>Promet ulaz kolicina</th>
+        <th md-column md-numeric>Promet ulaz vrednost</th>
+        <th md-column md-numeric>Promet izlaz kolicina</th>
+        <th md-column md-numeric>Promet izlaz vrednost</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="kartica" md-on-select="onSelectKartica()" md-select-id="name"  md-auto-select ng-repeat="kartica in kartice | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
+        <td md-cell>{{kartica.artikal.naziv}}</td>
+        <td md-cell>{{kartica.pocStanjeKol}}</td>
+        <td md-cell>{{kartica.pocStanjeKol * kartica.stavkaCenovnika.cena}}</td>
+        <td md-cell>{{kartica.prometUlKol}}</td>
+        <td md-cell>{{kartica.prometUlKol * kartica.stavkaCenovnika.cena}}</td>
+        <td md-cell>{{kartica.prometIzKol}}</td>
+        <td md-cell>{{kartica.prometIzKol * kartica.stavkaCenovnika.cena}}</td>    	
+      </tr>
+    </tbody>
+  </table>  
+</md-table-container>	
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+</md-content>
+
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Analitike magacinske kartice</h2>
+</div>
+</md-toolbar>
+
+<md-content>
+<md-table-container>
+  <table md-table md-row-select  ng-model="selectedAnalitika">
+    <thead md-head md-order="myOrder">
+      <tr md-row>
+        <th md-column>Smer</th>
+        <th md-column>Vrsta prometa</th>
+        <th md-column md-numeric>Kolicina</th>
+        <th md-column md-numeric>Cena</th>
+        <th md-column md-numeric>Vrednost</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="analitika" md-on-select="" md-select-id="name"  md-auto-select ng-repeat="analitika in analitike | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
+        <td md-cell>{{analitika.smer}}</td>
+        <td md-cell>{{analitika.vrstaPrometa}}</td>
+        <td md-cell>{{analitika.stavkaDokumenta.kolicina}}</td>
+        <td md-cell>{{}}</td>
+        <td md-cell>{{}}</td>
+      </tr>
+    </tbody>
+  </table>  
+</md-table-container>	
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+</md-content>
+
+

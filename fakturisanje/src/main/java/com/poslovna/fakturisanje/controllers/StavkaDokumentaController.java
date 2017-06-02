@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.poslovna.fakturisanje.models.Artikal;
 import com.poslovna.fakturisanje.models.BusinessPartner;
 import com.poslovna.fakturisanje.models.Company;
-import com.poslovna.fakturisanje.models.Faktura;
+import com.poslovna.fakturisanje.models.Dokument;
 import com.poslovna.fakturisanje.models.StavkaDokumenta;
 import com.poslovna.fakturisanje.services.ArtikalService;
-import com.poslovna.fakturisanje.services.FakturaService;
+import com.poslovna.fakturisanje.services.DokumentService;
 import com.poslovna.fakturisanje.services.StavkaDokumentaService;
 
 @RestController
@@ -26,7 +26,7 @@ public class StavkaDokumentaController {
 	private StavkaDokumentaService stavkaDokumentaService;
 	
 	@Autowired
-	private FakturaService fakturaService;
+	private DokumentService fakturaService;
 	
 	@Autowired
 	private ArtikalService artikalService;
@@ -39,7 +39,7 @@ public class StavkaDokumentaController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<StavkaDokumenta> sacuvajStavku(@RequestBody StavkaDokumenta stavkaDokumenta, @PathVariable Integer fakturaId, @PathVariable Integer artikalId) {
-		Faktura faktura = fakturaService.findOne(fakturaId);
+		Dokument faktura = fakturaService.findOne(fakturaId);
 		Artikal artikal = artikalService.findOne(artikalId);
 		stavkaDokumenta.setDokument(faktura);
 		stavkaDokumenta.setArtikal(artikal);
