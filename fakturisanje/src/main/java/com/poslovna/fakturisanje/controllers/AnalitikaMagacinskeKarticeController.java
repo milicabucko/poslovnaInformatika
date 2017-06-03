@@ -46,17 +46,37 @@ public class AnalitikaMagacinskeKarticeController {
 	
 	
 	@RequestMapping(
-			value = "/api/amk/addAMK/{artikalId}/{pib}/{stavkaId}",
+			value = "/api/amk/addAMK/{artikalId}/{pib}/{pib2}/{stavkaId}",
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AnalitikaMagacinskeKartice> addAMK(@RequestBody AnalitikaMagacinskeKartice amk, @PathVariable Integer artikalId, @PathVariable Integer pib, @PathVariable Integer stavkaId) {
+	public ResponseEntity<AnalitikaMagacinskeKartice> addAMK(@RequestBody AnalitikaMagacinskeKartice amk, @PathVariable Integer artikalId, @PathVariable Integer pib, @PathVariable Integer pib2, @PathVariable Integer stavkaId) {
 		Company company = companyService.findByPib(pib);
+		Company company2 = companyService.findByPib(pib2);
 		Magacin magacin  = magacinService.findByPreduzece(company);
+		Magacin magacin2 = magacinService.findByPreduzece(company2);
 		Artikal artikal = artikalService.findOne(artikalId);
 		MagacinskaKartica magacinskaKartica = mkService.nadjiMagacinskuKarticuArtikla(magacin, artikal);
-		amk.setMagacinskaKartica(magacinskaKartica);
+		
+		
+		
+		MagacinskaKartica magacinskaKartica2 = mkService.nadjiMagacinskuKarticuArtikla(magacin2, artikal);
+		
+		AnalitikaMagacinskeKartice amk2 = new AnalitikaMagacinskeKartice();
+		amk2.setSmer("U");
+		amk2.setVrstaPrometa("FO");
+		
+		
 		StavkaDokumenta stavkaDokumenta = stavkaDokumentaService.findOne(stavkaId);
 		amk.setStavkaDokumenta(stavkaDokumenta);
+		
+		amk2.setStavkaDokumenta(stavkaDokumenta);
+		magacinskaKartica.setPrometIzKol(magacinskaKartica.getPrometIzKol() + stavkaDokumenta.getKolicina());
+		amk.setMagacinskaKartica(magacinskaKartica);
+		magacinskaKartica2.setPrometUlKol(magacinskaKartica2.getPrometUlKol() + stavkaDokumenta.getKolicina());
+		//cena jos treba u stavci
+		amk2.setMagacinskaKartica(magacinskaKartica2);
+		amkService.save(amk2);
+		
 		AnalitikaMagacinskeKartice amk1 = amkService.save(amk);
         return new ResponseEntity<AnalitikaMagacinskeKartice>(amk1, HttpStatus.OK);
     }

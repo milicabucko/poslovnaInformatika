@@ -37,6 +37,9 @@ public class Cenovnik implements Serializable {
 	@Column(name = "datumVazenjaKraj")
 	private String datumVazenjaKraj;
 	
+	@Column(name = "aktivan")
+	private Boolean aktivan;
+	
 	@OneToMany(mappedBy = "cenovnik", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private Collection<StavkaCenovnika> stavkecenovnika;
@@ -88,6 +91,14 @@ public class Cenovnik implements Serializable {
 
 	public void setDatumVazenjaKraj(String datumVazenjaKraj) {
 		this.datumVazenjaKraj = datumVazenjaKraj;
+	}
+
+	public Boolean getAktivan() {
+		return aktivan;
+	}
+
+	public void setAktivan(Boolean aktivan) {
+		this.aktivan = aktivan;
 	}
 	
 

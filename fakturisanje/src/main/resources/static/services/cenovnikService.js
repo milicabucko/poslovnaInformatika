@@ -12,6 +12,14 @@ app.factory('cenovnikService', function cenovnikService($http){
 		});
 	}
 	
+	cenovnikService.nadjiPoslednjiAktivan = function(companyPib, datum){
+		
+		return $http({
+			method: 'GET',
+			url: 'api/cenovnik/nadjiPoslednjiAktivan/' + companyPib + '/' + datum
+		});
+	}
+	
 	
 	return cenovnikService;
 	

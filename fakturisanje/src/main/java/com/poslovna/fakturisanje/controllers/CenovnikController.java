@@ -18,6 +18,7 @@ import com.poslovna.fakturisanje.models.Company;
 import com.poslovna.fakturisanje.services.CenovnikService;
 import com.poslovna.fakturisanje.services.CompanyService;
 
+
 @RestController
 public class CenovnikController {
 	
@@ -44,9 +45,22 @@ public class CenovnikController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Collection<Cenovnik>> findByCompany(@PathVariable Integer id) {
-		Collection<Cenovnik> sviCenovnici = cenovnikService.findByCompany(id);
+		Company company = companyService.findOne(id);
+		Collection<Cenovnik> sviCenovnici = cenovnikService.findByCompany(company);
         return new ResponseEntity<Collection<Cenovnik>>(sviCenovnici, HttpStatus.OK);
     }
+	
+	@RequestMapping(
+            value    = "/api/cenovnik/nadjiPoslednjiAktivan/{companyPib}/{datum}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Cenovnik> nadjiPoslednjiAktivan(@PathVariable Integer companyPib, @PathVariable String datum) {
+		Company company = companyService.findByPib(companyPib);
+		Cenovnik cenovnik = cenovnikService.nadjiPoslednjiAktivniCenovnik(company, true);
+        return new ResponseEntity<Cenovnik>(cenovnik, HttpStatus.OK);
+    }
+	
 	
 
 }

@@ -39,10 +39,10 @@ app.factory('magacinService', function magacinService($http){
 		});
 	}
 	
-	magacinService.dodajAnalitikuMK = function(artikalId, pib , stavkaId) {
+	magacinService.dodajAnalitikuMK = function(artikalId, pib , pib2, stavkaId) {
 		return $http({
 			method: "POST",
-			url: 'api/amk/addAMK/' + artikalId + '/' + pib + '/' + stavkaId,
+			url: 'api/amk/addAMK/' + artikalId + '/' + pib + '/' + pib2 + '/' + stavkaId,
 			data: {
 				"smer" : "I",
 				"vrstaPrometa" : "FO"

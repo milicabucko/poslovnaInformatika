@@ -1,4 +1,4 @@
-app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService){
+app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', 'cenovnikService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService, cenovnikService){
 	
 	$scope.posaljiFakturu = function() {
 		console.log("posiljalac: " + $scope.selected[0].id + " kupac: " + $scope.bpselected[0].id);
@@ -6,7 +6,7 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 			for(var i = 0; i < $scope.stavke.length; i++) {
 				stavkaDokumentaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla, $scope.stavke[i].kolicina).then(function(response){ 
 					console.log(response.data);
-					magacinService.dodajAnalitikuMK(response.data.artikal.id, $scope.pib, response.data.id).then(function(response){ 
+					magacinService.dodajAnalitikuMK(response.data.artikal.id, $scope.pib, $scope.kpib, response.data.id).then(function(response){ 
 						
 					});
 					
@@ -119,6 +119,20 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 				$scope.nazArtikla = response.data.naziv;
 				$scope.jmArtikla = response.data.jedMere;
 				if ($scope.nazArtikla !== undefined) {
+					
+					//za cenu artikla
+					cenovnikService.nadjiPoslednjiAktivan($scope.pib, new Date()).then(function(response){ 
+						var cenovnik = response.data;
+						for(var i = 0; i < cenovnik.stavkecenovnika.length; i++) {
+							console.log(cenovnik.stavkecenovnika[i]);
+								if ($scope.sifraZaPretragu == cenovnik.stavkecenovnika[i].artikal.sifra) {
+									$scope.cena = cenovnik.stavkecenovnika[i].cena;
+									return;
+								}
+						}
+						
+					});
+					//
 					
 					for(var i = 0; i < $scope.stavke.length; i++) {
 						if ($scope.sifraZaPretragu == $scope.stavke[i].sifra) {
