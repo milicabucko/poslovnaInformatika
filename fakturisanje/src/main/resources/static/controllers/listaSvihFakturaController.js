@@ -5,32 +5,67 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 	
 	
 	$scope.obracunajFakturu = function() {
-		fakturaService.promeniStatus($scope.selected[0].id, "obracunata").then(function(response){ 
-			
-			for(var i = 0; i < $scope.stavke.length; i++) {
-			
-				magacinService.dodajAnalitikuMK($scope.stavke[i].artikal.id, $scope.pib, $scope.kpib, $scope.stavke[i].id).then(function(response){ 
+		
+		if ($scope.selected[0].vrstaDokumenta == "PR") {
+			alert('Obracunavam primku');
+			fakturaService.promeniStatus($scope.selected[0].id, "obracunata").then(function(response){ 
 				
-				});
+				for(var i = 0; i < $scope.stavke.length; i++) {
 			
-			}
+					magacinService.dodajAnalitikuMKPrimka($scope.stavke[i].artikal.id, $scope.kpib, $scope.pib, $scope.stavke[i].id).then(function(response){ 
+				
+					});
 			
-		});
+				}
+			
+			});
+		}
+		else {
+			alert('Obracunavam fakturu');
+			fakturaService.promeniStatus($scope.selected[0].id, "obracunata").then(function(response){ 
+			
+				for(var i = 0; i < $scope.stavke.length; i++) {
+			
+					magacinService.dodajAnalitikuMK($scope.stavke[i].artikal.id, $scope.pib, $scope.kpib, $scope.stavke[i].id).then(function(response){ 
+				
+					});
+			
+				}
+			
+			});
+		}
 	}
 	
 	
 	$scope.stornirajFakturu = function() {
-		fakturaService.promeniStatus($scope.selected[0].id, "stornirana").then(function(response){ 
 		
-			for(var i = 0; i < $scope.stavke.length; i++) {
+		if ($scope.selected[0].vrstaDokumenta == "PR") {
+			alert('Storniram primku');
+			fakturaService.promeniStatus($scope.selected[0].id, "stornirana").then(function(response){ 
 				
-				magacinService.dodajAnalitikuMK($scope.stavke[i].artikal.id, $scope.kpib, $scope.pib, $scope.stavke[i].id).then(function(response){ 
+				for(var i = 0; i < $scope.stavke.length; i++) {
+			
+					magacinService.dodajAnalitikuMKPrimka($scope.stavke[i].artikal.id, $scope.pib, $scope.kpib, $scope.stavke[i].id).then(function(response){ 
 				
-				});
+					});
 			
-			}
+				}
 			
-		});
+			});
+		}
+		else {
+			fakturaService.promeniStatus($scope.selected[0].id, "stornirana").then(function(response){ 
+		
+				for(var i = 0; i < $scope.stavke.length; i++) {
+				
+					magacinService.dodajAnalitikuMK($scope.stavke[i].artikal.id, $scope.kpib, $scope.pib, $scope.stavke[i].id).then(function(response){ 
+				
+					});
+			
+				}
+			
+			});
+		}
 	}
 		
 		

@@ -50,6 +50,17 @@ app.factory('magacinService', function magacinService($http){
 		});
 	}
 	
+	magacinService.dodajAnalitikuMKPrimka = function(artikalId, pib , pib2, stavkaId) {
+		return $http({
+			method: "POST",
+			url: 'api/amk/addAMK/' + artikalId + '/' + pib + '/' + pib2 + '/' + stavkaId,
+			data: {
+				"smer" : "I",
+				"vrstaPrometa" : "PR"
+			}
+		});
+	}
+	
 	
 	return magacinService;
 });

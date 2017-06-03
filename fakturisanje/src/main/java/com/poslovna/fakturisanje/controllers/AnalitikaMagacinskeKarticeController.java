@@ -63,8 +63,13 @@ public class AnalitikaMagacinskeKarticeController {
 		
 		AnalitikaMagacinskeKartice amk2 = new AnalitikaMagacinskeKartice();
 		amk2.setSmer("U");
-		amk2.setVrstaPrometa("FO");
 		
+		if (amk.getVrstaPrometa().equals("PR")){
+			amk2.setVrstaPrometa("PR");
+		}
+		else {
+			amk2.setVrstaPrometa("FO");
+		}
 		
 		StavkaDokumenta stavkaDokumenta = stavkaDokumentaService.findOne(stavkaId);
 		amk.setStavkaDokumenta(stavkaDokumenta);

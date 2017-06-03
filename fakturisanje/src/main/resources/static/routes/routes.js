@@ -16,6 +16,10 @@ app.config(function($routeProvider){
 		templateUrl : "views/faktura.html",
 		controller : 'fakturaController'
 	})
+	.when("/primka",{
+		templateUrl : "views/primka.html",
+		controller : 'primkaController'
+	})
 	.when("/listaSvihFaktura",{
 		templateUrl : "views/listaSvihFaktura.html",
 		controller : 'listaSvihFakturaController'
