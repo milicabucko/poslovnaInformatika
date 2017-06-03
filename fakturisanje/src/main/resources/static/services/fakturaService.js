@@ -15,6 +15,20 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
+	fakturaService.posaljiNarudzbenicu = function(izdId, kupId, brojDokumenta, statusDokumenta, datumDokumenta, datumValute){
+		return $http({
+			method: 'POST',
+			url: 'api/faktura/sacuvajFakturu/' + izdId + '/' + kupId,
+			data: {
+				"brojDokumenta" : brojDokumenta,
+				"statusDokumenta" : statusDokumenta,
+				"datumDokumenta" : datumDokumenta,
+				"datumValute" : datumValute,
+				"vrstaDokumenta" : "NAR"
+			}
+		});
+	}
+	
 	fakturaService.promeniStatus = function(fakturaId, status){
 		return $http({
 			method: 'POST',

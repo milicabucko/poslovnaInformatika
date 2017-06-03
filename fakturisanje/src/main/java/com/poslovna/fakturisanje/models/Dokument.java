@@ -53,7 +53,7 @@ public class Dokument implements Serializable{
 	private Company izdavaocRacuna;
 	
 	@ManyToOne
-	private BusinessPartner kupac;
+	private Company kupac;
 	
 	@OneToMany(mappedBy = "dokument", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
@@ -135,16 +135,6 @@ public class Dokument implements Serializable{
 	}
 
 
-	public BusinessPartner getKupac() {
-		return kupac;
-	}
-
-	
-	public void setKupac(BusinessPartner kupac) {
-		this.kupac = kupac;
-	}
-
-
 	public Collection<StavkaDokumenta> getStavkeDokumenta() {
 		return stavkeDokumenta;
 	}
@@ -162,6 +152,16 @@ public class Dokument implements Serializable{
 
 	public void setVrstaDokumenta(String vrstaDokumenta) {
 		this.vrstaDokumenta = vrstaDokumenta;
+	}
+
+
+	public Company getKupac() {
+		return kupac;
+	}
+
+
+	public void setKupac(Company kupac) {
+		this.kupac = kupac;
 	}
 	
 	

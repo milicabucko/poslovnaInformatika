@@ -1,14 +1,15 @@
 app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', 'cenovnikService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService, cenovnikService){
 	
 	$scope.posaljiFakturu = function() {
-		console.log("posiljalac: " + $scope.selected[0].id + " kupac: " + $scope.bpselected[0].id);
-		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal).then(function(response){ 
+		console.log("posiljalac: " + $scope.selected[0].id + " kupac: " + $scope.bpselected[0].company2.id);
+		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal).then(function(response){ 
 			for(var i = 0; i < $scope.stavke.length; i++) {
-				stavkaDokumentaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla, $scope.stavke[i].kolicina).then(function(response){ 
+				console.log($scope.stavke[i].cenaPoJed);
+				stavkaDokumentaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla, $scope.stavke[i].kolicina, $scope.stavke[i].cenaPoJed).then(function(response){ 
 					console.log(response.data);
-					magacinService.dodajAnalitikuMK(response.data.artikal.id, $scope.pib, $scope.kpib, response.data.id).then(function(response){ 
+					/*magacinService.dodajAnalitikuMK(response.data.artikal.id, $scope.pib, $scope.kpib, response.data.id).then(function(response){ 
 						
-					});
+					});*/
 					
 				});
 			}
@@ -80,7 +81,8 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 					kolicina : $scope.kolicina, 
 					sifra: $scope.sifraZaPretragu,
 					jedMere: $scope.jmArtikla,
-					idArtikla : response.data.id
+					idArtikla : response.data.id,
+					cenaPoJed : $scope.cena
 				};
 			$scope.stavke.push(stavkaZaDodavanje);
 			$scope.stavkeSize = $scope.stavke.length;

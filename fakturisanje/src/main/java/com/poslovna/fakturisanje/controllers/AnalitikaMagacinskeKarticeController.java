@@ -71,8 +71,10 @@ public class AnalitikaMagacinskeKarticeController {
 		
 		amk2.setStavkaDokumenta(stavkaDokumenta);
 		magacinskaKartica.setPrometIzKol(magacinskaKartica.getPrometIzKol() + stavkaDokumenta.getKolicina());
+		magacinskaKartica.setPrometIzVred(magacinskaKartica.getPrometIzVred() + stavkaDokumenta.getKolicina() * stavkaDokumenta.getCena());
 		amk.setMagacinskaKartica(magacinskaKartica);
 		magacinskaKartica2.setPrometUlKol(magacinskaKartica2.getPrometUlKol() + stavkaDokumenta.getKolicina());
+		magacinskaKartica2.setPrometUlVred(magacinskaKartica2.getPrometUlVred() + stavkaDokumenta.getKolicina() * stavkaDokumenta.getCena());
 		//cena jos treba u stavci
 		amk2.setMagacinskaKartica(magacinskaKartica2);
 		amkService.save(amk2);

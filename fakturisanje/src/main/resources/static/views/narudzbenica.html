@@ -1,3 +1,16 @@
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Firme</h2>
+	
+	<md-button class="md-icon-button" aria-label="Pretrazi">
+        <ng-md-icon icon="search" style="fill: white" size="24"></ng-md-icon> 
+    </md-button>
+    
+    <input ng-model="imeZaPretragu" ng-change="pretraziPoImenu()">
+    
+    
+</div>
+</md-toolbar>
 <md-content>
 <md-table-container>
   <table md-table md-row-select  ng-model="selected">
@@ -15,7 +28,7 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="item" md-on-select="onSelectEvent()" md-select-id="name"  md-auto-select ng-repeat="item in items | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
+      <tr md-row md-select="item" ng-click="onSelectEvent()" md-select-id="name"  md-auto-select ng-repeat="item in items | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
         <td md-cell>{{item.name}}</td>
         <td md-cell>{{item.pib}}</td>
         <td md-cell>{{item.address}}</td>
@@ -29,12 +42,13 @@
     </tbody>
   </table>  
 </md-table-container>	
-<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{itemsSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
 
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Poslovni partneri</h2>
+    
 </div>
 </md-toolbar>
 
@@ -53,18 +67,25 @@
     </thead>
     <tbody md-body>
       <tr md-row md-select="bpitem" md-on-select="onSelectBPEvent()" md-select-id="name" md-auto-select ng-repeat="bpitem in businessPartners | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit">
-        <td md-cell>{{bpitem.name}}</td>
-        <td md-cell>{{bpitem.pib}}</td>
-        <td md-cell>{{bpitem.address}}</td>
-        <td md-cell>{{bpitem.cidnumber}}</td>
-      	<td md-cell>{{bpitem.type}}</td>
-      	<td md-cell>{{bpitem.account}}</td>
+        <td md-cell>{{bpitem.company2.name}}</td>
+        <td md-cell>{{bpitem.company2.pib}}</td>
+        <td md-cell>{{bpitem.company2.address}}</td>
+        <td md-cell>{{bpitem.company2.cidnumber}}</td>
+      	<td md-cell>{{bpitem.company2.type}}</td>
+      	<td md-cell>{{bpitem.company2.account}}</td>
       </tr>
     </tbody>
   </table>  
 </md-table-container>	
-<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{businessPartnersSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Zaglavlje dokumenta</h2>
+    
+</div>
+</md-toolbar>
 
 <div layout="row">
 
@@ -72,46 +93,47 @@
 
 		<md-input-container>
 			<label>Broj dokumenta</label>
-    		<input ng-model="brDok">
+    		<input ng-model="brDok" ng-readonly="true">
+		</md-input-container>
+		
+		<md-input-container>
+			<label>Status dokumenta</label>
+    		<input ng-model="statusDok" ng-readonly="true">
 		</md-input-container>
 	
 		<md-input-container>
 			<label>Datum dokumenta</label>
-    		<md-datepicker ng-model="datumDok" md-placeholder="Enter date"></md-datepicker>
+    		<md-datepicker ng-model="datumDok" md-placeholder="Enter date" ng-change="promenaDatumaDokumenta()"></md-datepicker>
 		</md-input-container>
 		
 		<md-input-container>
 			<label>Datum valute</label>
     		<md-datepicker ng-model="datumVal" md-placeholder="Enter date"></md-datepicker>
 		</md-input-container>
-		
-		<md-input-container>
-			<label>Kontakt osoba</label>
-    		<input ng-model="kontakt">
-		</md-input-container>
+	
 		
 	</div>
 
 	<div layout="column" flex=25 layout-margin >
 
 		<md-input-container>
-			<label>Naziv izdavaoca racuna</label>
+			<label>Naziv kupca</label>
     		<input ng-model="naziv" ng-readonly="true">
 		</md-input-container>
 
 		<md-input-container>
-			<label>Adresa izdavaoca racuna</label>
+			<label>Adresa kupca</label>
     		<input ng-model="adresa" ng-readonly="true">
 		</md-input-container>
 	
 		<div layout="row">
 			<md-input-container>
-				<label>PIB izdavaoca racuna</label>
+				<label>PIB kupca</label>
     			<input ng-model="pib" ng-pattern="/^[0-9]{10}$/" ng-readonly="true">
 			</md-input-container>
 	
 			<md-input-container>
-				<label>Maticni broj izdavaoca racuna</label>
+				<label>Maticni kupca</label>
     			<input ng-model="mbr" ng-pattern="/^[0-9]{8}$/" ng-readonly="true">
 			</md-input-container>
 		</div>
@@ -127,33 +149,132 @@
 	<div layout="column" flex=25 layout-margin>
 
 		<md-input-container>
-			<label>Naziv kupca</label>
-    		<input ng-model="knaziv" ng-readonly="true">
+			<label>Naziv dobavljaca</label>
+    		<input ng-model="dnaziv" ng-readonly="true">
 		</md-input-container>
 
 		<md-input-container>
-			<label>Adresa kupca</label>
-    		<input ng-model="kadresa" ng-readonly="true">
+			<label>Adresa dobavljaca</label>
+    		<input ng-model="dadresa" ng-readonly="true">
 		</md-input-container>
 	
 		<div layout="row">
 			<md-input-container>
-				<label>PIB kupca</label>
-    			<input ng-model="kpib" ng-pattern="/^[0-9]{10}$/" ng-readonly="true">
+				<label>PIB dobavljaca</label>
+    			<input ng-model="dpib" ng-pattern="/^[0-9]{10}$/" ng-readonly="true">
 			</md-input-container>
 	
 			<md-input-container>
-				<label>Maticni broj kupca</label>
-    			<input ng-model="kmbr" ng-pattern="/^[0-9]{8}$/" ng-readonly="true">
+				<label>Maticni broj dobavljaca</label>
+    			<input ng-model="dmbr" ng-pattern="/^[0-9]{8}$/" ng-readonly="true">
 			</md-input-container>
 		</div>
 	
 		<md-input-container>
 			<label>Tekuci racun</label>
-    		<input ng-model="kracun" ng-readonly="true">
+    		<input ng-model="dracun" ng-readonly="true">
 		</md-input-container>
 		
 	</div>
-	
-
 </div>
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Dodavanje nove stavke</h2>    
+    
+	</div>
+</md-toolbar>
+
+<div layout="row">
+			<md-input-container>
+				<label>Sifra artikla</label>
+    			<input ng-model="sifraZaPretragu" ng-change="pretraziPoSifriArtikla()">
+			</md-input-container>
+	
+			<md-input-container>
+				<label>Kolicina</label>
+    			<input ng-model="kolicina" type="number" ng-change="unesiKolicinu()">
+			</md-input-container>
+				
+			<md-input-container>
+				<label>Naziv artikla</label>
+    			<input ng-model="nazArtikla" ng-readonly="true">
+			</md-input-container>
+
+			<md-input-container>
+				<label>Cena</label>
+    			<input ng-model="cena" type="number" ng-readonly="true">
+			</md-input-container>
+
+			<md-input-container>
+				<label>Jedinica mere</label>
+    			<input ng-model="jmArtikla" ng-readonly="true">
+			</md-input-container>
+			
+			<div layout="column">
+				<md-button class="md-raised md-primary" ng-show="omogucenoDodavanje" ng-click="dodajStavku()">Dodaj</md-button>
+			</div>
+			<div layout="column">
+				<md-button class="md-raised md-primary" ng-show="omogucenaIzmena" ng-click="izmeniStavku()">Izmeni</md-button>
+			</div>
+			<div layout="column">
+				<md-button class="md-raised md-warn" ng-show="omogucenoBrisanje" ng-click="obrisiStavku()">Obrisi</md-button>
+			</div>
+			
+</div>
+
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Stavke dokumenta</h2>
+    
+	</div>
+</md-toolbar>
+<md-content>
+<md-table-container>
+  <table md-table md-row-select multiple ng-model="selektovaneStavke">
+    <thead md-head md-order="myOrder" >
+      <tr md-row>
+        <th md-column md-numeric><span>Red.br.</span></th>
+        <th md-column md-numeric md-order-by="sifra"><span>Sifra</span></th>
+        <th md-column>Naziv</th>
+        <th md-column>Jedinica mere</th>
+        <th md-column md-numeric>Kolicina</th>
+        <th md-column md-numeric>Cena po jedinici</th>
+        <th md-column md-numeric>Rabat (%)</th>
+        <th md-column md-numeric>Poreska osnovica</th>
+        <th md-column md-numeric>Stopa PDV</th>
+        <th md-column md-numeric>Iznos PDV</th>
+        <th md-column md-numeric>Ukupna naknada</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="stavka" md-select-id="naziv" md-auto-select ng-repeat="stavka in stavke | orderBy: myOrder | limitTo: queryStavke.limit: (queryStavke.page - 1) * queryStavke.limit">
+        <td md-cell>{{$index+1}}</td>
+        <td md-cell>{{stavka.sifra}}</td>
+        <td md-cell>{{stavka.naziv}}</td>
+        <td md-cell>{{stavka.jedMere}}</td>
+        <td md-cell>{{stavka.kolicina}}</td>
+        <td md-cell>{{stavka.cenaPoJed}}</td>
+        <td md-cell>{{stavka.rabat}}</td>
+        <td md-cell>{{stavka.porOsnovica}}</td>
+      	<td md-cell>{{stavka.stopaPDV}}</td>
+      	<td md-cell>{{stavka.iznosPDV}}</td>
+      	<td md-cell>{{stavka.jedMere*stavka.kolicina}}</td>      	
+      </tr>
+    </tbody>
+  </table>  
+</md-table-container>	
+<md-table-pagination md-limit="queryStavke.limit" md-limit-options="[5, 10, 15]" md-page="queryStavke.page" md-total="{{stavkeSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks" md-on-paginate="logPagination"></md-table-pagination>
+</md-content>
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Zakljucak</h2>
+	
+	<md-button class="md-warn" aria-label="Posalji" ng-click="posaljiFakturu()">
+        Posalji
+    </md-button>
+    
+	</div>
+</md-toolbar>

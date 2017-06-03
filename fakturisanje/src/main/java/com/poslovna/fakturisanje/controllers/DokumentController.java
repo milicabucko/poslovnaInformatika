@@ -49,7 +49,7 @@ public class DokumentController {
     )
     public ResponseEntity<Dokument> sacuvajFakturu(@RequestBody Dokument faktura, @PathVariable Integer izdId, @PathVariable Integer kupId) {
 		Company izdavaoc = companyService.findOne(izdId);
-		BusinessPartner kupac = businessPartnerService.findOne(kupId);
+		Company kupac = companyService.findOne(kupId);
 		faktura.setIzdavaocRacuna(izdavaoc);
 		faktura.setKupac(kupac);
 		Dokument fakturaa = fakturaService.save(faktura);

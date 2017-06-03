@@ -1,6 +1,6 @@
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
-	<h2 flex md-truncate>Fakture</h2>
+	<h2 flex md-truncate>Dokument</h2>
 	
 	<md-button class="md-icon-button" aria-label="Pretrazi">
         <ng-md-icon icon="search" style="fill: white" size="24"></ng-md-icon> 
@@ -21,6 +21,7 @@
         <th md-column>Datum</th>
         <th md-column>Datum valute</th>
         <th md-column>Datum knjizenja</th>
+        <th md-column>Vrsta dokumenta</th>
         <th md-column>Izdavaoc</th>
         <th md-column>Kupac</th>
       </tr>
@@ -32,6 +33,7 @@
         <td md-cell>{{item.datumDokumenta | date:'dd/MM/yyyy'}}</td>
         <td md-cell>{{item.datumValute | date:'dd/MM/yyyy'}}</td>
         <td md-cell>{{item.datumKnjizenja | date:'dd/MM/yyyy'}}</td>
+      	<td md-cell>{{item.vrstaDokumenta}}</td>
         <td md-cell>{{item.izdavaocRacuna.name}}</td>
       	<td md-cell>{{item.kupac.name}}</td>     	
       </tr>
@@ -191,11 +193,11 @@
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Zakljucak</h2>
 	
-	<md-button class="md-warn" aria-label="Posalji" ng-click="obracunajFakturu()">
+	<md-button class="md-warn" aria-label="Posalji" ng-click="obracunajFakturu()" ng-show="showObracunaj">
         Obracunaj
     </md-button>
     
-    <md-button class="md-warn" aria-label="Posalji" ng-click="stornirajFakturu()">
+    <md-button class="md-warn" aria-label="Posalji" ng-click="stornirajFakturu()" ng-show="showStorniraj">
         Storniraj
     </md-button>
     

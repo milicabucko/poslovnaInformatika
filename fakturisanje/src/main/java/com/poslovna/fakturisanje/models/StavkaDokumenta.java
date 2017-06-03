@@ -30,8 +30,12 @@ public class StavkaDokumenta implements Serializable{
 	@Column(name = "kolicina")
 	private Integer kolicina;
 	
+	@Column(name = "cena")
+	private Float cena;
+	
 	@ManyToOne
 	private Dokument dokument;
+	
 	
 	
 	public StavkaDokumenta() {
@@ -69,6 +73,14 @@ public class StavkaDokumenta implements Serializable{
 
 	public void setKolicina(Integer kolicina) {
 		this.kolicina = kolicina;
+	}
+
+	public Float getCena() {
+		return cena;
+	}
+
+	public void setCena(Float cena) {
+		this.cena = cena;
 	}
 	
 	

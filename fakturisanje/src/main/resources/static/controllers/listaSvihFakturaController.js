@@ -1,7 +1,19 @@
-app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService){
+app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService){
+	
+	$scope.showObracunaj = false;
+	$scope.showStorniraj = false;
+	
 	
 	$scope.obracunajFakturu = function() {
 		fakturaService.promeniStatus($scope.selected[0].id, "obracunata").then(function(response){ 
+			
+			for(var i = 0; i < $scope.stavke.length; i++) {
+			
+				magacinService.dodajAnalitikuMK($scope.stavke[i].artikal.id, $scope.pib, $scope.kpib, $scope.stavke[i].id).then(function(response){ 
+				
+				});
+			
+			}
 			
 		});
 	}
@@ -10,13 +22,22 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 	$scope.stornirajFakturu = function() {
 		fakturaService.promeniStatus($scope.selected[0].id, "stornirana").then(function(response){ 
 		
+			for(var i = 0; i < $scope.stavke.length; i++) {
+				
+				magacinService.dodajAnalitikuMK($scope.stavke[i].artikal.id, $scope.kpib, $scope.pib, $scope.stavke[i].id).then(function(response){ 
+				
+				});
+			
+			}
+			
 		});
 	}
 		
 		
 	$scope.statusDok = "";
-	$scope.datumDok = {};
-	$scope.datumVal = {};
+	$scope.datumDok = null;
+	$scope.datumVal = null;
+	$scope.datumKnj = null;
 	$scope.brDok = "";
 	
 	
@@ -49,6 +70,18 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 	$scope.onSelectEvent = function() {
 		if ($scope.selected[0] === undefined) {
 			
+			$scope.stavke = [];
+			$scope.stavkeSize = 0;
+			
+			$scope.brDok = "";
+			$scope.statusDok = "";
+			$scope.datumDok = null;
+			$scope.datumVal = null;
+			$scope.datumKnj = null;
+			
+			$scope.showObracunaj = false;
+			$scope.showStorniraj = false;
+			
 			$scope.naziv = ""; 
 			$scope.adresa = ""; 
 			$scope.pib = ""; 
@@ -62,6 +95,18 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 			$scope.kracun = ""; 
 		}
 		else {
+			
+			if ($scope.selected[0].statusDokumenta == "poslata") {
+				$scope.showObracunaj = true;
+				$scope.showStorniraj = false;
+			}else if ($scope.selected[0].statusDokumenta == "obracunata") {
+				$scope.showObracunaj = false;
+				$scope.showStorniraj = true;
+			}else {
+				$scope.showObracunaj = false;
+				$scope.showStorniraj = false;
+			}
+			
 			$scope.brDok = $scope.selected[0].brojDokumenta;
 			$scope.statusDok = $scope.selected[0].statusDokumenta;
 			$scope.datumDok = $scope.selected[0].datumDokumenta;
