@@ -49,12 +49,12 @@
 
 <md-input-container>
 			<label>Datum pocetka vazenja cenovnika</label>
-    		<md-datepicker ng-model="datumPocetakVazenja" md-placeholder="Enter date"></md-datepicker>
+    		<md-datepicker ng-model="datumPocetakVazenja" md-placeholder="Enter date" ng-change="dpChanged()"></md-datepicker>
 		</md-input-container>
 		
 		<md-input-container>
 			<label>Datum isteka vazenja cenovnika</label>
-    		<md-datepicker ng-model="datumKrajVazenja" md-placeholder="Enter date"></md-datepicker>
+    		<md-datepicker ng-model="datumKrajVazenja" md-placeholder="Enter date" ng-change="dkChanged()"></md-datepicker>
 </md-input-container>
 
 

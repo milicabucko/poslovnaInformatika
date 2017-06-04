@@ -32,6 +32,10 @@ public class BusinessPartnerService {
 		return businessPartnerRepository.save(bp);
 	}
 	
+	public BusinessPartner findByCompany1AndCompany2(Company company1, Company company2){
+		return businessPartnerRepository.findByCompany1AndCompany2(company1, company2);
+	}
+	
 	
 
 }

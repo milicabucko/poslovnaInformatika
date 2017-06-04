@@ -12,6 +12,8 @@ app.controller('listaSvihPreduzecaPPController',['$scope', '$location', '$mdDial
 
 	});
 	
+	
+	
 	$scope.options = {
 			//autoSelect: true,
 			boundaryLinks: true,
@@ -39,11 +41,20 @@ app.controller('listaSvihPreduzecaPPController',['$scope', '$location', '$mdDial
 		var email = $scope.email;
 		var tekuciRacun = $scope.account;
 		
-		alert(businessPartnerService.aktivnaFirma + "id firme")
-		alert($scope.selected[0].id + "id firme2")
+		
+		
 		businessPartnerService.kreirajPartnera(businessPartnerService.aktivnaFirma,$scope.selected[0].id).then(function(response){
 			
-			alert("kreiraj partnera")
+			if(response.data.company1 == null){
+					    $mdDialog.show(
+					      $mdDialog.alert()
+					        .clickOutsideToClose(true)
+					        .title('Greska!')
+					        .textContent('Partnerstvo vec postoji!')
+					        .ok('Ok!')
+					    );
+			}
+			
 		});
 		
 	}

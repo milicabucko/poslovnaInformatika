@@ -1,5 +1,66 @@
 app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'companyService', 'artikalService', 'stavkaCenovnikaService','cenovnikService', function($scope, $location, $mdDialog, companyService, artikalService, stavkaCenovnikaService, cenovnikService){
 
+	$scope.dpChanged = function() {
+		var danasnjiDatum = new Date();
+		
+		//kad nemamo nijedan cenovnik
+		if ($scope.selected[0].cenovnici.length == 0){
+			if ($scope.datumPocetakVazenja < danasnjiDatum) {
+				$scope.datumPocetakVazenja = null;
+				$mdDialog.show(
+					      $mdDialog.alert()
+					        .clickOutsideToClose(true)
+					        .title('Greska!')
+					        .textContent('Datum ne moze biti manji od danasnjeg!')
+					        .ok('Ok!')
+				);
+			}else if ($scope.datumKrajVazenja < $scope.datumPocetakVazenja ) {
+						$scope.datumPocetakVazenja = null;
+							$mdDialog.show(
+									$mdDialog.alert()
+									.clickOutsideToClose(true)
+									.title('Greska!')
+									.textContent('Datum ne moze biti veci od krajnjeg!')
+									.ok('Ok!')
+							);
+			}
+		}
+	}
+	$scope.dkChanged = function() {
+		var danasnjiDatum = new Date();
+		
+		//kad nemamo nijedan cenovnik
+		if ($scope.selected[0].cenovnici.length == 0){
+			if ($scope.datumKrajVazenja < danasnjiDatum) {
+				$scope.datumKrajVazenja = null;
+				$mdDialog.show(
+					      $mdDialog.alert()
+					        .clickOutsideToClose(true)
+					        .title('Greska!')
+					        .textContent('Datum ne moze biti manji od danasnjeg!')
+					        .ok('Ok!')
+				);
+			}
+			else if ($scope.datumKrajVazenja < $scope.datumPocetakVazenja) {
+				$scope.datumKrajVazenja = null;
+				$mdDialog.show(
+					      $mdDialog.alert()
+					        .clickOutsideToClose(true)
+					        .title('Greska!')
+					        .textContent('Datum ne moze biti manji od pocetnog!')
+					        .ok('Ok!')
+				);
+			}
+		}
+			
+			
+	}
+		
+	
+	
+	
+
+	
 	companyService.getAllCompanies().then(function(response){
 		 
 		 $scope.items = response.data;

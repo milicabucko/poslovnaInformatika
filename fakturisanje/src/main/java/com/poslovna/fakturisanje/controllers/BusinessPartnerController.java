@@ -46,6 +46,16 @@ public class BusinessPartnerController {
 		bp.setCompany1(company1);
 		Company company2 = companyService.findOne(company2Id);
 		bp.setCompany2(company2);
+		
+		
+		if(company1Id == company2Id){
+			return new ResponseEntity<BusinessPartner>(new BusinessPartner(), HttpStatus.OK);
+		}
+		else if (businessPartnerService.findByCompany1AndCompany2(company1, company2)!= null){
+			System.out.println("usao je ovde");
+			return new ResponseEntity<BusinessPartner>(new BusinessPartner(), HttpStatus.OK);
+		}
+		
 		BusinessPartner kreiranjePartnera = businessPartnerService.save(bp);
 		
 		BusinessPartner bp2 = new BusinessPartner();

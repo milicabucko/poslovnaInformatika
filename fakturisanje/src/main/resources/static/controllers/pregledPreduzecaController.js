@@ -1,13 +1,11 @@
 app.controller('pregledPreduzecaController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService){
 	
 	$scope.onSelectEvent = function() {
-		console.log('selektovano: ' + $scope.selected[0].id);
 		if ($scope.selected[0] === undefined) {
 			$scope.businessPartners = [];
 		}
 		else {
 			businessPartnerService.getAllBusinessPartners($scope.selected[0].id).then(function(response){
-				console.log(response.data[0].company2);
 				$scope.businessPartners = response.data;
 					
 			});
