@@ -72,6 +72,7 @@ public class GrupaArtikala implements Serializable{
 		return company;
 	}
 
+	@JsonIgnore
 	public void setCompany(Company company) {
 		this.company = company;
 	}

@@ -17,6 +17,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "artikal")
 public class Artikal implements Serializable {
@@ -40,17 +42,12 @@ public class Artikal implements Serializable {
 	@Column(name = "vrsta")
 	private String vrsta;
 	
-	@OneToMany(mappedBy = "artikal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Collection<StavkaCenovnika> stavkecenovnika;
-	
 	@ManyToOne
 	private JedinicaMere jedinicaMere;
 	
 	@ManyToOne
 	private GrupaArtikala grupaArtikala;
 	
-	@OneToMany(mappedBy="artikal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Collection<StavkaDokumenta> stavkedokumenta;
 	
 	public Artikal() {
 		
@@ -95,19 +92,12 @@ public class Artikal implements Serializable {
 	public void setVrsta(String vrsta) {
 		this.vrsta = vrsta;
 	}
-
-	public Collection<StavkaCenovnika> getStavkecenovnika() {
-		return stavkecenovnika;
-	}
-
-	public void setStavkecenovnika(Collection<StavkaCenovnika> stavkecenovnika) {
-		this.stavkecenovnika = stavkecenovnika;
-	}
-
+	
 	public JedinicaMere getJedinicaMere() {
 		return jedinicaMere;
 	}
-
+	
+	@JsonIgnore
 	public void setJedinicaMere(JedinicaMere jedinicaMere) {
 		this.jedinicaMere = jedinicaMere;
 	}
@@ -116,18 +106,10 @@ public class Artikal implements Serializable {
 		return grupaArtikala;
 	}
 
+	@JsonIgnore
 	public void setGrupaArtikala(GrupaArtikala grupaArtikala) {
 		this.grupaArtikala = grupaArtikala;
 	}
-
-	public Collection<StavkaDokumenta> getStavkedokumenta() {
-		return stavkedokumenta;
-	}
-
-	public void setStavkedokumenta(Collection<StavkaDokumenta> stavkedokumenta) {
-		this.stavkedokumenta = stavkedokumenta;
-	}
-
 	
 	
 }
