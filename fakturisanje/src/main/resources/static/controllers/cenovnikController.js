@@ -24,6 +24,17 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 									.ok('Ok!')
 							);
 			}
+		}else {
+			if ($scope.datumKrajVazenja < $scope.datumPocetakVazenja ) {
+				$scope.datumPocetakVazenja = null;
+					$mdDialog.show(
+							$mdDialog.alert()
+							.clickOutsideToClose(true)
+							.title('Greska!')
+							.textContent('Datum ne moze biti veci od krajnjeg!')
+							.ok('Ok!')
+					);
+			}
 		}
 	}
 	$scope.dkChanged = function() {
@@ -51,16 +62,23 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 					        .ok('Ok!')
 				);
 			}
+		}else{
+			if ($scope.datumKrajVazenja < $scope.datumPocetakVazenja) {
+				$scope.datumKrajVazenja = null;
+				$mdDialog.show(
+					      $mdDialog.alert()
+					        .clickOutsideToClose(true)
+					        .title('Greska!')
+					        .textContent('Datum ne moze biti manji od pocetnog!')
+					        .ok('Ok!')
+				);
+			}
+			
 		}
 			
 			
 	}
 		
-	
-	
-	
-
-	
 	companyService.getAllCompanies().then(function(response){
 		 
 		 $scope.items = response.data;
@@ -199,9 +217,22 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 			
 			cenovnikService.kreirajCenovnik($scope.selected[0].id,$scope.datumPocetakVazenja,$scope.datumKrajVazenja).then(function(response){
 
+				console.log(response.data);
+				if(response.data.id == null){
+					$mdDialog.show(
+						      $mdDialog.alert()
+						        .clickOutsideToClose(true)
+						        .title('Greska!')
+						        .textContent('Cenovnik sa tim datumom vec postoji!')
+						        .ok('Ok!')
+					);
+				}else{
+				
 				for(var i = 0; i < $scope.stavke.length; i++) {
 					stavkaCenovnikaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla, $scope.stavke[i].cena).then(function(response){ 
 					});
+				}
+				
 				}
 			});
 			

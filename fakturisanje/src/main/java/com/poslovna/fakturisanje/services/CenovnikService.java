@@ -36,4 +36,16 @@ public class CenovnikService {
 		return cenovnikRepository.findByCompanyAndAktivan(company, aktivan);
 	}
 	
+	public Collection<Cenovnik> findByCompanyAndDatumVazenjaPocetakBetween(Company company, String datumPocetakVazenja, String datumKrajVazenja){
+		
+		return cenovnikRepository.findByCompanyAndDatumVazenjaPocetakBetween(company, datumPocetakVazenja, datumKrajVazenja);
+	}
+	
+	public Collection<Cenovnik> findByCompanyAndDatumVazenjaKrajBetween(Company company, String datumPocetakVazenja, String datumKrajVazenja){
+		
+		return cenovnikRepository.findByCompanyAndDatumVazenjaKrajBetween(company, datumPocetakVazenja, datumKrajVazenja);
+	}
+
+	
+	
 }

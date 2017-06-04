@@ -33,8 +33,17 @@ public class CenovnikController {
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Cenovnik> dodajCenovnik(@RequestBody Cenovnik cenovnik, @PathVariable Integer idFirma) {
-		Company idCompany = companyService.findOne(idFirma);
-		cenovnik.setCompany(idCompany);
+		Company company = companyService.findOne(idFirma);
+		cenovnik.setCompany(company);
+		
+		if(cenovnikService.findByCompanyAndDatumVazenjaPocetakBetween(company, cenovnik.getDatumVazenjaPocetak(), cenovnik.getDatumVazenjaKraj()).size() != 0){
+			return new ResponseEntity<Cenovnik>(new Cenovnik(), HttpStatus.OK);
+			
+		}else if(cenovnikService.findByCompanyAndDatumVazenjaKrajBetween(company, cenovnik.getDatumVazenjaPocetak(), cenovnik.getDatumVazenjaKraj()).size() != 0){
+			return new ResponseEntity<Cenovnik>(new Cenovnik(), HttpStatus.OK);
+		}
+		
+		
 		Cenovnik dodavanjeCenovnika= cenovnikService.add(cenovnik);
         return new ResponseEntity<Cenovnik>(dodavanjeCenovnika, HttpStatus.OK);
     }
