@@ -61,7 +61,8 @@ public class Company implements Serializable{
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Collection<Cenovnik> cenovnici;
 	
-	
+	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Collection<GrupaArtikala> grupeArtikala;
 
 	public Company() {
 		
@@ -154,6 +155,14 @@ public class Company implements Serializable{
 
 	public void setCenovnici(Collection<Cenovnik> cenovnici) {
 		this.cenovnici = cenovnici;
+	}
+
+	public Collection<GrupaArtikala> getGrupeArtikala() {
+		return grupeArtikala;
+	}
+
+	public void setGrupeArtikala(Collection<GrupaArtikala> grupeArtikala) {
+		this.grupeArtikala = grupeArtikala;
 	}
 	
 

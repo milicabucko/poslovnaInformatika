@@ -65,4 +65,11 @@ app.controller('indexController',['$scope', '$location', '$window','$mdDialog', 
 		$location.path("/pregledMagacina");
 	}
 	
+	$scope.goToStopa = function() {
+		$location.path("/pregledStopa");
+	}
+	$scope.goToVrsta = function() {
+		$location.path("/pregledVrstiPDVa");
+	}
+	
 }]);

@@ -1,0 +1,36 @@
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Dodaj stopu PDV-a</h2>
+</div>
+</md-toolbar>
+
+<md-input-container class="md-block">
+        		<label>Datum: </label>
+        		<md-datepicker ng-model="stopa.datumStope" md-placeholder="Enter date"></md-datepicker>
+        	</md-input-container>	
+        	<md-input-container class="md-block">
+        		<label>Procenat:</label>
+        		<input md-maxlength="2" required name="procenatPDVa" ng-model="stopa.procenatPDVa" />
+        	</md-input-container>	
+        	<md-input-container>
+          <label>Vrsta PDV-a</label>
+          <md-select ng-model="stopa.vrstaPDVa">
+            <md-option ng-repeat="vrsta in vrste" ng-value="vrsta">
+              {{vrsta.nazivVrstePDVa}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+    	</md-dialog-content>
+    	
+    	
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Zakljucak</h2>
+	
+	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajStopuPDVa()">
+        Kreiraj
+    </md-button>
+    
+	</div>
+</md-toolbar>
+

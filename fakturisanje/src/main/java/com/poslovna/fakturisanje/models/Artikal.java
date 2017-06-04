@@ -34,20 +34,23 @@ public class Artikal implements Serializable {
 	@Column(name = "naziv")
 	private String naziv;
 	
-	@Column(name = "jedMere")
-	private String jedMere;
-	
 	@Column(name = "opis")
 	private String opis;
 	
 	@Column(name = "vrsta")
 	private String vrsta;
 	
-	
-	/*@OneToMany(mappedBy = "artikal", cascade = CascadeType.ALL)
-	@LazyCollection(LazyCollectionOption.FALSE)
+	@OneToMany(mappedBy = "artikal", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Collection<StavkaCenovnika> stavkecenovnika;
-	*/
+	
+	@ManyToOne
+	private JedinicaMere jedinicaMere;
+	
+	@ManyToOne
+	private GrupaArtikala grupaArtikala;
+	
+	@OneToMany(mappedBy="artikal", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private Collection<StavkaDokumenta> stavkedokumenta;
 	
 	public Artikal() {
 		
@@ -77,14 +80,6 @@ public class Artikal implements Serializable {
 		this.naziv = naziv;
 	}
 
-	public String getJedMere() {
-		return jedMere;
-	}
-
-	public void setJedMere(String jedMere) {
-		this.jedMere = jedMere;
-	}
-
 	public String getOpis() {
 		return opis;
 	}
@@ -101,14 +96,38 @@ public class Artikal implements Serializable {
 		this.vrsta = vrsta;
 	}
 
-/*	public Collection<StavkaCenovnika> getStavkecenovnika() {
+	public Collection<StavkaCenovnika> getStavkecenovnika() {
 		return stavkecenovnika;
 	}
 
 	public void setStavkecenovnika(Collection<StavkaCenovnika> stavkecenovnika) {
 		this.stavkecenovnika = stavkecenovnika;
 	}
-	*/
+
+	public JedinicaMere getJedinicaMere() {
+		return jedinicaMere;
+	}
+
+	public void setJedinicaMere(JedinicaMere jedinicaMere) {
+		this.jedinicaMere = jedinicaMere;
+	}
+
+	public GrupaArtikala getGrupaArtikala() {
+		return grupaArtikala;
+	}
+
+	public void setGrupaArtikala(GrupaArtikala grupaArtikala) {
+		this.grupaArtikala = grupaArtikala;
+	}
+
+	public Collection<StavkaDokumenta> getStavkedokumenta() {
+		return stavkedokumenta;
+	}
+
+	public void setStavkedokumenta(Collection<StavkaDokumenta> stavkedokumenta) {
+		this.stavkedokumenta = stavkedokumenta;
+	}
+
 	
 	
 }

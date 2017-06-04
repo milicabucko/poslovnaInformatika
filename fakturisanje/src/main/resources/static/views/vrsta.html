@@ -1,0 +1,25 @@
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Dodaj vrstu PDV-a</h2>
+</div>
+</md-toolbar>
+
+
+        	<md-input-container class="md-block">
+        		<label>Naziv vrste:</label>
+        		<input  type = "text" required name="nazivvrstePDVa" ng-model="vrsta.nazivVrstePDVa" />
+        	</md-input-container>
+    	</md-dialog-content>
+    	
+    	
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Zakljucak</h2>
+	
+	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajVrstuPDVa()">
+        Kreiraj
+    </md-button>
+    
+	</div>
+</md-toolbar>
+

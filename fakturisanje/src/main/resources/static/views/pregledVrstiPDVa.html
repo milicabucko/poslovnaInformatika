@@ -1,0 +1,80 @@
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Firme</h2>
+	
+	<md-button class="md-icon-button" aria-label="Pretrazi">
+        <ng-md-icon icon="search" style="fill: white" size="24"></ng-md-icon> 
+    </md-button>
+    
+    <input ng-model="imeZaPretragu" ng-change="pretraziPoImenu()">
+    
+    
+</div>
+</md-toolbar>
+
+<md-content>
+
+<md-table-container>
+  <table md-table md-row-select  ng-model="selected">
+    <thead md-head md-order="myOrder">
+      <tr md-row>
+        <th md-column>Naziv</th>
+        <th md-column md-numeric>PIB</th>
+        <th md-column>Adresa</th>
+        <th md-column>Telefon</th>
+        <th md-column md-numeric>Maticni broj</th>
+        <th md-column md-numeric>Sifra delatnosti</th>
+        <th md-column>Email</th>
+        <th md-column md-numeric>Tekuci racun</th>
+        <th md-column>Banka</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="item" md-on-select="onSelectEvent()" md-select-id="name"  md-auto-select ng-repeat="item in items | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
+        <td md-cell>{{item.name}}</td>
+        <td md-cell>{{item.pib}}</td>
+        <td md-cell>{{item.address}}</td>
+        <td md-cell>{{item.phonenumber}}</td>
+        <td md-cell>{{item.cidnumber}}</td>
+        <td md-cell>{{item.activitycode}}</td>
+      	<td md-cell>{{item.email}}</td>
+      	<td md-cell>{{item.account}}</td>
+      	<td md-cell>{{item.bank}}</td>      	
+      </tr>
+    </tbody>
+  </table>  
+</md-table-container>	
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{itemsSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+</md-content>
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Lista vrsti PDV-a</h2>    
+	
+	<md-button class="md-warn" aria-label="stopa" ng-click="dodajVrstu()">Dodaj vrstu
+	
+    </md-button>
+    
+	</div>
+</md-toolbar>
+
+
+<md-content>
+<md-table-container>
+  <table md-table md-row-select ng-model="selected"'>
+    <thead md-head md-order="myOrder" >
+      <tr md-row>
+        <th md-column>Naziv</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="stopa" md-select-id="name" md-on-select="onSelectEvent()" md-auto-select ng-repeat="vrsta in vrste | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit">
+        <td md-cell>{{vrsta.nazivVrstePDVa}}</td>
+      </tr>
+    </tbody>
+  </table>  
+</md-table-container>	
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{stopeSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+</md-content>
+
+

@@ -37,7 +37,6 @@ public class StavkaDokumenta implements Serializable{
 	private Dokument dokument;
 	
 	
-	
 	public StavkaDokumenta() {
 
 	}

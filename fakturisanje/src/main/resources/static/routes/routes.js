@@ -60,6 +60,22 @@ app.config(function($routeProvider){
 		templateUrl : "views/pregledMagacina.html",
 		controller : 'pregledMagacinaController'
 	})
+	.when("/pregledStopa", {
+		templateUrl : "views/pregledStopa.html",
+		controller : 'pregledStopaController'
+	})
+	.when("/pregledVrstiPDVa", {
+		templateUrl : "views/pregledVrstiPDVa.html",
+		controller : 'pregledVrstiPDVaController'
+	})
+	.when("/stopa",{
+		templateUrl : "views/stopa.html",
+		controller : 'stopaController'
+	})
+	.when("/vrsta",{
+		templateUrl : "views/vrsta.html",
+		controller : 'vrstaController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'
