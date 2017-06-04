@@ -27,8 +27,6 @@ public class JedinicaMere implements Serializable{
 	@Column(name = "tipJedinice")
 	private String tipJedinice;
 	
-	@OneToMany(mappedBy = "jedinicaMere", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Collection<Artikal> artikli;
 
 	public JedinicaMere() {
 	}

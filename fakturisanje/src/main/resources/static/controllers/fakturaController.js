@@ -119,7 +119,8 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 			
 			artikalService.findBySifra($scope.sifraZaPretragu).then(function(response){ 
 				$scope.nazArtikla = response.data.naziv;
-				$scope.jmArtikla = response.data.jedMere;
+				$scope.jmArtikla = response.data.jedinicaMere.tipJedinice;
+				console.log(response.data.jedinicaMere.tipJedinice);
 				if ($scope.nazArtikla !== undefined) {
 					
 					//za cenu artikla

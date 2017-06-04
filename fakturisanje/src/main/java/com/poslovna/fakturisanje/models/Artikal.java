@@ -97,7 +97,7 @@ public class Artikal implements Serializable {
 		return jedinicaMere;
 	}
 	
-	@JsonIgnore
+	
 	public void setJedinicaMere(JedinicaMere jedinicaMere) {
 		this.jedinicaMere = jedinicaMere;
 	}

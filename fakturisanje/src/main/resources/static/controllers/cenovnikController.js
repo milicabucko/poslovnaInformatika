@@ -53,7 +53,7 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 			else {	
 				artikalService.findBySifra($scope.sifraZaPretragu).then(function(response){ 
 					$scope.nazArtikla = response.data.naziv;
-					$scope.jmArtikla = response.data.jedMere;
+					$scope.jmArtikla = response.data.jedinicaMere.tipJedinice;
 					if ($scope.nazArtikla !== undefined) {
 						
 						for(var i = 0; i < $scope.stavke.length; i++) {
