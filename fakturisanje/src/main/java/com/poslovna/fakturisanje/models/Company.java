@@ -1,6 +1,7 @@
 package com.poslovna.fakturisanje.models;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -34,7 +35,7 @@ public class Company implements Serializable{
 	private String name;
 	
 	@Column(name = "pib")
-	private Integer pib;
+	private BigInteger pib;
 	
 	@Column(name = "address")
 	private String address;
@@ -43,7 +44,7 @@ public class Company implements Serializable{
 	private String phonenumber;
 	
 	@Column(name = "cidnumber")
-	private Integer cidnumber;
+	private BigInteger cidnumber;
 	
 	@Column(name = "activitycode")
 	private Integer activitycode;
@@ -84,11 +85,11 @@ public class Company implements Serializable{
 		this.name = name;
 	}
 
-	public Integer getPib() {
+	public BigInteger getPib() {
 		return pib;
 	}
 
-	public void setPib(Integer pib) {
+	public void setPib(BigInteger pib) {
 		this.pib = pib;
 	}
 
@@ -108,11 +109,11 @@ public class Company implements Serializable{
 		this.phonenumber = phonenumber;
 	}
 
-	public Integer getCidnumber() {
+	public BigInteger getCidnumber() {
 		return cidnumber;
 	}
 
-	public void setCidnumber(Integer cidnumber) {
+	public void setCidnumber(BigInteger cidnumber) {
 		this.cidnumber = cidnumber;
 	}
 

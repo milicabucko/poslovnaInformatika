@@ -1,5 +1,6 @@
 package com.poslovna.fakturisanje.controllers;
 
+import java.math.BigInteger;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,34 @@ public class CompanyController {
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Company> addCompany(@RequestBody Company company) {
+		
+		Company proveraCompany = new Company();
+		
+		if(companyService.findByPib(company.getPib())!= null){
+			proveraCompany.setPib(BigInteger.valueOf(-1)); 
+		}
+		else {
+			proveraCompany.setPib(BigInteger.valueOf(-2));
+		}
+		
+		if(companyService.findByCidnumber(company.getCidnumber()) != null){
+			proveraCompany.setCidnumber(BigInteger.valueOf(-1));
+		}
+		else {
+			proveraCompany.setCidnumber(BigInteger.valueOf(-2));
+		}
+		
+		if(companyService.findByAccount(company.getAccount()) != null) {
+			proveraCompany.setAccount("-1");
+		}
+		else {
+			proveraCompany.setAccount("-2");
+		}
+		
+		if (proveraCompany.getPib() == BigInteger.valueOf(-1) || proveraCompany.getCidnumber() == BigInteger.valueOf(-1) || proveraCompany.getAccount().equals("-1")) {
+			 return new ResponseEntity<Company>(proveraCompany, HttpStatus.OK);
+		}
+		
         Company addingCompany= companyService.add(company);
         return new ResponseEntity<Company>(addingCompany, HttpStatus.OK);
     }

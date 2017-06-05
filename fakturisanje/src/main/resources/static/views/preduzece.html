@@ -1,50 +1,47 @@
-
-
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Dodaj preduzece</h2>
 </div>
 </md-toolbar>
-
-<md-input-container class="md-block">
+<form name="preduzeceForm">
+			<md-input-container class="md-block">
         		<label>Naziv: </label>
-        		<input md-maxlength="30" required name="name" ng-model="naziv" />
+        		<input type="text" required name="name" ng-model="naziv" />
         	</md-input-container>	
         	<md-input-container class="md-block">
         		<label>PIB</label>
-        		<input md-maxlength="30" required name="pib" ng-model="pib" />
+        		<input type="number" required name="pib" ng-model="pib" ng-pattern="/^[0-9]{10}$/" ng-change="proveriPib()" />
         	</md-input-container>	
         	<md-input-container class="md-block">
         		<label>Adresa: </label>
-        		<input md-maxlength="30" required name="address" ng-model="adresa" />
+        		<input required name="address" ng-model="adresa" />
         	</md-input-container>	
         	<md-input-container class="md-block">
         		<label>Telefon: </label>
-        		<input md-maxlength="30" required name="phoneNumber" ng-model="telefon" />
+        		<input required name="phoneNumber" ng-model="telefon" />
         	</md-input-container>	
         	<md-input-container class="md-block">
         		<label>Email: </label>
-        		<input md-maxlength="30" required name="email" ng-model="email" />
+        		<input type="email" required name="email" ng-model="email" />
         	</md-input-container>	
         	<md-input-container class="md-block">
         		<label>Maticni broj: </label>
-        		<input md-maxlength="30" required name="cIdNumber" ng-model="maticniBroj" />
+        		<input ng-pattern="/^[0-9]{8}$/" type="number" required name="cIdNumber" ng-model="maticniBroj" />
         	</md-input-container>	
         	<md-input-container class="md-block">
         		<label>Sifra delatnosti: </label>
-        		<input md-maxlength="30" required name="activityCode" ng-model="sifraDelatnosti" />
+        		<input ng-pattern="/^[0-9]{5}$/" type="number" required name="activityCode" ng-model="sifraDelatnosti" />
         	</md-input-container>	
         	<md-input-container class="md-block">
         		<label>Tekuci racun: </label>
-        		<input md-maxlength="30" required name="account" ng-model="tekuciRacun" />
+        		<input ng-pattern="/^[0-9]{18}$/" required name="account" ng-model="tekuciRacun" />
         	</md-input-container>	
         	<md-input-container class="md-block">
         		<label>Banka: </label>
-        		<input md-maxlength="30" required name="bank" ng-model="banka" />
+        		<input required name="bank" ng-model="banka" />
 			</md-input-container>
-    	</md-dialog-content>
     	
-    	
+ </form>
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Zakljucak</h2>

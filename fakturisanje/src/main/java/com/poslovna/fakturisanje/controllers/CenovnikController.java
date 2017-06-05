@@ -1,6 +1,7 @@
 package com.poslovna.fakturisanje.controllers;
 
 
+import java.math.BigInteger;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,7 +65,7 @@ public class CenovnikController {
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Cenovnik> nadjiPoslednjiAktivan(@PathVariable Integer companyPib, @PathVariable String datum) {
+    public ResponseEntity<Cenovnik> nadjiPoslednjiAktivan(@PathVariable BigInteger companyPib, @PathVariable String datum) {
 		Company company = companyService.findByPib(companyPib);
 		Cenovnik cenovnik = cenovnikService.nadjiPoslednjiAktivniCenovnik(company, true);
         return new ResponseEntity<Cenovnik>(cenovnik, HttpStatus.OK);

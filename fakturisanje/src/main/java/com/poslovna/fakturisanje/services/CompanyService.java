@@ -1,5 +1,6 @@
 package com.poslovna.fakturisanje.services;
 
+import java.math.BigInteger;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +35,16 @@ public class CompanyService {
 		return companyRepository.findOne(izdId);
 	}
 	
-	public Company findByPib(Integer pib){
+	public Company findByPib(BigInteger pib){
 		return companyRepository.findByPib(pib);
+	}
+	
+	public Company findByCidnumber(BigInteger cidnumber){
+		return companyRepository.findByCidnumber(cidnumber);
+	}
+	
+	public Company findByAccount(String account){
+		return companyRepository.findByAccount(account);
 	}
 
 }

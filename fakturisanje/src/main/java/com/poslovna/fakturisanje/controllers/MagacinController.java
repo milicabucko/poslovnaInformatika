@@ -1,5 +1,6 @@
 package com.poslovna.fakturisanje.controllers;
 
+import java.math.BigInteger;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,7 @@ public class MagacinController {
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-	public ResponseEntity<Magacin> findByPreduzece(@PathVariable Integer preduzecePib) {
+	public ResponseEntity<Magacin> findByPreduzece(@PathVariable BigInteger preduzecePib) {
 		Company preduzece = companyService.findByPib(preduzecePib);
 		Magacin magacin = magacinService.findByPreduzece(preduzece);
         return new ResponseEntity<Magacin>(magacin, HttpStatus.OK);

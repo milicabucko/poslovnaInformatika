@@ -12,9 +12,9 @@ app.factory('companyService', function companyService($http){
 				"phonenumber" : companyPhoneNumber,
 				"email" : companyEmail,
 				"cidnumber" : companyIdNumber,
-				"activitycode":companyActivityCode,
-				"account":companyAccount,
-				"bank":companyBank
+				"activitycode" : companyActivityCode,
+				"account" : companyAccount,
+				"bank" : companyBank
 				
 			}
 			

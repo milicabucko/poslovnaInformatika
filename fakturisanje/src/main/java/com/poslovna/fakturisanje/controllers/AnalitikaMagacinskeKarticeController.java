@@ -1,5 +1,7 @@
 package com.poslovna.fakturisanje.controllers;
 
+import java.math.BigInteger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,7 +51,7 @@ public class AnalitikaMagacinskeKarticeController {
 			value = "/api/amk/addAMK/{artikalId}/{pib}/{pib2}/{stavkaId}",
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AnalitikaMagacinskeKartice> addAMK(@RequestBody AnalitikaMagacinskeKartice amk, @PathVariable Integer artikalId, @PathVariable Integer pib, @PathVariable Integer pib2, @PathVariable Integer stavkaId) {
+	public ResponseEntity<AnalitikaMagacinskeKartice> addAMK(@RequestBody AnalitikaMagacinskeKartice amk, @PathVariable Integer artikalId, @PathVariable BigInteger pib, @PathVariable BigInteger pib2, @PathVariable Integer stavkaId) {
 		Company company = companyService.findByPib(pib);
 		Company company2 = companyService.findByPib(pib2);
 		Magacin magacin  = magacinService.findByPreduzece(company);
