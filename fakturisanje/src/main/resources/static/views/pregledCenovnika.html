@@ -50,9 +50,10 @@
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Lista cenovnika</h2>    
-	
-	<md-button class="md-warn" aria-label="cenovnik" ng-click="dodajCenovnik()">Dodaj cenovnik
-	
+    
+    <md-datepicker ng-model="datumPocetakVazenja" md-placeholder="Enter date" ng-change="dpChanged()"></md-datepicker>
+	<md-datepicker ng-model="datumKrajVazenja" md-placeholder="Enter date" ng-change="dkChanged()"></md-datepicker>
+	<md-button class="md-warn" aria-label="cenovnik" ng-click="kopirajCenovnik()">Kopiraj cenovnik
     </md-button>
     
 	</div>
@@ -81,7 +82,8 @@
 
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
-	<h2 flex md-truncate>Stavke cenovnika</h2>    
+	<h2 flex md-truncate>Stavke cenovnika</h2>  
+	
 	</div>
 </md-toolbar>
 
