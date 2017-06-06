@@ -215,6 +215,20 @@
     			<input ng-model="jmArtikla" ng-readonly="true">
 			</md-input-container>
 			
+			<md-input-container>
+				<label>Rabat</label>
+    			<input ng-model="rabat" type="number">
+			</md-input-container>
+			
+			<md-input-container>
+          		<label>Stopa PDV-a</label>
+          		<md-select ng-model="stopaPdva">
+            		<md-option ng-repeat="stopa in stope" ng-value="stopa">
+              		{{stopa.procenatPDVa}}
+            		</md-option>
+          		</md-select>
+        	</md-input-container>
+			
 			<div layout="column">
 				<md-button class="md-raised md-primary" ng-show="omogucenoDodavanje" ng-click="dodajStavku()">Dodaj</md-button>
 			</div>
@@ -264,7 +278,7 @@
         <td md-cell>{{stavka.porOsnovica}}</td>
       	<td md-cell>{{stavka.stopaPDV}}</td>
       	<td md-cell>{{stavka.iznosPDV}}</td>
-      	<td md-cell>{{stavka.jedMere*stavka.kolicina}}</td>      	
+      	<td md-cell>{{stavka.ukupno}}</td>      	
       </tr>
     </tbody>
   </table>  

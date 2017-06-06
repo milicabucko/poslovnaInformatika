@@ -163,7 +163,7 @@ app.controller('pregledCenovnikaController',['$scope', '$location', '$mdDialog',
 							
 							for(var i = 0; i < $scope.stavke.length; i++) {
 								console.log("Result: " + result);
-								stavkaCenovnikaService.sacuvajStavku(response.data.id, $scope.stavke[i].artikal.id, $scope.stavke[i].cena+(1/parseInt(result))*$scope.stavke[i].cena).then(function(response){ 
+								stavkaCenovnikaService.sacuvajStavku(response.data.id, $scope.stavke[i].artikal.id, $scope.stavke[i].cena+(parseInt(result)/100)*$scope.stavke[i].cena).then(function(response){ 
 								});
 							}
 							

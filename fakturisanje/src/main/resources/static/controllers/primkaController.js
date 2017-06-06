@@ -110,6 +110,7 @@ app.controller('primkaController',['$scope', '$location', '$mdDialog', 'companyS
 		if($scope.sifraZaPretragu == "") {
 			$scope.nazArtikla = "";
 			$scope.jmArtikla = "";
+			$scope.cena = "";
 			$scope.omogucenaIzmena = false;
 			$scope.omogucenoBrisanje = false;
 		}
@@ -118,7 +119,14 @@ app.controller('primkaController',['$scope', '$location', '$mdDialog', 'companyS
 			
 			artikalService.findBySifra($scope.sifraZaPretragu).then(function(response){ 
 				$scope.nazArtikla = response.data.naziv;
-				$scope.jmArtikla = response.data.jedMere;
+				if (response.data != "") {
+					$scope.jmArtikla = response.data.jedinicaMere.tipJedinice;
+				}
+				else {
+					$scope.jmArtikla = "";
+					$scope.cena = "";
+				}
+				
 				if ($scope.nazArtikla !== undefined) {
 					
 					//za cenu artikla

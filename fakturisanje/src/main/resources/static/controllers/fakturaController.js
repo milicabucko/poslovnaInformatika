@@ -1,4 +1,10 @@
-app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', 'cenovnikService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService, cenovnikService){
+app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', 'cenovnikService', 'stopaPDVaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService, cenovnikService, stopaPDVaService){
+	
+	stopaPDVaService.getAllStope().then(function(response){
+		 
+		 $scope.stope = response.data;
+	 
+	});
 	
 	$scope.posaljiFakturu = function() {
 		console.log("posiljalac: " + $scope.selected[0].id + " kupac: " + $scope.bpselected[0].company2.id);
@@ -64,6 +70,10 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		for(var i = 0; i < $scope.stavke.length; i++) {
 			if ($scope.sifraZaPretragu == $scope.stavke[i].sifra) {
 				$scope.stavke[i].kolicina = $scope.kolicina;
+				$scope.stavke[i].rabat = $scope.rabat;
+				$scope.stavke[i].stopaPDV = $scope.stopaPdva.procenatPDVa;
+				$scope.stavke[i].iznosPDV = ($scope.stopaPdva.procenatPDVa/100) * $scope.cena * $scope.kolicina;
+				$scope.stavke[i].ukupno = (($scope.cena * $scope.kolicina) + (($scope.stopaPdva.procenatPDVa/100) * $scope.cena * $scope.kolicina)) - (($scope.rabat/100) * (($scope.cena * $scope.kolicina) + (($scope.stopaPdva.procenatPDVa/100) * $scope.cena * $scope.kolicina)))
 				$scope.omogucenaIzmena = true;
 				$scope.omogucenoBrisanje = true;
 				$scope.stavkeSize = $scope.stavke.length;
@@ -82,7 +92,12 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 					sifra: $scope.sifraZaPretragu,
 					jedMere: $scope.jmArtikla,
 					idArtikla : response.data.id,
-					cenaPoJed : $scope.cena
+					cenaPoJed : $scope.cena,
+					rabat : $scope.rabat,
+					porOsnovica : $scope.cena * $scope.kolicina,
+					stopaPDV : $scope.stopaPdva.procenatPDVa,
+					iznosPDV : ($scope.stopaPdva.procenatPDVa/100) * $scope.cena * $scope.kolicina,
+					ukupno : (($scope.cena * $scope.kolicina) + (($scope.stopaPdva.procenatPDVa/100) * $scope.cena * $scope.kolicina)) - (($scope.rabat/100) * (($scope.cena * $scope.kolicina) + (($scope.stopaPdva.procenatPDVa/100) * $scope.cena * $scope.kolicina)))
 				};
 			$scope.stavke.push(stavkaZaDodavanje);
 			$scope.stavkeSize = $scope.stavke.length;
@@ -111,6 +126,7 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		if($scope.sifraZaPretragu == "") {
 			$scope.nazArtikla = "";
 			$scope.jmArtikla = "";
+			$scope.cena = "";
 			$scope.omogucenaIzmena = false;
 			$scope.omogucenoBrisanje = false;
 		}
@@ -119,8 +135,14 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 			
 			artikalService.findBySifra($scope.sifraZaPretragu).then(function(response){ 
 				$scope.nazArtikla = response.data.naziv;
-				$scope.jmArtikla = response.data.jedinicaMere.tipJedinice;
-				console.log(response.data.jedinicaMere.tipJedinice);
+				
+				if (response.data != "") {
+					$scope.jmArtikla = response.data.jedinicaMere.tipJedinice;
+				}
+				else {
+					$scope.jmArtikla = "";
+					$scope.cena = "";
+				}
 				if ($scope.nazArtikla !== undefined) {
 					
 					//za cenu artikla
