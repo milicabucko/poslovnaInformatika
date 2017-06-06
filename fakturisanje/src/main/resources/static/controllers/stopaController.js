@@ -8,9 +8,7 @@ app.controller('stopaController',['$scope', '$location', '$mdDialog', 'companySe
 	});
 	
 	$scope.kreirajStopuPDVa = function(){
-		console.log($scope.stopa.vrstaPDVa.id);
-		var id = $scope.stopa.vrstaPDVa.id;
-		stopaPDVaService.createStopu($scope.stopa,id).then(function(response){
+		stopaPDVaService.createStopu($scope.stopa).then(function(response){
 			alert("dodato");
 			
 		});

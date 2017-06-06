@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,8 +32,8 @@ public class VrstaPDVa implements Serializable{
 	@OneToMany(mappedBy = "vrstaPDVa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Collection<GrupaArtikala> grupaArtikala;
 	
-	@OneToMany(mappedBy = "vrstaPDVa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private Collection<StopaPDVa> stopePDVa;
+	@ManyToOne
+	private StopaPDVa stopPDVa;
 	
 	public VrstaPDVa(){
 		
@@ -62,12 +63,12 @@ public class VrstaPDVa implements Serializable{
 		this.grupaArtikala = grupaArtikala;
 	}
 
-	public Collection<StopaPDVa> getStopePDVa() {
-		return stopePDVa;
+	public StopaPDVa getStopPDVa() {
+		return stopPDVa;
 	}
 
-	public void setStopePDVa(Collection<StopaPDVa> stopePDVa) {
-		this.stopePDVa = stopePDVa;
+	public void setStopPDVa(StopaPDVa stopPDVa) {
+		this.stopPDVa = stopPDVa;
 	}
 	
 	

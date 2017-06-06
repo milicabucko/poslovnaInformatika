@@ -76,6 +76,14 @@ app.config(function($routeProvider){
 		templateUrl : "views/vrsta.html",
 		controller : 'vrstaController'
 	})
+	.when("/grupa",{
+		templateUrl : "views/grupa.html",
+		controller : 'grupaArtikalaController'
+	})
+	.when("/grupeArtikala",{
+		templateUrl : "views/pregledGrupa.html",
+		controller : 'pregledGrupaController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'

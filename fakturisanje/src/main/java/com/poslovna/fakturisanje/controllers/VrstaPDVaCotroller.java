@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poslovna.fakturisanje.models.StopaPDVa;
 import com.poslovna.fakturisanje.models.VrstaPDVa;
+import com.poslovna.fakturisanje.repositories.StopaPDVaRepository;
 import com.poslovna.fakturisanje.services.VrstaPDVaService;
 
 @RestController
@@ -21,6 +22,9 @@ public class VrstaPDVaCotroller {
 	
 	@Autowired
 	private VrstaPDVaService vrstaPDVaService;
+	
+	@Autowired
+	private StopaPDVaRepository stopaPDVaRepository;
 	
 	@RequestMapping(
             value    = "/api/vrste/nadjiSveVrste/",
@@ -33,11 +37,13 @@ public class VrstaPDVaCotroller {
     }
 	
 	@RequestMapping(
-			value = "api/vrste/kreirajVrstu/",
+			value = "api/vrste/kreirajVrstu/{id}",
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<VrstaPDVa> addStopu(@RequestBody VrstaPDVa vrstaPDVa) {
+	public ResponseEntity<VrstaPDVa> addStopu(@RequestBody VrstaPDVa vrstaPDVa, @PathVariable Integer id) {
         VrstaPDVa vrsta = new VrstaPDVa();
+        StopaPDVa stopaPDVa = stopaPDVaRepository.findOne(id);
+        vrsta.setStopPDVa(stopaPDVa);
         vrsta.setNazivVrstePDVa(vrstaPDVa.getNazivVrstePDVa());
         vrstaPDVaService.save(vrsta);
         return new ResponseEntity<VrstaPDVa>(vrsta, HttpStatus.OK);

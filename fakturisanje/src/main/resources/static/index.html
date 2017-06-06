@@ -112,8 +112,13 @@
             </button>
             <md-menu-content>
               <md-menu-item>
-                <md-button ng-click="ctrl.sampleAction('share', $event)">
+                <md-button ng-click="goToGrupaArtikala()">
                   Dodaj grupu artikala
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="pregledajGrupe()">
+                  Pregled grupa artikala
                 </md-button>
               </md-menu-item>
               <md-menu-item>
@@ -184,6 +189,7 @@
 		<script src="services/magacinService.js"></script>
 		<script src="services/stopaPDVaService.js"></script>
 		<script src="services/vrstaPDVaService.js"></script>
+		<script src="services/grupaArtikalaService.js"></script>
 		
 		
 		<script src="controllers/loginController.js"></script>
@@ -202,6 +208,8 @@
 		<script src="controllers/pregledVrstiPDVaController.js"></script>
 		<script src="controllers/stopaController.js"></script>
 		<script src="controllers/vrstaController.js"></script>
+		<script src="controllers/grupaArtikalaController.js"></script>
+		<script src="controllers/pregledGrupaController.js"></script>
 
 		<script src="controllers/pregledCenovnikaController.js"></script>
 

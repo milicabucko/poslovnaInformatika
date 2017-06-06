@@ -4,7 +4,7 @@ app.factory('stopaPDVaService', function stopaPDVaservice($http){
 		
 		return $http({
 			method: 'POST',
-			url: 'api/stope/kreirajStopu/'+id,
+			url: 'api/stope/kreirajStopu/',
 			data: stopa
 		});
 	}

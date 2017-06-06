@@ -29,8 +29,7 @@ public class StopaPDVa implements Serializable{
 	@Column(name = "procenatPDVa")
 	private int procenatPDVa;
 	
-	@ManyToOne
-	private VrstaPDVa vrstaPDVa;
+	
 	
 	public StopaPDVa(){
 		
@@ -58,17 +57,6 @@ public class StopaPDVa implements Serializable{
 
 	public void setProcenatPDVa(int procenatPDVa) {
 		this.procenatPDVa = procenatPDVa;
-	}
-
-	public VrstaPDVa getVrstaPDVa() {
-		return vrstaPDVa;
-	}
-
-	@JsonIgnore
-	public void setVrstaPDVa(VrstaPDVa vrstaPDVa) {
-		this.vrstaPDVa = vrstaPDVa;
-	}
+	}	
 	
-	
-
 }

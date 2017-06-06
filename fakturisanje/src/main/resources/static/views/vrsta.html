@@ -9,6 +9,14 @@
         		<label>Naziv vrste:</label>
         		<input  type = "text" required name="nazivvrstePDVa" ng-model="vrsta.nazivVrstePDVa" />
         	</md-input-container>
+        	<md-input-container>
+          <label>Stopa PDV-a</label>
+          <md-select ng-model="vrsta.stopaPDVa">
+            <md-option ng-repeat="stopa in stope" ng-value="stopa">
+              {{stopa.procenatPDVa}}
+            </md-option>
+          </md-select>
+        </md-input-container>
     	</md-dialog-content>
     	
     	

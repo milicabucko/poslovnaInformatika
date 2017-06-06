@@ -1,10 +1,10 @@
 app.factory('vrstaPDVaService', function vrstaPDVaService($http){
 	
-	vrstaPDVaService.createVrstu = function(vrsta){
+	vrstaPDVaService.createVrstu = function(vrsta, id){
 		
 		return $http({
 			method: 'POST',
-			url: 'api/vrste/kreirajVrstu/',
+			url: 'api/vrste/kreirajVrstu/'+id,
 			data: vrsta
 		});
 	}
