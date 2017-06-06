@@ -14,6 +14,13 @@ app.factory('magacinService', function magacinService($http){
 		});
 	}
 	
+	magacinService.findBySifraContaining = function(sifra){
+		return $http({
+			method: 'GET',
+			url: 'api/magacin/findBySifraContaining/' + sifra
+		});
+	}
+	
 	magacinService.dodajMagacin = function(sifraMagacina, nazivMagacina, firmaId) {
 		return $http({
 			method: "POST",

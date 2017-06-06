@@ -1,6 +1,10 @@
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Magacini</h2>
+	<md-button class="md-icon-button" aria-label="Pretrazi">
+        <ng-md-icon icon="search" style="fill: white" size="24"></ng-md-icon> 
+    </md-button>
+    <input ng-model="sifraZaPretragu" ng-change="pretraziPoSifri()" placeholder="Unesite sifru"> 
 </div>
 </md-toolbar>
 
@@ -28,6 +32,31 @@
 
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Detalji</h2>
+	</div>
+	
+	<div layout="row">
+	<md-input-container>
+		<label>Sifra</label>
+		<input type="text" ng-model="sifraMagacina">
+	</md-input-container>
+	
+	<md-input-container>
+		<label>Naziv</label>
+		<input type="text" ng-model="nazivMagacina">
+	</md-input-container>
+	
+	<div layout="column">
+		<md-button class="md-raised md-primary" ng-click="izmeniMagacin()">Izmeni</md-button>
+	</div>
+	<div layout="column">
+		<md-button class="md-raised md-second" ng-click="obrisiMagacin()">Obrisi</md-button>
+	</div>
+</div>
+</md-toolbar>
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Magacinske kartice</h2>
 </div>
 </md-toolbar>
@@ -38,23 +67,27 @@
     <thead md-head md-order="myOrder">
       <tr md-row>
         <th md-column>Naziv artikla</th>
-        <th md-column md-numeric>Pocetno stanje kolicina</th>
-        <th md-column md-numeric>Pocetno stanje vrednost</th>
-        <th md-column md-numeric>Promet ulaz kolicina</th>
-        <th md-column md-numeric>Promet ulaz vrednost</th>
-        <th md-column md-numeric>Promet izlaz kolicina</th>
-        <th md-column md-numeric>Promet izlaz vrednost</th>
+        <th md-column md-numeric>Pocetno stanje kolicinski</th>
+        <th md-column md-numeric>Pocetno stanje vrednosno</th>
+        <th md-column md-numeric>Promet ulaza kolicinski</th>
+        <th md-column md-numeric>Promet ulaza vrednosno</th>
+        <th md-column md-numeric>Promet izlaza kolicinski</th>
+        <th md-column md-numeric>Promet izlaza vrednosno</th>
+        <th md-column md-numeric>Ukupna kolicina</th>
+        <th md-column md-numeric>Ukupna vrednost</th>
       </tr>
     </thead>
     <tbody md-body>
       <tr md-row md-select="kartica" md-on-select="onSelectKartica()" md-select-id="name"  md-auto-select ng-repeat="kartica in kartice | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
         <td md-cell>{{kartica.artikal.naziv}}</td>
         <td md-cell>{{kartica.pocStanjeKol}}</td>
-        <td md-cell>{{kartica.pocStanjeKol * kartica.stavkaCenovnika.cena}}</td>
+        <td md-cell>{{kartica.pocStanjeVred}}</td>
         <td md-cell>{{kartica.prometUlKol}}</td>
-        <td md-cell>{{kartica.prometUlKol * kartica.stavkaCenovnika.cena}}</td>
+        <td md-cell>{{kartica.prometUlVred}}</td>
         <td md-cell>{{kartica.prometIzKol}}</td>
-        <td md-cell>{{kartica.prometIzKol * kartica.stavkaCenovnika.cena}}</td>    	
+        <td md-cell>{{kartica.prometIzVred}}</td>  
+        <td md-cell>{{kartica.pocStanjeKol + kartica.prometUlKol - kartica.prometIzKol}}</td>
+        <td md-cell>{{kartica.pocStanjeVred + kartica.prometUlVred - kartica.prometIzVred}}</td>  	
       </tr>
     </tbody>
   </table>  

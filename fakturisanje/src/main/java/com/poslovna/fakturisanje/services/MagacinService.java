@@ -34,4 +34,8 @@ public class MagacinService {
 	public Magacin findByPreduzece(Company preduzece) {
 		return magacinRepository.findByPreduzece(preduzece);
 	}
+	
+	public Collection<Magacin> findBySifraContaining(String sifra){
+		return magacinRepository.findBySifraContaining(sifra);
+	}
 }

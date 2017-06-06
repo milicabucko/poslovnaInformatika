@@ -3,18 +3,40 @@ app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 
 	magacinService.sviMagacini().then(function(response){
 		$scope.items = response.data;
 		$scope.itemsSize = $scope.items.length;
-		console.log($scope.items)
 	});
+	
+	$scope.pretraziPoSifri = function() {
+		if($scope.sifraZaPretragu == ""){
+			magacinService.sviMagacini().then(function(response){
+				$scope.items = response.data;
+				$scope.itemsSize = $scope.items.length;
+				console.log($scope.items)
+			});
+		} else {
+			magacinService.findBySifraContaining($scope.sifraZaPretragu).then(function(response){ 
+				$scope.items = response.data;
+				$scope.itemsSize = $scope.items.length;
+			});
+		}
+	}
+	
+	$scope.izmeniMagacin = function() {
+		
+		
+	}
 	
 	$scope.onSelectEvent = function() {
 		
 		if ($scope.selected[0] === undefined) {
 			$scope.kartice = [];
 			$scope.analitike = [];
-
+			$scope.sifraMagacina = "";
+			$scope.nazivMagacina = "";
 		}
 		else {
 			$scope.kartice = $scope.selected[0].kartice;
+			$scope.sifraMagacina = $scope.selected[0].sifra;
+			$scope.nazivMagacina = $scope.selected[0].naziv;
 		}
 	}
 	

@@ -38,6 +38,16 @@ public class MagacinController {
     }
 	
 	@RequestMapping(
+            value    = "/api/magacin/findBySifraContaining/{sifra}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Magacin>> findBySifraContaining(@PathVariable String sifra) {
+		Collection<Magacin> magacini = magacinService.findBySifraContaining(sifra);
+        return new ResponseEntity<Collection<Magacin>>(magacini, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
             value    = "/api/magacin/dodajMagacin/{firmaId}",
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
