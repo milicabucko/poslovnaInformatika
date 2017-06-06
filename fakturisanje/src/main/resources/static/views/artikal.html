@@ -1,0 +1,52 @@
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Dodaj artikal</h2>
+</div>
+</md-toolbar>
+
+<md-input-container class="md-block">
+        		<label>Naziv artikla:</label>
+        		<input  type = "text" required name="nazivArtikla" ng-model="artikal.naziv" />
+        	</md-input-container>
+        	<md-input-container class="md-block">
+        		<label>Sifra artikla:</label>
+        		<input  type = "text" required name="sifraArtikla" ng-model="artikal.sifra" />
+        	</md-input-container>
+        	<md-input-container class="md-block">
+        		<label>Opis artikla:</label>
+        		<input  type = "text" required name="opisArtikla" ng-model="artikal.opis" />
+        	</md-input-container>
+        	<md-input-container class="md-block">
+        		<label>Vrsta artikla:</label>
+        		<input  type = "text" required name="vrstaArtikla" ng-model="artikal.vrsta" />
+        	</md-input-container>
+        	<md-input-container>
+          <label>Jedinica Mere:</label>
+          <md-select ng-model="artikal.jedinicaMere">
+            <md-option ng-repeat="jed in jedinice" ng-value="jed">
+              {{jed.tipJedinice}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        <md-input-container>
+          <label>Grupa artikla:</label>
+          <md-select ng-model="artikal.grupaArtikala">
+            <md-option ng-repeat="grupa in grupe" ng-value="grupa">
+              {{grupa.nazivGrupe}}
+            </md-option>
+          </md-select>
+        </md-input-container>	
+    	</md-dialog-content>
+    	
+    	
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Zakljucak</h2>
+	
+	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajGrupuArtikala()">
+        Kreiraj
+    </md-button>
+    
+	</div>
+</md-toolbar>
+
