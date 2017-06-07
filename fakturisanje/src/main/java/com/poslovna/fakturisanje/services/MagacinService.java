@@ -19,6 +19,10 @@ public class MagacinService {
 		return magacinRepository.findBySifra(sifra);
 	}
 	
+	public Collection<Magacin> findAllBySifra(String sifra){
+		return magacinRepository.findAllBySifra(sifra);
+	}
+	
 	public Magacin findById(Integer id) {
 		return magacinRepository.findOne(id);
 	}
@@ -37,5 +41,9 @@ public class MagacinService {
 	
 	public Collection<Magacin> findBySifraContaining(String sifra){
 		return magacinRepository.findBySifraContaining(sifra);
+	}
+	
+	public void deleteMagacin(Magacin magacin){
+		magacinRepository.delete(magacin);
 	}
 }

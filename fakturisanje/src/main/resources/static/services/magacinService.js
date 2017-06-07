@@ -32,6 +32,17 @@ app.factory('magacinService', function magacinService($http){
 		});
 	}
 	
+	magacinService.obrisiMagacin = function(sifraMagacina, nazivMagacina, firmaId) {
+		return $http({
+			method: "POST",
+			url: 'api/magacin/obrisiMagacin/' + firmaId,
+			data: {
+				"sifra" : sifraMagacina,
+				"naziv" : nazivMagacina
+			}
+		});
+	}
+	
 	magacinService.sviMagacini = function() {
 		return $http({
 			method: "GET",

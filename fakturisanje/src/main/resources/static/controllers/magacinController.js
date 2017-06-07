@@ -1,6 +1,4 @@
 app.controller('magacinController', [ '$scope', '$location', '$window', '$mdDialog', 'companyService', 'magacinService', function($scope, $location, $window, $mdDialog, companyService, magacinService) {
-
-			$scope.omogucenoDodavanje = false;
 	
 			companyService.getAllCompanies().then(function(response) {
 
@@ -24,26 +22,52 @@ app.controller('magacinController', [ '$scope', '$location', '$window', '$mdDial
 					});
 				}
 			}
-			
-			$scope.pretragaPoSifri = function() {
-				
-				if($scope.sifraMagacina == "" || $scope.nazivMagacina == ""){
-					$scope.omogucenoDodavanje = false;
-					//toastr.options.timeOut = 1500;
-					//toastr.info("Potrebno je izabrati barem jedan sto.");
-				}else{
-					magacinService.findBySifra($scope.sifraMagacina).then(function(response){
-						if($scope.sifraMagacina == response.data.sifra){
-							$scope.omogucenoDodavanje = false;
-						}else{
-							$scope.omogucenoDodavanje = true;
-						}
-					});	
-				}	
-			}
-			
+					
 			$scope.dodajMagacin = function() {
-				magacinService.dodajMagacin($scope.sifraMagacina, $scope.nazivMagacina, $scope.selected[0].id);
+				
+				if($scope.magacinForm.$valid){
+					if($scope.selected[0] === undefined){
+						$mdDialog.show(
+								$mdDialog.alert()
+							    .clickOutsideToClose(true)
+							    .title('Greska')
+							    .textContent('Morate izabrati preduzece.')
+							    .ok('OK')
+						);
+					}else{
+						magacinService.dodajMagacin($scope.sifraMagacina, $scope.nazivMagacina, $scope.selected[0].id).then(function(response){
+							if(response.data.sifra == "greska"){
+								$mdDialog.show(
+									$mdDialog.alert()
+									.clickOutsideToClose(true)
+									.title('Greska')
+									.textContent('Postoji magacin sa takvom sifrom u okviru preduzeca.')
+									.ok('OK')
+								);
+								$scope.sifraMagacina = "";
+							}else{
+								$mdDialog.show(
+									$mdDialog.alert()
+									.clickOutsideToClose(true)
+									.title('Potvrda')
+									.textContent('Dodat magacin.')
+									.ok('OK')
+								);
+								$scope.sifraMagacina = "";
+								$scope.nazivMagacina = "";
+							}
+						});
+					}
+				}else {
+					$mdDialog.show(
+						$mdDialog.alert()
+						.clickOutsideToClose(true)
+						.title('Greska')
+						.textContent('Niste uneli sifru ili naziv magacina.')
+						.ok('OK')
+					);
+				}
+				
 			}
 			
 			$scope.onSelectEvent = function() {

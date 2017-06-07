@@ -1,5 +1,8 @@
 app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 'magacinService', function($scope, $location, $mdDialog, magacinService){
 
+	$scope.vidiAnalitike = false;
+	$scope.vidiKartice = false;
+	
 	magacinService.sviMagacini().then(function(response){
 		$scope.items = response.data;
 		$scope.itemsSize = $scope.items.length;
@@ -20,9 +23,28 @@ app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 
 		}
 	}
 	
-	$scope.izmeniMagacin = function() {
-		
-		
+	$scope.obrisiMagacin = function() {
+		if($scope.selected[0] === undefined){
+			$mdDialog.show(
+					$mdDialog.alert()
+				    .clickOutsideToClose(true)
+				    .title('Greska')
+				    .textContent('Morate izabrati magacin.')
+				    .ok('OK')
+			);
+		}
+		for(var i = 0; i < $scope.items.length; i++){
+			if(($scope.items[i].sifra == $scope.selected[0].sifra) && ($scope.items[i].preduzece.id == $scope.selected[0].preduzece.id)){
+				magacinService.obrisiMagacin($scope.items[i].sifra, $scope.items[i].naziv, $scope.items[i].preduzece.id);
+				var index = $scope.items.indexOf($scope.items[i]);
+				$scope.items.splice(index, 1);
+				$scope.itemsSize = $scope.items.length;
+				$scope.vidiKartice = false;
+				$scope.vidiAnalitike = false;
+				$scope.kartice = [];
+				$scope.analitike = [];
+			}
+		}
 	}
 	
 	$scope.onSelectEvent = function() {
@@ -32,11 +54,15 @@ app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 
 			$scope.analitike = [];
 			$scope.sifraMagacina = "";
 			$scope.nazivMagacina = "";
+			$scope.vidiKartice = false;
+			$scope.vidiAnalitike = false;
 		}
 		else {
 			$scope.kartice = $scope.selected[0].kartice;
 			$scope.sifraMagacina = $scope.selected[0].sifra;
 			$scope.nazivMagacina = $scope.selected[0].naziv;
+			$scope.vidiKartice = true;
+			$scope.vidiAnalitike = false;
 		}
 	}
 	
@@ -44,10 +70,11 @@ app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 
 		
 		if ($scope.selectedMK[0] === undefined) {
 			$scope.analitike = [];
-
+			$scope.vidiAnalitike = false;
 		}
 		else {
 			$scope.analitike = $scope.selectedMK[0].analitike;
+			$scope.vidiAnalitike = true;
 		}
 	}
 	

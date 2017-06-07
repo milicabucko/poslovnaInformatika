@@ -53,10 +53,39 @@ public class MagacinController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
 	public ResponseEntity<Magacin> dodajMagacin(@RequestBody Magacin magacin, @PathVariable Integer firmaId){
+		
+		Collection<Magacin> magacinProba = (Collection<Magacin>) magacinService.findAllBySifra(magacin.getSifra());
+		
+		if(magacinProba != null){
+			for (Magacin magacin2 : magacinProba) {
+				if(magacin2.getPreduzece().getId().equals(firmaId)){
+					magacin2.setSifra("greska");
+					return new ResponseEntity<Magacin>(magacin2, HttpStatus.OK);
+				}
+			}
+		}
+		
 		Company firma = companyService.findOne(firmaId);
 		magacin.setPreduzece(firma);
 		Magacin m = magacinService.save(magacin);
 		return new ResponseEntity<Magacin>(m, HttpStatus.OK);
+	}
+	
+	@RequestMapping(
+            value    = "/api/magacin/obrisiMagacin/{firmaId}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+	public ResponseEntity<Magacin> obrisiMagacin(@RequestBody Magacin magacin, @PathVariable Integer firmaId){
+		Collection<Magacin> magacinProba = (Collection<Magacin>) magacinService.findAllBySifra(magacin.getSifra());
+		
+		for (Magacin magacin2 : magacinProba) {
+			if(magacin2.getPreduzece().getId().equals(firmaId)){
+				magacinService.deleteMagacin(magacin2);
+				return new ResponseEntity<Magacin>(magacin2, HttpStatus.OK);
+			}
+		}
+		return null;
 	}
 	
 	@RequestMapping(
