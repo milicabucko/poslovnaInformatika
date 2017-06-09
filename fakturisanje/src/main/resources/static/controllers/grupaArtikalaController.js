@@ -11,9 +11,11 @@ app.controller('grupaArtikalaController',['$scope', '$location', '$mdDialog', 'c
 		$scope.firme = response.data;
 	});
 	
+	var urlParams =  $location.search();
+	var id = urlParams.companyID;
+	
 	
 	$scope.kreirajGrupuArtikala = function(){
-		var id = $scope.grupa.company.id;
 		var vrstaID = $scope.grupa.vrstaPDVa.id;
 		grupaArtikalaService.createGrupu($scope.grupa, id, vrstaID).then(function(response){
 			alert("dodato");

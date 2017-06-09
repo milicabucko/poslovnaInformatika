@@ -71,9 +71,6 @@ app.controller('indexController',['$scope', '$location', '$window','$mdDialog', 
 	$scope.goToVrsta = function() {
 		$location.path("/pregledVrstiPDVa");
 	}
-	$scope.goToGrupaArtikala = function() {
-		$location.path("/grupa");
-	}
 	$scope.pregledajGrupe = function() {
 		$location.path("/grupeArtikala");
 	}

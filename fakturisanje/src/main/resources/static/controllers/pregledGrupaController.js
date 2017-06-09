@@ -62,6 +62,10 @@ app.controller('pregledGrupaController',['$scope', '$location', '$mdDialog', 'co
 			}
 		}
 		
+		$scope.dodajGrupu = function(){
+			$location.path("/grupa").search({companyID:$scope.selected[0].id })
+		}
+		
 		$scope.prikaziArtikle = function() {
 			if ($scope.selectedGrupa[0] === undefined) {
 				$scope.artikli = [];
