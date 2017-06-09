@@ -67,7 +67,7 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="grupa" md-select-id="name" md-on-select="onSelectGrupa()" md-auto-select ng-repeat="grupa in grupe | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit">
+      <tr md-row md-select="grupa" md-select-id="name" ng-click="prikaziArtikle()" md-auto-select ng-repeat="grupa in grupe | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit">
         <td md-cell>{{grupa.nazivGrupe}}</td>
         <td md-cell>{{grupa.vrstaPDVa.nazivVrstePDVa}}</td>
       </tr>
@@ -77,4 +77,38 @@
 <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{grupeSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
 
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Lista artikala grupe</h2>    
+	<md-button class="md-warn" aria-label="stopa" ng-click="dodajArtikal()">Dodaj artikal
+	
+    </md-button>
+	
+    
+	</div>
+</md-toolbar>
 
+
+<md-content>
+<md-table-container>
+  <table md-table md-row-select ng-model="selectedArtikal"'>
+    <thead md-head md-order="myOrder" >
+      <tr md-row>
+        <th md-column>Naziv artikla</th>
+        <th md-column>Sifra artikla</th>
+        <th md-column>Vrsta artikla</th>
+        <th md-column>Jedinica mere artikla</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="artikal" md-select-id="name" md-on-select="onSelectArtikal()" md-auto-select ng-repeat="artikal in artikli | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit">
+        <td md-cell>{{artikal.naziv}}</td>
+        <td md-cell>{{artikal.sifra}}</td>
+        <td md-cell>{{artikal.vrsta}}</td>
+        <td md-cell>{{artikal.jedinicaMere.nazivJedinice}}</td>
+      </tr>
+    </tbody>
+  </table>  
+</md-table-container>	
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{artikliSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+</md-content>

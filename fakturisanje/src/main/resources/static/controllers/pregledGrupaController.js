@@ -1,4 +1,4 @@
-app.controller('pregledGrupaController',['$scope', '$location', '$mdDialog', 'companyService','grupaArtikalaService', function($scope, $location, $mdDialog, companyService, grupaArtikalaService){
+app.controller('pregledGrupaController',['$scope', '$location', '$mdDialog', 'companyService','grupaArtikalaService','artikalService', function($scope, $location, $mdDialog, companyService, grupaArtikalaService, artikalService){
 
 		
 	companyService.getAllCompanies().then(function(response){
@@ -62,6 +62,29 @@ app.controller('pregledGrupaController',['$scope', '$location', '$mdDialog', 'co
 			}
 		}
 		
+		$scope.prikaziArtikle = function() {
+			if ($scope.selectedGrupa[0] === undefined) {
+				$scope.artikli = [];
+				$scope.artikliSize = 0;
+			}
+			else{
+				//$scope.grupe = $scope.selected[0].grupe;
+				var idGrupe = $scope.selectedGrupa[0].id;
+				artikalService.getAllArtikle(idGrupe).then(function(response){
+					 console.log(response.data);
+					 $scope.artikli = response.data;
+					 $scope.artikliSize = $scope.artikli.length;
+				 
+				});
+				$scope.artikliSize = $scope.artikli.length;
+			}
+		}
+		
+		
+			$scope.dodajArtikal = function(){
+			
+			$location.path("/artikal").search({grupaID:  $scope.selectedGrupa[0].id, companyID: $scope.selected[0].id})
+		}
 		
 	
 		

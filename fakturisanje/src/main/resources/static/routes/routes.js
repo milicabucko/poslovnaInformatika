@@ -92,6 +92,10 @@ app.config(function($routeProvider){
 		templateUrl : "views/jedinicaMere.html",
 		controller : 'pregledJedinicaMereController'
 	})
+	.when("/artikal",{
+		templateUrl : "views/artikal.html",
+		controller : 'artikalController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'

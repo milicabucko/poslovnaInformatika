@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -35,6 +36,7 @@ public class GrupaArtikala implements Serializable{
 	private Collection<Artikal> artikli;
 	
 	@ManyToOne
+	@JsonBackReference
 	private Company company;
 	
 	@ManyToOne

@@ -2,7 +2,10 @@ package com.poslovna.fakturisanje.controllers;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,23 +47,27 @@ public class JedinicaMereController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Collection<JedinicaMere>> getByCompany(@PathVariable Integer id) {
-		Company company = companyRepository.findOne(id);
-		Collection<GrupaArtikala> sveGrupe = grupaArtikalaService.findByCompany(company);
-		HashSet<Artikal> sviArtikli = new HashSet<>();
-		sveGrupe.forEach(grupa -> sviArtikli.addAll(artikalService.findByGrupaArtikala(grupa.getId())));
-		Set<JedinicaMere> sveJedinice = new HashSet<JedinicaMere>();
-		sviArtikli.forEach(artikal -> sveJedinice.add(artikal.getJedinicaMere()));
-        return new ResponseEntity<Collection<JedinicaMere>>(sveJedinice, HttpStatus.OK);
+		//Company company = companyRepository.findOne(id);
+		//Collection<GrupaArtikala> sveGrupe = grupaArtikalaService.findByCompany(company);
+		//HashSet<Artikal> sviArtikli = new HashSet<>();
+		//sveGrupe.forEach(grupa -> sviArtikli.addAll(artikalService.findByGrupaArtikala(grupa.getId())));
+		List<JedinicaMere> sveJedinice = jedinicaMereRepository.findByCompanyId(id);
+		//Set<JedinicaMere> jedinice = new HashSet<>(sveJedinice);
+		Set<JedinicaMere> proba = sveJedinice.stream().collect(Collectors.toSet());
+		//sviArtikli.forEach(artikal -> sveJedinice.add(artikal.getJedinicaMere()));
+        return new ResponseEntity<Collection<JedinicaMere>>(proba, HttpStatus.OK);
     }
 	
 	@RequestMapping(
-			value = "api/jedinice/kreirajJedinicu/",
+			value = "api/jedinice/kreirajJedinicu/{id}",
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<JedinicaMere> addGrupu(@RequestBody JedinicaMere jedinicaMere) {
+	public ResponseEntity<JedinicaMere> addJedinicu(@RequestBody JedinicaMere jedinicaMere, @PathVariable Integer id) {
         JedinicaMere jm = new JedinicaMere();
+        Company company = companyRepository.findOne(id);
         jm.setNazivJedinice(jedinicaMere.getNazivJedinice());
         jm.setOznakaJedinice(jedinicaMere.getOznakaJedinice());
+        jm.setCompany(company);
         jedinicaMereRepository.save(jm);
         return new ResponseEntity<JedinicaMere>(jm, HttpStatus.OK);
     }

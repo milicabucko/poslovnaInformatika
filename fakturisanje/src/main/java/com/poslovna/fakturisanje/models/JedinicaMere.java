@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "jedinicamere")
@@ -25,6 +28,10 @@ public class JedinicaMere implements Serializable{
 	
 	@Column(name = "nazivJedinice")
 	private String nazivJedinice;
+	
+	@ManyToOne
+	@JsonBackReference
+	private Company company;
 	
 
 	public JedinicaMere() {
@@ -53,5 +60,15 @@ public class JedinicaMere implements Serializable{
 	public void setNazivJedinice(String nazivJedinice) {
 		this.nazivJedinice = nazivJedinice;
 	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+	
+	
 
 }

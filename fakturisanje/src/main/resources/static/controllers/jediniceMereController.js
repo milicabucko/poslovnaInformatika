@@ -1,4 +1,4 @@
-app.controller('pregledJedinicaMereController',['$scope', '$location', '$mdDialog', 'companyService', 'jediniceMereService', function($scope, $location, $mdDialog, companyService, jediniceMereService){
+app.controller('pregledJedinicaMereController',['$scope', '$location', '$mdDialog','$routeParams', 'companyService', 'jediniceMereService', function($scope, $location, $mdDialog, $routeParams, companyService, jediniceMereService){
 
 		
 	companyService.getAllCompanies().then(function(response){
@@ -53,6 +53,7 @@ app.controller('pregledJedinicaMereController',['$scope', '$location', '$mdDialo
 			else{
 				//$scope.grupe = $scope.selected[0].grupe;
 				var id = $scope.selected[0].id;
+				console.log(id);
 				jediniceMereService.getAllJedinice(id).then(function(response){
 					$scope.jedinice = response.data;
 				});
@@ -61,11 +62,14 @@ app.controller('pregledJedinicaMereController',['$scope', '$location', '$mdDialo
 		}
 		
 		$scope.dodajJedinicu = function(){
-			$location.path("/jedinicaMere");
+			$location.path("/jedinicaMere").search({companyId:  $scope.selected[0].id })
 		}
 		
 		$scope.kreirajJedinicuMere = function(){
-			jediniceMereService.createJedinicu($scope.jedinica).then(function(response){
+			var urlParams = $location.search();
+			console.log(urlParams.companyId + " url param");
+			var idToSend = urlParams.companyId;// urlParams.companyId;
+			jediniceMereService.createJedinicu($scope.jedinica, idToSend).then(function(response){
 				 alert("dodato");
 			 
 			});

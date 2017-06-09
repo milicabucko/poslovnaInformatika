@@ -24,15 +24,7 @@
           <label>Jedinica Mere:</label>
           <md-select ng-model="artikal.jedinicaMere">
             <md-option ng-repeat="jed in jedinice" ng-value="jed">
-              {{jed.tipJedinice}}
-            </md-option>
-          </md-select>
-        </md-input-container>
-        <md-input-container>
-          <label>Grupa artikla:</label>
-          <md-select ng-model="artikal.grupaArtikala">
-            <md-option ng-repeat="grupa in grupe" ng-value="grupa">
-              {{grupa.nazivGrupe}}
+              {{jed.nazivJedinice}}
             </md-option>
           </md-select>
         </md-input-container>	
@@ -43,7 +35,7 @@
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Zakljucak</h2>
 	
-	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajGrupuArtikala()">
+	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajArtikal()">
         Kreiraj
     </md-button>
     

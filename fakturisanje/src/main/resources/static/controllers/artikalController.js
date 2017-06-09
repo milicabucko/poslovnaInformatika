@@ -1,16 +1,18 @@
-app.controller('artikalController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService', 'artikalService', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService, artikalService){
+app.controller('artikalController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService', 'artikalService','jediniceMereService', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService, artikalService, jediniceMereService){
+	var urlParams = $location.search();
+	var id = urlParams.companyID;
 	
-	stopaPDVaService.getAllStope().then(function(response){
-		 
-		 $scope.stope = response.data;
-		 $scope.stopeSize = $scope.stope.length;
-	 
+	jediniceMereService.getAllJedinice(id).then(function(response){
+		$scope.jedinice = response.data;
 	});
 	
 	
-	$scope.kreirajVrstuPDVa = function(){
-		var stopaZaSlanje = $scope.vrsta.stopaPDVa.id;
-		vrstaPDVaService.createVrstu($scope.vrsta, stopaZaSlanje).then(function(response){
+	$scope.kreirajArtikal = function(){
+		
+		console.log(urlParams.companyId + " url param");
+		var idToSend = urlParams.grupaID;
+		var idJedinice = $scope.artikal.jedinicaMere.id;
+		artikalService.createArtikal($scope.artikal, idToSend, idJedinice).then(function(response){
 			alert("dodato");
 			
 		});

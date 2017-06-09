@@ -32,6 +32,10 @@ public class ArtikalService {
 		
 	}
 	
+	public Artikal saveArtikal(Artikal a){
+		return artikalRepository.save(a);
+	}
+	
 	
 
 }

@@ -1,10 +1,10 @@
 app.factory('jediniceMereService', function jediniceMereService($http){
 	
-	jediniceMereService.createJedinicu = function(jedinica){
+	jediniceMereService.createJedinicu = function(jedinica, idCompany){
 		
 		return $http({
 			method: 'POST',
-			url: 'api/jedinice/kreirajJedinicu/',
+			url: 'api/jedinice/kreirajJedinicu/'+ idCompany,
 			data: jedinica
 		});
 	}
