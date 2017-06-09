@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-09T16:17:38 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lager" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="216955d1-36e0-4e03-a86e-b865b43b7390">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="ZmFrdHVyaXNhbmplLm1hZ2FjaW4gQVMgLDU3LDEzMCxhMmY1MWIxNC1kNDZmLTQzZGUtOWZiOS01&#xA;OGM5ZWZmMjc4MjY7"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT fakturisanje.magacin.naziv
+FROM fakturisanje.magacin]]>
+	</queryString>
+	<field name="naziv" class="java.lang.String"/>
+	<field name="sifra" class="java.lang.String"/>
+	<field name="preduzece_id" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+</jasperReport>
