@@ -84,6 +84,14 @@ app.config(function($routeProvider){
 		templateUrl : "views/pregledGrupa.html",
 		controller : 'pregledGrupaController'
 	})
+	.when("/jediniceMere",{
+		templateUrl : "views/pregledJedinicaMere.html",
+		controller : 'pregledJedinicaMereController'
+	})
+	.when("/jedinicaMere",{
+		templateUrl : "views/jedinicaMere.html",
+		controller : 'pregledJedinicaMereController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'

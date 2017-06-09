@@ -1,0 +1,29 @@
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Dodaj jedinicu mere</h2>
+</div>
+</md-toolbar>
+
+	
+        	<md-input-container class="md-block">
+        		<label>Oznaka:</label>
+        		<input  required name="oznakaJedinice" ng-model="jedinica.oznakaJedinice" />
+        	</md-input-container>
+        	<md-input-container class="md-block">
+        		<label>Naziv:</label>
+        		<input  required name="nazivJedinice" ng-model="jedinica.nazivJedinice" />
+        	</md-input-container>	
+    	</md-dialog-content>
+    	
+    	
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Zakljucak</h2>
+	
+	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajJedinicuMere()">
+        Kreiraj
+    </md-button>
+    
+	</div>
+</md-toolbar>
+

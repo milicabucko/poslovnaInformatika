@@ -111,6 +111,11 @@
               Artikli
             </button>
             <md-menu-content>
+             <md-menu-item>
+                <md-button ng-click="goToJediniceMere()">
+                  Pregled jedinica mere
+                </md-button>
+              </md-menu-item>
               <md-menu-item>
                 <md-button ng-click="goToGrupaArtikala()">
                   Dodaj grupu artikala
@@ -190,6 +195,7 @@
 		<script src="services/stopaPDVaService.js"></script>
 		<script src="services/vrstaPDVaService.js"></script>
 		<script src="services/grupaArtikalaService.js"></script>
+		<script src="services/jediniceMereService.js"></script>
 		
 		
 		<script src="controllers/loginController.js"></script>
@@ -210,6 +216,7 @@
 		<script src="controllers/vrstaController.js"></script>
 		<script src="controllers/grupaArtikalaController.js"></script>
 		<script src="controllers/pregledGrupaController.js"></script>
+		<script src="controllers/jediniceMereController.js"></script>
 
 		<script src="controllers/pregledCenovnikaController.js"></script>
 

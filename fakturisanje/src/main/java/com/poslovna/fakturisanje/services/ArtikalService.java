@@ -1,6 +1,7 @@
 package com.poslovna.fakturisanje.services;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,11 @@ public class ArtikalService {
 
 	public Artikal findOne(Integer artikalId) {
 		return artikalRepository.findOne(artikalId);
+	}
+	
+	public HashSet<Artikal> findByGrupaArtikala(Integer grupaArtikalaId){
+		return artikalRepository.findByGrupaArtikalaId(grupaArtikalaId);
+		
 	}
 	
 	

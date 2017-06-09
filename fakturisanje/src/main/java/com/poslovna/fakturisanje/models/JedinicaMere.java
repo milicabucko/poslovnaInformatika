@@ -1,16 +1,12 @@
 package com.poslovna.fakturisanje.models;
 
 import java.io.Serializable;
-import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,8 +20,11 @@ public class JedinicaMere implements Serializable{
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "tipJedinice")
-	private String tipJedinice;
+	@Column(name = "oznakaJedinice")
+	private String oznakaJedinice;
+	
+	@Column(name = "nazivJedinice")
+	private String nazivJedinice;
 	
 
 	public JedinicaMere() {
@@ -39,16 +38,20 @@ public class JedinicaMere implements Serializable{
 		this.id = id;
 	}
 
-	public String getTipJedinice() {
-		return tipJedinice;
+	public String getOznakaJedinice() {
+		return oznakaJedinice;
 	}
 
-	public void setTipJedinice(String tipJedinice) {
-		this.tipJedinice = tipJedinice;
+	public void setOznakaJedinice(String oznakaJedinice) {
+		this.oznakaJedinice = oznakaJedinice;
 	}
-	
-	
-	
-	
+
+	public String getNazivJedinice() {
+		return nazivJedinice;
+	}
+
+	public void setNazivJedinice(String nazivJedinice) {
+		this.nazivJedinice = nazivJedinice;
+	}
 
 }

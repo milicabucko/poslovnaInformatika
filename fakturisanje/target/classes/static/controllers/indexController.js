@@ -77,5 +77,8 @@ app.controller('indexController',['$scope', '$location', '$window','$mdDialog', 
 	$scope.pregledajGrupe = function() {
 		$location.path("/grupeArtikala");
 	}
+	$scope.goToJediniceMere = function() {
+		$location.path("/jediniceMere");
+	}
 	
 }]);
