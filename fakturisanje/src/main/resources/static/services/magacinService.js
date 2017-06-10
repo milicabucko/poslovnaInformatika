@@ -43,6 +43,13 @@ app.factory('magacinService', function magacinService($http){
 		});
 	}
 	
+	magacinService.lagerMagacina = function(sifraMagacina, firmaId){
+		return $http({
+			method: "GET",
+			url: 'api/magacin/lager/' + sifraMagacina + '/' + firmaId
+		});
+	}
+	
 	magacinService.sviMagacini = function() {
 		return $http({
 			method: "GET",

@@ -26,7 +26,7 @@
         <td md-cell>{{item.naziv}}</td>
         <td md-cell>{{item.preduzece.name}}</td>    
         <td md-cell><md-button class="md-raised md-primary" ng-click="magacinskeKartice()">Magacinske kartice</md-button></td>
-        <td md-cell><md-button class="md-raised md-second" ng-click="lager()">Lager</md-button></td> 	
+        <td md-cell><md-button class="md-raised md-second" ng-click="lager(item.sifra, item.preduzece.id)">Lager</md-button></td> 	
       </tr>
     </tbody>
   </table>  

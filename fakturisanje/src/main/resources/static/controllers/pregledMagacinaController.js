@@ -47,6 +47,16 @@ app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 
 		}
 	}
 	
+	$scope.izmeniMagacin = function() {
+		
+	}
+	
+	$scope.lager = function(sifraM, firmaId){
+		magacinService.lagerMagacina(sifraM, firmaId).then(function(response){
+			//console.log(response.data);
+		});
+	}
+	
 	$scope.onSelectEvent = function() {
 		
 		if ($scope.selected[0] === undefined) {
