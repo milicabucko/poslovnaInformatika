@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +33,7 @@ import com.poslovna.fakturisanje.services.MagacinService;
 
 import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -88,6 +91,7 @@ public class MagacinController {
 		return new ResponseEntity<Magacin>(m, HttpStatus.OK);
 	}
 	
+	
 	@RequestMapping(
             value    = "/api/magacin/lager/{sifra}/{firmaId}",
             method   = RequestMethod.GET,
@@ -100,23 +104,54 @@ public class MagacinController {
 		if(magacinProba != null){
 			for (Magacin magacin2 : magacinProba) {
 				if(magacin2.getPreduzece().getId().equals(firmaId)){
-					
-					String outputFile = "C:\\Users\\Adam\\Desktop\\lager.pdf";
-					Map<String, Object> parameters = new HashMap<String, Object>();
-					parameters.put("sifra", magacin2.getSifra());
-					parameters.put("naziv", magacin2.getNaziv());
-					parameters.put("name", magacin2.getPreduzece().getName());
-					
-					JasperPrint jp = JasperFillManager.fillReport("D:\\lager.jasper", 
-							parameters, new JREmptyDataSource());
-					File file = new File(outputFile);
-					JasperExportManager.exportReportToPdfStream(jp, new FileOutputStream(file));
-					
-					response.setContentType("application/pdf");
-					IOUtils.copy(new FileInputStream(file), response.getOutputStream());
+
+					HashMap hm = null;
+
+					try {
+						System.out.println("Start ....");
+						// Get jasper report
+						String jrxmlFileName = "C:\\Users\\Dragisa\\Desktop\\PIProject\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\lager.jrxml";
+						String jasperFileName = "C:\\Users\\Dragisa\\Desktop\\PIProject\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\lager.jasper";
+						String pdfFileName = "C:\\Users\\Dragisa\\Desktop\\lager.pdf";
+
+						JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
+
+						// String dbUrl = props.getProperty("jdbc.url");
+						String dbUrl = "jdbc:mysql://localhost:3306/fakturisanje";
+						// String dbDriver = props.getProperty("jdbc.driver");
+						String dbDriver = "com.mysql.jdbc.Driver";
+						// String dbUname = props.getProperty("db.username");
+						String dbUname = "root";
+						// String dbPwd = props.getProperty("db.password");
+						String dbPwd = "1234";
+
+						// Load the JDBC driver
+						Class.forName(dbDriver);
+						// Get the connection
+						Connection conn = DriverManager
+								.getConnection(dbUrl, dbUname, dbPwd);
+
+						// Create arguments
+						// Map params = new HashMap();
+						hm = new HashMap();
+						hm.put("sifrica", magacin2.getSifra());
+
+						// Generate jasper print
+						JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperFileName, hm, conn);
+
+						// Export pdf file
+						JasperExportManager.exportReportToPdfFile(jprint, pdfFileName);
+
+						System.out.println("Done exporting reports to pdf");
+
+					} catch (Exception e) {
+						System.out.print("Exceptiion" + e);
+					}
 				}
 			}
 		}
+
+		
 	}
 	
 	@RequestMapping(
