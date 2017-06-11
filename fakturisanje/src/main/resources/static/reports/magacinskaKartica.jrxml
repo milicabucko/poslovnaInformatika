@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-11T09:42:28 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="magacinskaKartica" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d2dd8bd5-68f1-4ea1-a173-4c6e0f6bc008">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
+	<parameter name="karticaId" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT fakturisanje.stavka_dokumenta.cena,
+	fakturisanje.stavka_dokumenta.kolicina,
+	fakturisanje.analitika.smer,
+	fakturisanje.analitika.vrsta_prometa,
+	fakturisanje.analitika.id,
+	fakturisanje.artikal.naziv,
+	fakturisanje.artikal.sifra
+FROM fakturisanje.analitika
+	INNER JOIN fakturisanje.kartica ON 
+	 fakturisanje.analitika.magacinska_kartica_id = fakturisanje.kartica.id 
+	INNER JOIN fakturisanje.stavka_dokumenta ON 
+	 fakturisanje.analitika.stavka_dok_id = fakturisanje.stavka_dokumenta.id 
+	 AND fakturisanje.analitika.stavka_dokumenta_id = fakturisanje.stavka_dokumenta.id 
+	INNER JOIN fakturisanje.artikal ON 
+	 fakturisanje.kartica.artikal_id = fakturisanje.artikal.id 
+	 AND fakturisanje.stavka_dokumenta.artikal_id = fakturisanje.artikal.id
+WHERE fakturisanje.kartica.id = $P{karticaId}]]>
+	</queryString>
+	<field name="cena" class="java.lang.Float"/>
+	<field name="kolicina" class="java.lang.Integer"/>
+	<field name="smer" class="java.lang.String"/>
+	<field name="vrsta_prometa" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="naziv" class="java.lang.String"/>
+	<field name="sifra" class="java.lang.String"/>
+	<variable name="vrednost" class="java.lang.Float">
+		<variableExpression><![CDATA[$F{smer}.contentEquals( "U") ? $F{kolicina}*$F{cena} : -$F{kolicina}*$F{cena}]]></variableExpression>
+	</variable>
+	<variable name="ukupnaVrednost" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$V{vrednost}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="120" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="459" y="9" width="58" height="30" uuid="419dcaf1-ffc1-4b0e-b8b5-667466e64e10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[Strana: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="517" y="8" width="36" height="31" uuid="7bd14dda-3e6a-4dfc-8505-fda1e920fe1a"/>
+				<textElement verticalAlignment="Middle" markup="styled">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="406" y="34" width="61" height="30" uuid="ddd9b3b5-6901-4d0e-8847-e778e46af0c2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[Datum: ]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="459" y="32" width="111" height="31" uuid="3a5c0e48-e584-4867-b9c1-d4c3c902238f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="9" width="50" height="31" uuid="311739b6-55d3-4094-8b22-d3e4ee28e37b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[Artikl: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="60" y="33" width="70" height="30" forecolor="#0000FF" uuid="dfc3d744-5ae1-4d21-821f-c7e9ba41e4a2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{naziv}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="33" width="60" height="30" forecolor="#0000FF" uuid="6177f75d-cf3a-49d1-a15e-013682b29f26"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sifra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="140" y="0" width="261" height="50" uuid="f633cc4c-8104-46d5-ab16-c9199949de49"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Magacinska kartica sa analitikom prometa]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-20" y="70" width="595" height="1" uuid="f988bc1d-73c4-4b63-944f-09e0a3acc287"/>
+				<graphicElement>
+					<pen lineWidth="7.0" lineStyle="Double" lineColor="#000000"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="-20" y="110" width="595" height="1" uuid="d510f684-1a3e-467f-af2e-1988153b8a2f"/>
+				<graphicElement>
+					<pen lineWidth="7.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="-11" y="78" width="72" height="31" uuid="d8dfd2b4-fc7a-46cb-aacd-58a576ba9a05"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[Redni br. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="61" y="79" width="104" height="31" uuid="f04a39eb-328e-40cb-ba89-71c7c1334876"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[Vrsta prometa]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="79" width="61" height="31" uuid="1c91f1e2-65d2-479c-9b17-830bb3031aa3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[Smer]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="79" width="101" height="31" uuid="24b802b9-8581-4bb4-8cf4-421b739d23cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[Kolicina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="79" width="121" height="31" uuid="f811e91f-5b6b-4e0f-9876-e6d7df64aeea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[Jedinicna cena]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="79" width="81" height="31" uuid="b186a616-f213-4e38-b905-c8469c916a26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<text><![CDATA[Vrednost]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="-6" y="5" width="61" height="30" uuid="010d79f7-5c90-4b7f-acc4-f539c0dfa029"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="63" y="5" width="100" height="30" uuid="fb1e1026-de9e-4ee0-8b17-a3a7a21caf1b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vrsta_prometa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="174" y="5" width="77" height="30" uuid="0a83ab43-c5a1-40ad-b747-38e60878472f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{smer}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="251" y="5" width="100" height="30" uuid="615a5829-0e1e-4cef-b8a0-5d811e941657"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kolicina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="371" y="5" width="100" height="30" uuid="0c2ae70e-2788-43f8-a770-c1738d77b516"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cena}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="5" width="91" height="30" uuid="68dc5d5c-e0d5-4bae-b7a9-ee695ba4bf03"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{vrednost}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<line>
+				<reportElement x="-20" y="6" width="595" height="5" uuid="b75c8c50-2aba-4cc8-a5c4-44bb14f89e35"/>
+				<graphicElement>
+					<pen lineWidth="7.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="-20" y="43" width="595" height="5" uuid="7c39e286-fb3f-4b59-b15a-3774cd539c5e"/>
+				<graphicElement>
+					<pen lineWidth="7.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="-13" y="11" width="201" height="26" uuid="7522f339-2a43-4771-a8a7-b6673dc606b7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[UKUPNA VREDNOST: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="401" y="15" width="169" height="30" uuid="d44f3953-6dfa-45e8-81a0-e91298ce781d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ukupnaVrednost}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

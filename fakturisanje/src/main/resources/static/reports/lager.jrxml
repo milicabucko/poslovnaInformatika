@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-10T20:05:14 -->
+<!-- 2017-06-11T09:03:02 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lager" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="216955d1-36e0-4e03-a86e-b865b43b7390">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="fakturisanje"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="635"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="351"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="228"/>
@@ -116,18 +116,11 @@ WHERE fakturisanje.magacin.sifra = $P{sifrica}]]>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement x="-10" y="71" width="32" height="34" uuid="b862d272-9a83-4c5e-bb1a-303ca3aa21fe"/>
+				<reportElement x="2" y="71" width="32" height="34" uuid="b862d272-9a83-4c5e-bb1a-303ca3aa21fe"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
 				<text><![CDATA[Sifra art.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="38" y="72" width="31" height="34" uuid="cb4c21c2-1f6b-4b01-86e7-22dc8e390808"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="14"/>
-				</textElement>
-				<text><![CDATA[Jed. mere]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="84" y="73" width="180" height="33" uuid="b7d513cf-da30-4ee1-8601-d69afddf627c"/>
@@ -187,9 +180,10 @@ WHERE fakturisanje.magacin.sifra = $P{sifrica}]]>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="30" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField>
-				<reportElement x="-10" y="0" width="32" height="30" uuid="c099a1ac-b771-4ce3-bdb1-a753b77b9238"/>
+				<reportElement x="-4" y="0" width="50" height="30" uuid="c099a1ac-b771-4ce3-bdb1-a753b77b9238"/>
 				<textElement>
 					<font fontName="Times New Roman" size="16" isBold="true"/>
 				</textElement>

@@ -28,6 +28,7 @@ import com.lowagie.text.pdf.codec.Base64.InputStream;
 import com.lowagie.text.pdf.codec.Base64.OutputStream;
 import com.poslovna.fakturisanje.models.Company;
 import com.poslovna.fakturisanje.models.Magacin;
+import com.poslovna.fakturisanje.models.MagacinskaKartica;
 import com.poslovna.fakturisanje.services.CompanyService;
 import com.poslovna.fakturisanje.services.MagacinService;
 
@@ -97,8 +98,8 @@ public class MagacinController {
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE
     )
-	public void getReportForWarehouse(HttpServletResponse response, @PathVariable String sifra, @PathVariable Integer firmaId) throws JRException, IOException {
-		System.out.println(sifra + " " + firmaId);
+	public void izvestajLager(HttpServletResponse response, @PathVariable String sifra, @PathVariable Integer firmaId) throws JRException, IOException {
+		//System.out.println(sifra + " " + firmaId);
 		Collection<Magacin> magacinProba = (Collection<Magacin>) magacinService.findAllBySifra(sifra);
 		
 		if(magacinProba != null){
@@ -109,10 +110,9 @@ public class MagacinController {
 
 					try {
 						System.out.println("Start ....");
-						// Get jasper report
-						String jrxmlFileName = "C:\\Users\\Dragisa\\Desktop\\PIProject\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\lager.jrxml";
-						String jasperFileName = "C:\\Users\\Dragisa\\Desktop\\PIProject\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\lager.jasper";
-						String pdfFileName = "C:\\Users\\Dragisa\\Desktop\\lager.pdf";
+						String jrxmlFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\lager.jrxml";
+						String jasperFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\lager.jasper";
+						String pdfFileName = "C:\\Users\\Adam\\Desktop\\lager.pdf";
 
 						JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
 
@@ -123,16 +123,13 @@ public class MagacinController {
 						// String dbUname = props.getProperty("db.username");
 						String dbUname = "root";
 						// String dbPwd = props.getProperty("db.password");
-						String dbPwd = "1234";
+						String dbPwd = "svitac94";
 
 						// Load the JDBC driver
 						Class.forName(dbDriver);
 						// Get the connection
-						Connection conn = DriverManager
-								.getConnection(dbUrl, dbUname, dbPwd);
+						Connection conn = DriverManager.getConnection(dbUrl, dbUname, dbPwd);
 
-						// Create arguments
-						// Map params = new HashMap();
 						hm = new HashMap();
 						hm.put("sifrica", magacin2.getSifra());
 
@@ -149,9 +146,56 @@ public class MagacinController {
 					}
 				}
 			}
-		}
-
+		}	
+	}
+	
+	@RequestMapping(
+            value    = "/api/magacin/kartica/{karticaId}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE
+    )
+	public void izvestajKartica(HttpServletResponse response, @PathVariable Integer karticaId) throws JRException, IOException {
+		//System.out.println(karticaId);
 		
+		//MagacinskaKartica kartica
+		HashMap hm = null;
+
+		try {
+			System.out.println("Start ....");
+			String jrxmlFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\magacinskaKartica.jrxml";
+			String jasperFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\magacinskaKartica.jasper";
+			String pdfFileName = "C:\\Users\\Adam\\Desktop\\magacinskaKartica.pdf";
+
+			JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
+
+			// String dbUrl = props.getProperty("jdbc.url");
+			String dbUrl = "jdbc:mysql://localhost:3306/fakturisanje";
+			// String dbDriver = props.getProperty("jdbc.driver");
+			String dbDriver = "com.mysql.jdbc.Driver";
+			// String dbUname = props.getProperty("db.username");
+			String dbUname = "root";
+			// String dbPwd = props.getProperty("db.password");
+			String dbPwd = "svitac94";
+
+			// Load the JDBC driver
+			Class.forName(dbDriver);
+			// Get the connection
+			Connection conn = DriverManager.getConnection(dbUrl, dbUname, dbPwd);
+
+			hm = new HashMap();
+			hm.put("karticaId", karticaId);
+
+			// Generate jasper print
+			JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperFileName, hm, conn);
+
+			// Export pdf file
+			JasperExportManager.exportReportToPdfFile(jprint, pdfFileName);
+
+			System.out.println("Done exporting reports to pdf");
+
+		} catch (Exception e) {
+			System.out.print("Exceptiion" + e);
+		}
 	}
 	
 	@RequestMapping(

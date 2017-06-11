@@ -53,8 +53,28 @@ app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 
 	
 	$scope.lager = function(sifraM, firmaId){
 		magacinService.lagerMagacina(sifraM, firmaId).then(function(response){
-			//console.log(response.data);
+			
 		});
+		$mdDialog.show(
+				$mdDialog.alert()
+			    .clickOutsideToClose(true)
+			    .title('Potvrda')
+			    .textContent('Izvestaj sa lager listom se nalazi u "lager.pdf".')
+			    .ok('OK')
+		);
+	}
+	
+	$scope.magacinskaKartica = function(karticaId){
+		magacinService.magacinskaKartica(karticaId).then(function(response){
+			
+		});
+		$mdDialog.show(
+				$mdDialog.alert()
+			    .clickOutsideToClose(true)
+			    .title('Potvrda')
+			    .textContent('Izvestaj sa magacinskom karticom se nalazi u "magacinskaKartica.pdf".')
+			    .ok('OK')
+		);
 	}
 	
 	$scope.onSelectEvent = function() {

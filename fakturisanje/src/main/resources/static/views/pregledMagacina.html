@@ -16,8 +16,7 @@
         <th md-column>Sifra</th>
         <th md-column>Naziv</th>
         <th md-column>Preduzece</th>
-        <th md-column>Magacinske kartice</th>
-        <th md-column>Lager</th>
+        <th md-column>Izvestaj</th>
       </tr>
     </thead>
     <tbody md-body>
@@ -25,8 +24,7 @@
         <td md-cell>{{item.sifra}}</td>
         <td md-cell>{{item.naziv}}</td>
         <td md-cell>{{item.preduzece.name}}</td>    
-        <td md-cell><md-button class="md-raised md-primary" ng-click="magacinskeKartice()">Magacinske kartice</md-button></td>
-        <td md-cell><md-button class="md-raised md-second" ng-click="lager(item.sifra, item.preduzece.id)">Lager</md-button></td> 	
+        <td md-cell><md-button class="md-raised md-primary" ng-click="lager(item.sifra, item.preduzece.id)">Lager</md-button></td> 	
       </tr>
     </tbody>
   </table>  
@@ -74,15 +72,16 @@
 	  <table md-table md-row-select  ng-model="selectedMK">
 	    <thead md-head md-order="myOrder">
 	      <tr md-row>
-	        <th md-column>Naziv artikla</th>
-	        <th md-column md-numeric>Pocetno stanje kolicinski</th>
-	        <th md-column md-numeric>Pocetno stanje vrednosno</th>
-	        <th md-column md-numeric>Promet ulaza kolicinski</th>
-	        <th md-column md-numeric>Promet ulaza vrednosno</th>
-	        <th md-column md-numeric>Promet izlaza kolicinski</th>
-	        <th md-column md-numeric>Promet izlaza vrednosno</th>
-	        <th md-column md-numeric>Ukupna kolicina</th>
-	        <th md-column md-numeric>Ukupna vrednost</th>
+	        <th md-column>Artikl</th>
+	        <th md-column md-numeric>Poc. st. kol.</th>
+	        <th md-column md-numeric>Poc. st. vredn.</th>
+	        <th md-column md-numeric>Pro. ul. kol.</th>
+	        <th md-column md-numeric>Pro. ul. vredn.</th>
+	        <th md-column md-numeric>Pro. izl. kol.</th>
+	        <th md-column md-numeric>Pro. izl. vredn.</th>
+	        <th md-column md-numeric>Uk. kol.</th>
+	        <th md-column md-numeric>Uk. vredn.</th>
+	        <th md-column>Izvestaj</th>
 	      </tr>
 	    </thead>
 	    <tbody md-body>
@@ -95,7 +94,8 @@
 	        <td md-cell>{{kartica.prometIzKol}}</td>
 	        <td md-cell>{{kartica.prometIzVred}}</td>  
 	        <td md-cell>{{kartica.pocStanjeKol + kartica.prometUlKol - kartica.prometIzKol}}</td>
-	        <td md-cell>{{kartica.pocStanjeVred + kartica.prometUlVred - kartica.prometIzVred}}</td>  	
+	        <td md-cell>{{kartica.pocStanjeVred + kartica.prometUlVred - kartica.prometIzVred}}</td> 
+	        <td md-cell><md-button class="md-raised md-primary" ng-click="magacinskaKartica(kartica.id)">Magacinska kartica</md-button></td> 	
 	      </tr>
 	    </tbody>
 	  </table>  

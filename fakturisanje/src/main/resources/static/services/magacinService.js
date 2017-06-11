@@ -50,6 +50,13 @@ app.factory('magacinService', function magacinService($http){
 		});
 	}
 	
+	magacinService.magacinskaKartica = function(karticaId){
+		return $http({
+			method: "GET",
+			url: 'api/magacin/kartica/' + karticaId
+		});
+	}
+	
 	magacinService.sviMagacini = function() {
 		return $http({
 			method: "GET",
