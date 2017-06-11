@@ -24,6 +24,7 @@
         <th md-column>Vrsta dokumenta</th>
         <th md-column>Izdavaoc</th>
         <th md-column>Kupac</th>
+        <th md-column>Izvestaj</th>
       </tr>
     </thead>
     <tbody md-body>
@@ -35,7 +36,8 @@
         <td md-cell>{{item.datumKnjizenja | date:'dd/MM/yyyy'}}</td>
       	<td md-cell>{{item.vrstaDokumenta}}</td>
         <td md-cell>{{item.izdavaocRacuna.name}}</td>
-      	<td md-cell>{{item.kupac.name}}</td>     	
+      	<td md-cell>{{item.kupac.name}}</td>  
+      	<td md-cell><md-button class="md-raised md-primary" ng-click="izvestajFaktura(item.id)">Faktura-otpremnica</md-button></td> 	   	
       </tr>
     </tbody>
   </table>  

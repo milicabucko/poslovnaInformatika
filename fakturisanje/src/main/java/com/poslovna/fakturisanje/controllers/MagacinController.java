@@ -155,15 +155,14 @@ public class MagacinController {
             produces = MediaType.APPLICATION_PDF_VALUE
     )
 	public void izvestajKartica(HttpServletResponse response, @PathVariable Integer karticaId) throws JRException, IOException {
-		//System.out.println(karticaId);
-		
-		//MagacinskaKartica kartica
+	
 		HashMap hm = null;
 
 		try {
 			System.out.println("Start ....");
 			String jrxmlFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\magacinskaKartica.jrxml";
 			String jasperFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\magacinskaKartica.jasper";
+			//String jasperFileName = "/reports/magacinskaKartica.jasper";
 			String pdfFileName = "C:\\Users\\Adam\\Desktop\\magacinskaKartica.pdf";
 
 			JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
@@ -187,7 +186,7 @@ public class MagacinController {
 
 			// Generate jasper print
 			JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperFileName, hm, conn);
-
+			
 			// Export pdf file
 			JasperExportManager.exportReportToPdfFile(jprint, pdfFileName);
 
@@ -230,10 +229,10 @@ public class MagacinController {
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-	public ResponseEntity<Magacin> findByPreduzece(@PathVariable BigInteger preduzecePib) {
+	public ResponseEntity<Collection<Magacin>> findByPreduzece(@PathVariable BigInteger preduzecePib) {
 		Company preduzece = companyService.findByPib(preduzecePib);
-		Magacin magacin = magacinService.findByPreduzece(preduzece);
-        return new ResponseEntity<Magacin>(magacin, HttpStatus.OK);
+		Collection<Magacin> magacini = magacinService.findAllByPreduzece(preduzece);
+        return new ResponseEntity<Collection<Magacin>>(magacini, HttpStatus.OK);
     }
 	
 	

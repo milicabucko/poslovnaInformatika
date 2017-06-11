@@ -28,4 +28,7 @@ public class MagacinskaKarticaService {
 		return magacinskaKarticaRepository.findOne(id);
 	}
 	
+	public MagacinskaKartica saveKartica(MagacinskaKartica kartica){
+		return magacinskaKarticaRepository.save(kartica);
+	}
 }

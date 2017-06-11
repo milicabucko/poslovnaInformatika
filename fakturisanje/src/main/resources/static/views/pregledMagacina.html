@@ -72,6 +72,7 @@
 	  <table md-table md-row-select  ng-model="selectedMK">
 	    <thead md-head md-order="myOrder">
 	      <tr md-row>
+	      	<th md-column>Sifra artikla</th>
 	        <th md-column>Artikl</th>
 	        <th md-column md-numeric>Poc. st. kol.</th>
 	        <th md-column md-numeric>Poc. st. vredn.</th>
@@ -86,6 +87,7 @@
 	    </thead>
 	    <tbody md-body>
 	      <tr md-row md-select="kartica" md-on-select="onSelectKartica()" md-select-id="name"  md-auto-select ng-repeat="kartica in kartice | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
+	        <td md-cell>{{kartica.artikal.sifra}}</td>
 	        <td md-cell>{{kartica.artikal.naziv}}</td>
 	        <td md-cell>{{kartica.pocStanjeKol}}</td>
 	        <td md-cell>{{kartica.pocStanjeVred}}</td>

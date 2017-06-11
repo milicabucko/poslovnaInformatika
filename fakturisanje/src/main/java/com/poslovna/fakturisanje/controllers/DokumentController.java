@@ -1,6 +1,12 @@
 package com.poslovna.fakturisanje.controllers;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Collection;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +25,12 @@ import com.poslovna.fakturisanje.services.BusinessPartnerService;
 import com.poslovna.fakturisanje.services.CompanyService;
 import com.poslovna.fakturisanje.services.DokumentService;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+
 @RestController
 public class DokumentController {
 
@@ -27,9 +39,6 @@ public class DokumentController {
 	
 	@Autowired
 	private CompanyService companyService;
-	
-	@Autowired
-	private BusinessPartnerService businessPartnerService;
 	
 	@RequestMapping(
             value    = "/api/faktura/nadjiSledeciBrojDokumenta",
@@ -68,13 +77,16 @@ public class DokumentController {
     }
 	
 	@RequestMapping(
-            value    = "/api/faktura/promeniStatusDokumenta/{fakturaId}/{status}",
+            value    = "/api/faktura/promeniStatusDokumenta/{fakturaId}",
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Integer> promeniStatusDokumenta(@PathVariable Integer fakturaId, @PathVariable String status) {
-		Integer st = fakturaService.setStatusDokumentaForFaktura(status, fakturaId);
-        return new ResponseEntity<Integer>(st, HttpStatus.OK);
+    public ResponseEntity<Integer> promeniStatusDokumenta(@RequestBody Dokument faktura, @PathVariable Integer fakturaId) {
+		Dokument novaFaktura = fakturaService.findOne(fakturaId);
+		novaFaktura.setStatusDokumenta(faktura.getStatusDokumenta());
+		novaFaktura.setDatumKnjizenja(faktura.getDatumKnjizenja());
+		fakturaService.save(novaFaktura);
+        return new ResponseEntity<Integer>(novaFaktura.getBrojDokumenta(), HttpStatus.OK);
     }
 	
 	@RequestMapping(
@@ -87,7 +99,52 @@ public class DokumentController {
         return new ResponseEntity<Collection<Dokument>>(faktura, HttpStatus.OK);
     }
 	
-	
-	
-	
+	@RequestMapping(
+            value    = "/api/faktura/izvestaj/{fakturaId}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE
+    )
+	public void izvestajFaktura(HttpServletResponse response, @PathVariable Integer fakturaId) throws JRException, IOException {
+		System.out.println(fakturaId);
+		/*HashMap hm = null;
+
+		try {
+			System.out.println("Start ....");
+			String jrxmlFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\magacinskaKartica.jrxml";
+			String jasperFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\magacinskaKartica.jasper";
+			//String jasperFileName = "/reports/magacinskaKartica.jasper";
+			 * fakturisanje/src/main/resources/static/reports
+			String pdfFileName = "C:\\Users\\Adam\\Desktop\\magacinskaKartica.pdf";
+
+			JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
+
+			// String dbUrl = props.getProperty("jdbc.url");
+			String dbUrl = "jdbc:mysql://localhost:3306/fakturisanje";
+			// String dbDriver = props.getProperty("jdbc.driver");
+			String dbDriver = "com.mysql.jdbc.Driver";
+			// String dbUname = props.getProperty("db.username");
+			String dbUname = "root";
+			// String dbPwd = props.getProperty("db.password");
+			String dbPwd = "svitac94";
+
+			// Load the JDBC driver
+			Class.forName(dbDriver);
+			// Get the connection
+			Connection conn = DriverManager.getConnection(dbUrl, dbUname, dbPwd);
+
+			hm = new HashMap();
+			hm.put("karticaId", karticaId);
+
+			// Generate jasper print
+			JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperFileName, hm, conn);
+			
+			// Export pdf file
+			JasperExportManager.exportReportToPdfFile(jprint, pdfFileName);
+
+			System.out.println("Done exporting reports to pdf");
+
+		} catch (Exception e) {
+			System.out.print("Exceptiion" + e);
+		}*/
+	}
 }

@@ -68,7 +68,20 @@ public class MagacinskaKartica implements Serializable{
 	public MagacinskaKartica() {
 		
 	}
-
+	
+	public MagacinskaKartica(float i, float j, float k, float l,
+			float m, float n, StavkaCenovnika stavkaCenovnika, Artikal artikal, Magacin magacin){
+		this.pocStanjeKol = i;
+		this.pocStanjeVred = j;
+		this.prometUlKol = k;
+		this.prometIzKol = l;
+		this.prometUlVred = m;
+		this.prometIzVred = n;
+		this.stavkaCenovnika = stavkaCenovnika;
+		this.artikal = artikal;
+		this.magacin = magacin;
+	}
+	
 	public Integer getId() {
 		return id;
 	}

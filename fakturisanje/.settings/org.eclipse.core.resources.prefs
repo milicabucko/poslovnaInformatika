@@ -2,6 +2,7 @@ eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources=UTF-8
 encoding//src/main/resources/static/index.html=UTF-8
+encoding//src/main/resources/static/reports/faktura.jrxml=UTF-8
 encoding//src/main/resources/static/reports/lager.jrxml=UTF-8
 encoding//src/main/resources/static/reports/magacinskaKartica.jrxml=UTF-8
 encoding//src/main/resources/static/views/home.html=UTF-8

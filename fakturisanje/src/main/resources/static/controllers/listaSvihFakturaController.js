@@ -5,7 +5,7 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 	
 	
 	$scope.obracunajFakturu = function() {
-		
+		var now = new Date();
 		if ($scope.selected[0].vrstaDokumenta == "PR") {
 			alert('Obracunavam primku');
 			fakturaService.promeniStatus($scope.selected[0].id, "obracunata").then(function(response){ 
@@ -22,7 +22,7 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 		}
 		else {
 			alert('Obracunavam fakturu');
-			fakturaService.promeniStatus($scope.selected[0].id, "obracunata").then(function(response){ 
+			fakturaService.promeniStatus($scope.selected[0].id, "obracunata", now).then(function(response){ 
 			
 				for(var i = 0; i < $scope.stavke.length; i++) {
 			
@@ -100,7 +100,18 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 		}
 	}
 	
-	
+	$scope.izvestajFaktura = function(fakturaId) {
+		fakturaService.izvestajFaktura(fakturaId).then(function(resoponse){
+			
+		});
+		/*$mdDialog.show(
+				$mdDialog.alert()
+			    .clickOutsideToClose(true)
+			    .title('Potvrda')
+			    .textContent('Izvestaj sa faktura-otpremnicom se nalazi u "faktura-otpremnica.pdf".')
+			    .ok('OK')
+		);*/
+	}
 	
 	$scope.onSelectEvent = function() {
 		if ($scope.selected[0] === undefined) {

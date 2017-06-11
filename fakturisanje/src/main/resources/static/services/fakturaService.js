@@ -29,6 +29,13 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
+	fakturaService.izvestajFaktura = function(fakturaId) {
+		return $http({
+			method: 'GET',
+			url: 'api/faktura/izvestaj/' + fakturaId
+		});
+	}
+	
 	fakturaService.posaljiNarudzbenicu = function(izdId, kupId, brojDokumenta, statusDokumenta, datumDokumenta, datumValute){
 		return $http({
 			method: 'POST',
@@ -43,10 +50,14 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
-	fakturaService.promeniStatus = function(fakturaId, status){
+	fakturaService.promeniStatus = function(fakturaId, status, datumKnjizenja){
 		return $http({
 			method: 'POST',
-			url: 'api/faktura/promeniStatusDokumenta/' + fakturaId + '/' + status
+			url: 'api/faktura/promeniStatusDokumenta/' + fakturaId,
+			data: {
+				"statusDokumenta" : status,
+				"datumKnjizenja" : datumKnjizenja
+			}
 		});
 	}
 	

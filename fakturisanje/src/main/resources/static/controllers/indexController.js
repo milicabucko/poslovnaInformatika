@@ -77,5 +77,8 @@ app.controller('indexController',['$scope', '$location', '$window','$mdDialog', 
 	$scope.goToJediniceMere = function() {
 		$location.path("/jediniceMere");
 	}
+	$scope.poslovnaGodina = function() {
+		$location.path("/poslovnaGodina");
+	}
 	
 }]);

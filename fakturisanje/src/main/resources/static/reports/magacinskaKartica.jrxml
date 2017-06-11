@@ -1,36 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-11T09:42:28 -->
+<!-- 2017-06-11T15:17:03 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="magacinskaKartica" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d2dd8bd5-68f1-4ea1-a173-4c6e0f6bc008">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="ZmFrdHVyaXNhbmplLmFuYWxpdGlrYSAsMTUsMTQ1LDllN2QxYjhkLTY4ODEtNDM5ZC1iYjFmLTJk&#xA;NTg5NjQ5Mzc1ZDtmYWt0dXJpc2FuamUuc3RhdmthX2Rva3VtZW50YSAsMjE4LDE1LDc1MDA0MzM4&#xA;LWE1NGEtNGU1Yy04YThmLWEyZDYyMzAwMDMwOTtmYWt0dXJpc2FuamUua2FydGljYSAsMjE4LDIx&#xA;MSxkZDhiNDM2MS0yZmRiLTRmMTctYmVjZC1hNmQwZGU3YmE3OWI7ZmFrdHVyaXNhbmplLmFydGlr&#xA;YWwgLDQxMCwyNTAsZDQyY2RlNjYtOTc3ZC00ZjY3LTk1N2YtOWE1NDIyYTQwMjM4Ow=="/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="220"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="770"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="618"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="368"/>
 	<parameter name="karticaId" class="java.lang.String"/>
 	<queryString language="SQL">
 		<![CDATA[SELECT fakturisanje.stavka_dokumenta.cena,
 	fakturisanje.stavka_dokumenta.kolicina,
-	fakturisanje.analitika.smer,
-	fakturisanje.analitika.vrsta_prometa,
-	fakturisanje.analitika.id,
 	fakturisanje.artikal.naziv,
-	fakturisanje.artikal.sifra
+	fakturisanje.artikal.sifra,
+	fakturisanje.stavka_dokumenta.cena,
+	fakturisanje.stavka_dokumenta.kolicina,
+	fakturisanje.analitika.vrsta_prometa,
+	fakturisanje.analitika.smer,
+	fakturisanje.artikal.naziv,
+	fakturisanje.artikal.sifra,
+	fakturisanje.analitika.id
 FROM fakturisanje.analitika
+	INNER JOIN fakturisanje.stavka_dokumenta ON 
+	 fakturisanje.analitika.stavka_dokumenta_id = fakturisanje.stavka_dokumenta.id 
 	INNER JOIN fakturisanje.kartica ON 
 	 fakturisanje.analitika.magacinska_kartica_id = fakturisanje.kartica.id 
-	INNER JOIN fakturisanje.stavka_dokumenta ON 
-	 fakturisanje.analitika.stavka_dok_id = fakturisanje.stavka_dokumenta.id 
-	 AND fakturisanje.analitika.stavka_dokumenta_id = fakturisanje.stavka_dokumenta.id 
 	INNER JOIN fakturisanje.artikal ON 
 	 fakturisanje.kartica.artikal_id = fakturisanje.artikal.id 
-	 AND fakturisanje.stavka_dokumenta.artikal_id = fakturisanje.artikal.id
-WHERE fakturisanje.kartica.id = $P{karticaId}]]>
+	 AND fakturisanje.stavka_dokumenta.artikal_id = fakturisanje.artikal.id 
+WHERE 
+	 fakturisanje.kartica.id = $P{karticaId}]]>
 	</queryString>
 	<field name="cena" class="java.lang.Float"/>
 	<field name="kolicina" class="java.lang.Integer"/>
-	<field name="smer" class="java.lang.String"/>
-	<field name="vrsta_prometa" class="java.lang.String"/>
-	<field name="id" class="java.lang.Integer"/>
 	<field name="naziv" class="java.lang.String"/>
 	<field name="sifra" class="java.lang.String"/>
+	<field name="vrsta_prometa" class="java.lang.String"/>
+	<field name="smer" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer"/>
 	<variable name="vrednost" class="java.lang.Float">
 		<variableExpression><![CDATA[$F{smer}.contentEquals( "U") ? $F{kolicina}*$F{cena} : -$F{kolicina}*$F{cena}]]></variableExpression>
 	</variable>

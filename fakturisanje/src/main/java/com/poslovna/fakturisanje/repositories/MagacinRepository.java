@@ -14,6 +14,8 @@ public interface MagacinRepository extends JpaRepository<Magacin, Integer>{
 	
 	public Collection<Magacin> findAllBySifra(String sifra);
 	
+	public Collection<Magacin> findAllByPreduzece(Company preduzece);
+	
 	public List<Magacin> findAll();
 	
 	public Collection<Magacin> findBySifraContaining(String sifra);

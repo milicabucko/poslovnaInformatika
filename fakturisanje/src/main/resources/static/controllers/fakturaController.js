@@ -111,7 +111,8 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 	
 	$scope.unesiKolicinu = function() {
 			magacinService.findByPreduzecePib($scope.pib).then(function(response){
-				magacinService.nadjiMagacinskuKarticuArtikla(response.data.id, $scope.sifraZaPretragu).then(function(response){
+				//response je lista magacina,pa uzmem samo karticu od prvog magacina
+				magacinService.nadjiMagacinskuKarticuArtikla(response.data[0].id, $scope.sifraZaPretragu).then(function(response){
 					if((response.data.pocStanjeKol + response.data.prometUlKol - response.data.prometIzKol) >= $scope.kolicina) {
 						
 					}
@@ -148,6 +149,7 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 					//za cenu artikla
 					cenovnikService.nadjiPoslednjiAktivan($scope.pib, new Date()).then(function(response){ 
 						var cenovnik = response.data;
+						console.log(cenovnik);
 						for(var i = 0; i < cenovnik.stavkecenovnika.length; i++) {
 							console.log(cenovnik.stavkecenovnika[i]);
 								if ($scope.sifraZaPretragu == cenovnik.stavkecenovnika[i].artikal.sifra) {
@@ -293,8 +295,5 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		
 		$scope.selektovaneStavke = [];
 		$scope.selected = [];
-		$scope.bpselected = [];
-		
-		
-	 
+		$scope.bpselected = []; 
 }]);

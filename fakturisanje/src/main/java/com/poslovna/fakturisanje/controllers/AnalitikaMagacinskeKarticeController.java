@@ -46,6 +46,8 @@ public class AnalitikaMagacinskeKarticeController {
 	@Autowired
 	private ArtikalService artikalService;
 	
+	@Autowired
+	private MagacinskaKarticaService magKarticaService;
 	
 	@RequestMapping(
 			value = "/api/amk/addAMK/{artikalId}/{pib}/{pib2}/{stavkaId}",
@@ -54,40 +56,76 @@ public class AnalitikaMagacinskeKarticeController {
 	public ResponseEntity<AnalitikaMagacinskeKartice> addAMK(@RequestBody AnalitikaMagacinskeKartice amk, @PathVariable Integer artikalId, @PathVariable BigInteger pib, @PathVariable BigInteger pib2, @PathVariable Integer stavkaId) {
 		Company company = companyService.findByPib(pib);
 		Company company2 = companyService.findByPib(pib2);
+		
+		//ovde treba findAllByPreduzece ako se u bazi nalazi vise magacina u okviru preduzeca
 		Magacin magacin  = magacinService.findByPreduzece(company);
 		Magacin magacin2 = magacinService.findByPreduzece(company2);
 		Artikal artikal = artikalService.findOne(artikalId);
+		
 		MagacinskaKartica magacinskaKartica = mkService.nadjiMagacinskuKarticuArtikla(magacin, artikal);
-		
-		
-		
 		MagacinskaKartica magacinskaKartica2 = mkService.nadjiMagacinskuKarticuArtikla(magacin2, artikal);
 		
-		AnalitikaMagacinskeKartice amk2 = new AnalitikaMagacinskeKartice();
-		amk2.setSmer("U");
+		if(magacinskaKartica2 == null){
+			//System.out.println("aaaaaaaaaaaaaa");
+			MagacinskaKartica novaKartica = new MagacinskaKartica(0, 0, 0, 0, 0, 0, magacinskaKartica.getStavkaCenovnika(), artikal, magacin2);
+			magKarticaService.saveKartica(novaKartica);
+			
+			AnalitikaMagacinskeKartice amk2 = new AnalitikaMagacinskeKartice();
+			amk2.setSmer("U");
+			
+			if (amk.getVrstaPrometa().equals("PR")){
+				amk2.setVrstaPrometa("PR");
+			}
+			else {
+				amk2.setVrstaPrometa("FO");
+			}
+			
+			StavkaDokumenta stavkaDokumenta = stavkaDokumentaService.findOne(stavkaId);
+			amk.setStavkaDokumenta(stavkaDokumenta);	
+			amk2.setStavkaDokumenta(stavkaDokumenta);
+			
+			magacinskaKartica.setPrometIzKol(magacinskaKartica.getPrometIzKol() + stavkaDokumenta.getKolicina());
+			magacinskaKartica.setPrometIzVred(magacinskaKartica.getPrometIzVred() + stavkaDokumenta.getKolicina() * stavkaDokumenta.getCena());
+			amk.setMagacinskaKartica(magacinskaKartica);
+			
+			novaKartica.setPrometUlKol(novaKartica.getPrometUlKol() + stavkaDokumenta.getKolicina());
+			novaKartica.setPrometUlVred(novaKartica.getPrometUlVred() + stavkaDokumenta.getKolicina() * stavkaDokumenta.getCena());
+			//cena jos treba u stavci
+			amk2.setMagacinskaKartica(novaKartica);
+			amkService.save(amk2);
+			
+			AnalitikaMagacinskeKartice amk1 = amkService.save(amk);
+	        return new ResponseEntity<AnalitikaMagacinskeKartice>(amk1, HttpStatus.OK);
+	        
+		}else{
 		
-		if (amk.getVrstaPrometa().equals("PR")){
-			amk2.setVrstaPrometa("PR");
+			AnalitikaMagacinskeKartice amk2 = new AnalitikaMagacinskeKartice();
+			amk2.setSmer("U");
+			
+			if (amk.getVrstaPrometa().equals("PR")){
+				amk2.setVrstaPrometa("PR");
+			}
+			else {
+				amk2.setVrstaPrometa("FO");
+			}
+			
+			StavkaDokumenta stavkaDokumenta = stavkaDokumentaService.findOne(stavkaId);
+			amk.setStavkaDokumenta(stavkaDokumenta);	
+			amk2.setStavkaDokumenta(stavkaDokumenta);
+			
+			magacinskaKartica.setPrometIzKol(magacinskaKartica.getPrometIzKol() + stavkaDokumenta.getKolicina());
+			magacinskaKartica.setPrometIzVred(magacinskaKartica.getPrometIzVred() + stavkaDokumenta.getKolicina() * stavkaDokumenta.getCena());
+			amk.setMagacinskaKartica(magacinskaKartica);
+			
+			magacinskaKartica2.setPrometUlKol(magacinskaKartica2.getPrometUlKol() + stavkaDokumenta.getKolicina());
+			magacinskaKartica2.setPrometUlVred(magacinskaKartica2.getPrometUlVred() + stavkaDokumenta.getKolicina() * stavkaDokumenta.getCena());
+			//cena jos treba u stavci
+			amk2.setMagacinskaKartica(magacinskaKartica2);
+			amkService.save(amk2);
+			
+			AnalitikaMagacinskeKartice amk1 = amkService.save(amk);
+	        return new ResponseEntity<AnalitikaMagacinskeKartice>(amk1, HttpStatus.OK);
 		}
-		else {
-			amk2.setVrstaPrometa("FO");
-		}
-		
-		StavkaDokumenta stavkaDokumenta = stavkaDokumentaService.findOne(stavkaId);
-		amk.setStavkaDokumenta(stavkaDokumenta);
-		
-		amk2.setStavkaDokumenta(stavkaDokumenta);
-		magacinskaKartica.setPrometIzKol(magacinskaKartica.getPrometIzKol() + stavkaDokumenta.getKolicina());
-		magacinskaKartica.setPrometIzVred(magacinskaKartica.getPrometIzVred() + stavkaDokumenta.getKolicina() * stavkaDokumenta.getCena());
-		amk.setMagacinskaKartica(magacinskaKartica);
-		magacinskaKartica2.setPrometUlKol(magacinskaKartica2.getPrometUlKol() + stavkaDokumenta.getKolicina());
-		magacinskaKartica2.setPrometUlVred(magacinskaKartica2.getPrometUlVred() + stavkaDokumenta.getKolicina() * stavkaDokumenta.getCena());
-		//cena jos treba u stavci
-		amk2.setMagacinskaKartica(magacinskaKartica2);
-		amkService.save(amk2);
-		
-		AnalitikaMagacinskeKartice amk1 = amkService.save(amk);
-        return new ResponseEntity<AnalitikaMagacinskeKartice>(amk1, HttpStatus.OK);
     }
 	
 }

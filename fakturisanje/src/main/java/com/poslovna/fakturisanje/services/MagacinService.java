@@ -23,6 +23,10 @@ public class MagacinService {
 		return magacinRepository.findAllBySifra(sifra);
 	}
 	
+	public Collection<Magacin> findAllByPreduzece(Company preduzece){
+		return magacinRepository.findAllByPreduzece(preduzece);
+	}
+	
 	public Magacin findById(Integer id) {
 		return magacinRepository.findOne(id);
 	}

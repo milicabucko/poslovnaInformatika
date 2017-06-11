@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-11T18:05:00 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="faktura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a5ecfbca-e360-4e77-834e-d20648bbc700">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="253"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="737"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="666"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="320"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT fakturisanje.company.activitycode,
+	fakturisanje.company.address,
+	fakturisanje.company.bank,
+	fakturisanje.company.cidnumber,
+	fakturisanje.company.email,
+	fakturisanje.company.name,
+	fakturisanje.company.phonenumber,
+	fakturisanje.company.pib,
+	fakturisanje.dokument.broj_dokumenta,
+	fakturisanje.dokument.datum_dokumenta,
+	fakturisanje.dokument.datum_knjizenja,
+	fakturisanje.dokument.datum_valute
+FROM fakturisanje.dokument
+	INNER JOIN fakturisanje.company ON 
+	 fakturisanje.dokument.kupac_id = fakturisanje.company.id 
+	 AND fakturisanje.dokument.izdavaoc_racuna_id = fakturisanje.company.id]]>
+	</queryString>
+	<field name="activitycode" class="java.lang.Integer"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="bank" class="java.lang.String"/>
+	<field name="cidnumber" class="java.math.BigDecimal"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="phonenumber" class="java.lang.String"/>
+	<field name="pib" class="java.math.BigDecimal"/>
+	<field name="broj_dokumenta" class="java.lang.Integer"/>
+	<field name="datum_dokumenta" class="java.lang.String"/>
+	<field name="datum_knjizenja" class="java.lang.String"/>
+	<field name="datum_valute" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="81" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="80" y="10" width="100" height="30" uuid="908722f8-1ee6-4443-9e77-30e5ae540d6d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[AAAAA]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="334" y="10" width="152" height="30" uuid="ed98dd70-2869-471c-a730-51056078017a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="50" width="476" height="30" uuid="1057cb5c-fdb4-4061-ad54-49f6d15c4d91"/>
+				<graphicElement>
+					<pen lineWidth="7.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<line>
+				<reportElement x="160" y="60" width="326" height="30" uuid="ab0d376d-8080-49b5-9bf6-e4d58da39bae"/>
+			</line>
+			<textField>
+				<reportElement x="52" y="38" width="100" height="30" uuid="a99ab1ce-04f5-4335-9f36-241cc424fee5"/>
+				<textFieldExpression><![CDATA[$F{bank}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-48" y="38" width="100" height="30" uuid="acd1dde5-f8e8-4146-b876-d20a1a82dfba"/>
+				<text><![CDATA[bank]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="23" width="100" height="30" uuid="e56151a7-c878-4ad4-ba1c-f5ae22649a85"/>
+				<text><![CDATA[broj_dokumenta]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

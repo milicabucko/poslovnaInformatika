@@ -142,6 +142,19 @@
              </md-menu-content>
        	 </md-menu>
        	 
+       	 <md-menu>
+            <button ng-click="$mdMenu.open()">
+              Poslovna godina
+            </button>
+            <md-menu-content>
+              <md-menu-item>
+                <md-button ng-click="poslovnaGodina()">
+                  Poslovna godina
+                </md-button>
+              </md-menu-item>
+			</md-menu-content>
+         </md-menu>
+         
         <md-menu>
             <button ng-click="$mdMenu.open()">
               Magacin
@@ -181,7 +194,7 @@
 		<script src="services/vrstaPDVaService.js"></script>
 		<script src="services/grupaArtikalaService.js"></script>
 		<script src="services/jediniceMereService.js"></script>
-		
+		<script src="services/poslovnaGodinaService.js"></script>
 		
 		<script src="controllers/loginController.js"></script>
 		<script src="controllers/homeController.js"></script>
@@ -203,11 +216,9 @@
 		<script src="controllers/pregledGrupaController.js"></script>
 		<script src="controllers/jediniceMereController.js"></script>
 		<script src="controllers/artikalController.js"></script>
-
 		<script src="controllers/pregledCenovnikaController.js"></script>
-
 		<script src="controllers/pregledMagacinaController.js"></script>
-
+		<script src="controllers/poslovnaGodinaController.js"></script>
 
 		<script src="routes/routes.js"></script>
 	</body>

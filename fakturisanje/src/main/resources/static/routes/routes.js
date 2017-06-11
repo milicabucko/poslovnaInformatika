@@ -96,6 +96,10 @@ app.config(function($routeProvider){
 		templateUrl : "views/artikal.html",
 		controller : 'artikalController'
 	})
+	.when("/poslovnaGodina",{
+		templateUrl : "views/poslovnaGodina.html",
+		controller : 'poslovnaGodinaController'
+	})
 	.when("/home",{
 		templateUrl : "views/home.html",
 		controller : 'homeController'
