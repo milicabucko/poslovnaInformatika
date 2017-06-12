@@ -100,17 +100,17 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 		}
 	}
 	
-	$scope.izvestajFaktura = function(fakturaId) {
-		fakturaService.izvestajFaktura(fakturaId).then(function(resoponse){
+	$scope.izvestajFaktura = function(fakturaId, izdavaocId, kupacId) {
+		fakturaService.izvestajFaktura(fakturaId, izdavaocId, kupacId).then(function(resoponse){
 			
 		});
-		/*$mdDialog.show(
+		$mdDialog.show(
 				$mdDialog.alert()
 			    .clickOutsideToClose(true)
 			    .title('Potvrda')
 			    .textContent('Izvestaj sa faktura-otpremnicom se nalazi u "faktura-otpremnica.pdf".')
 			    .ok('OK')
-		);*/
+		);
 	}
 	
 	$scope.onSelectEvent = function() {

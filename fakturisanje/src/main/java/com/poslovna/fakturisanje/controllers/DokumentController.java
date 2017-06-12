@@ -100,21 +100,22 @@ public class DokumentController {
     }
 	
 	@RequestMapping(
-            value    = "/api/faktura/izvestaj/{fakturaId}",
+            value    = "/api/faktura/izvestaj/{fakturaId}/{dobavljacId}/{kupacId}",
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE
     )
-	public void izvestajFaktura(HttpServletResponse response, @PathVariable Integer fakturaId) throws JRException, IOException {
-		System.out.println(fakturaId);
-		/*HashMap hm = null;
+	public void izvestajFaktura(HttpServletResponse response, @PathVariable Integer fakturaId, @PathVariable Integer dobavljacId,
+			@PathVariable Integer kupacId) throws JRException, IOException {
+		//System.out.println(fakturaId + " " + dobavljacId + " " + kupacId);
+		HashMap hm = null;
 
 		try {
 			System.out.println("Start ....");
-			String jrxmlFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\magacinskaKartica.jrxml";
-			String jasperFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\magacinskaKartica.jasper";
+			String jrxmlFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\faktura.jrxml";
+			String jasperFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\faktura.jasper";
 			//String jasperFileName = "/reports/magacinskaKartica.jasper";
-			 * fakturisanje/src/main/resources/static/reports
-			String pdfFileName = "C:\\Users\\Adam\\Desktop\\magacinskaKartica.pdf";
+			 //* fakturisanje/src/main/resources/static/reports
+			String pdfFileName = "C:\\Users\\Adam\\Desktop\\faktura-otpremnica.pdf";
 
 			JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
 
@@ -133,7 +134,9 @@ public class DokumentController {
 			Connection conn = DriverManager.getConnection(dbUrl, dbUname, dbPwd);
 
 			hm = new HashMap();
-			hm.put("karticaId", karticaId);
+			hm.put("fakturaId", fakturaId);
+			hm.put("dobavljacId", dobavljacId);
+			hm.put("kupacId", kupacId);
 
 			// Generate jasper print
 			JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperFileName, hm, conn);
@@ -145,6 +148,6 @@ public class DokumentController {
 
 		} catch (Exception e) {
 			System.out.print("Exceptiion" + e);
-		}*/
+		}
 	}
 }

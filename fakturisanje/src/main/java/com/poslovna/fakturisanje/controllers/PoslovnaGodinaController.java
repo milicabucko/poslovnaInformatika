@@ -85,13 +85,5 @@ public class PoslovnaGodinaController {
 			godina.setBrojGodine(0000);
 			return new ResponseEntity<PoslovnaGodina>(godina, HttpStatus.OK);
 		}
-		/*if(godina.getAktivna() == false){
-			godina.setAktivna(true);
-		}else{
-			godina.setAktivna(false);
-		}
-		poslovnaGodinaService.sacuvajGodinu(godina);
-		return new ResponseEntity<PoslovnaGodina>(godina, HttpStatus.OK);*/
 	}
-	
 }

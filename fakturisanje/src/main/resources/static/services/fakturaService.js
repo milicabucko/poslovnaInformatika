@@ -29,10 +29,10 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
-	fakturaService.izvestajFaktura = function(fakturaId) {
+	fakturaService.izvestajFaktura = function(fakturaId, izdavaocId, kupacId) {
 		return $http({
 			method: 'GET',
-			url: 'api/faktura/izvestaj/' + fakturaId
+			url: 'api/faktura/izvestaj/' + fakturaId + '/' + izdavaocId + '/' + kupacId
 		});
 	}
 	
