@@ -1,5 +1,7 @@
 package com.poslovna.fakturisanje.services;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,13 @@ public class PoslovnaGodinaService {
 	
 	public PoslovnaGodina findByPreduzeceAndBrojGodine(Company company, Integer brojGodine){
 		return poslovnaGodinaRepository.findByPreduzeceAndBrojGodine(company, brojGodine);
+	}
+	
+	public Collection<PoslovnaGodina> findAll(){
+		return poslovnaGodinaRepository.findAll();
+	}
+	
+	public Collection<PoslovnaGodina> findAllByPreduzece(Company company){
+		return poslovnaGodinaRepository.findAllByPreduzece(company);
 	}
 }

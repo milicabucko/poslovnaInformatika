@@ -12,5 +12,18 @@ app.factory('poslovnaGodinaService', function poslovnaGodinaService($http){
 		});
 	}
 	
+	poslovnaGodinaService.sveGodine = function() {
+		return $http({
+			method: 'GET',
+			url: 'api/poslovnaGodina/sveGodine'
+		});
+	}
+	
+	poslovnaGodinaService.promenaStatusa = function(firmaId, brojGodine) {
+		return $http({
+			method: 'POST',
+			url: 'api/poslovnaGodina/promenaStatusa/' + firmaId + '/' + brojGodine
+		});
+	}
 	return poslovnaGodinaService;
 });

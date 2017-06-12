@@ -46,26 +46,56 @@
 <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{itemsSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
 
-<div layout="row">
-	<md-input-container>
-		<label>Datum pocetka vazenja cenovnika</label>
-	    <md-datepicker ng-model="datumPocetakVazenja" md-placeholder="Enter date" ng-change="dpChanged()"></md-datepicker>
-	</md-input-container>
-	<md-input-container>
-		<label>Datum isteka vazenja cenovnika</label>
-	    <md-datepicker ng-model="datumKrajVazenja" md-placeholder="Enter date" ng-change="dkChanged()"></md-datepicker>
-	</md-input-container>
-	<md-input-container>
-		<label>Broj godine</label>
-	    <input ng-model="brojGodine" ng-pattern="/^[0-9]{4}$/" ng-change="provera()">
-	</md-input-container>
-	<div layout="column">
-		<md-button class="md-raised md-primary" ng-click="dodajPoslovnuGodinu()">Kreiraj</md-button>
+<form name="listaGodina">
+	<div layout="row">
+		<md-input-container>
+			<label>Datum pocetka vazenja cenovnika</label>
+		    <md-datepicker ng-model="datumPocetakVazenja" md-placeholder="Enter date" ng-change="dpChanged()"></md-datepicker>
+		</md-input-container>
+		<md-input-container>
+			<label>Datum isteka vazenja cenovnika</label>
+		    <md-datepicker ng-model="datumKrajVazenja" md-placeholder="Enter date" ng-change="dkChanged()"></md-datepicker>
+		</md-input-container>
+		<md-input-container>
+			<label>Broj godine</label>
+		    <input type="text" ng-model="brojGodine" required ng-pattern="/^[0-9]{4}$/">
+		</md-input-container>
+		<div layout="column">
+			<md-button class="md-raised md-primary" ng-click="dodajPoslovnuGodinu()">Kreiraj</md-button>
+		</div>
 	</div>
-</div>
+</form>
 
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 		<h2 flex md-truncate>Poslovne godine</h2>
 	</div>
 </md-toolbar>
+
+<md-content>
+<md-table-container>
+  <table md-table md-row-select  ng-model="selectedGodine">
+    <thead md-head md-order="myOrder">
+      <tr md-row>
+      	<th md-column>Broj godine</th>
+      	<th md-column>Preduzece</th>
+      	<th md-column>Datum pocetka</th>
+      	<th md-column>Datum zavrsetka</th>
+      	<th md-column>Status godine</th>
+      	<th md-column>Promena statusa</th>
+      </tr>
+     </thead>
+     <tbody md-body>
+      <tr md-row md-select="godina" md-on-select="onSelectGodina()" md-select-id="godina"  md-auto-select ng-repeat="godina in godine | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
+        <td md-cell>{{godina.brojGodine}}</td>
+        <td md-cell>{{godina.preduzece.name}}</td>
+        <td md-cell>{{godina.datumPocetka | date:'dd.MM.yyyy'}}</td>
+        <td md-cell>{{godina.datumZavrsetka | date:'dd.MM.yyyy'}}</td>
+        <td md-cell ng-if="godina.aktivna == false" style="background:red; text-align: center; font-size: 15; font-weight: bold;">Neaktivna </td>
+        <td md-cell ng-if="godina.aktivna == true" style="background:green; text-align: center; font-size: 15; font-weight: bold;">Aktivna </td>
+        <td md-cell ><md-button ng-disabled="" class="md-raised md-primary" ng-click="promeniStatus(godina.brojGodine, godina.preduzece.id)">Izmeni</md-button></td>
+    </table>
+  </md-table-container>
+ <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{godineSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+ 
+</md-content>

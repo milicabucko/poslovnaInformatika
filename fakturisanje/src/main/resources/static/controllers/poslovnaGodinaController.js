@@ -1,5 +1,4 @@
-app.controller('poslovnaGodinaController',['$scope', '$location', '$mdDialog', 'companyService', 'poslovnaGodinaService', function($scope, $location, $mdDialog, companyService, poslovnaGodinaService){
-	
+app.controller('poslovnaGodinaController',['$scope', '$route', '$location', '$mdDialog', 'companyService', 'poslovnaGodinaService', function($scope, $route, $location, $mdDialog, companyService, poslovnaGodinaService){
 	
 	$scope.dodajPoslovnuGodinu = function() {
 		if ($scope.selected[0] === undefined) {
@@ -10,19 +9,34 @@ app.controller('poslovnaGodinaController',['$scope', '$location', '$mdDialog', '
 				.ok('OK')
 			);
 		}else{
-			poslovnaGodinaService.sacuvajGodinu($scope.selected[0].id, $scope.datumPocetakVazenja, $scope.datumKrajVazenja, $scope.brojGodine);
+			if($scope.listaGodina.$valid){
+				poslovnaGodinaService.sacuvajGodinu($scope.selected[0].id, $scope.datumPocetakVazenja, $scope.datumKrajVazenja, $scope.brojGodine).then(function(response){
+					if(response.data.brojGodine == 0000){
+						$mdDialog.show($mdDialog.alert()
+							.clickOutsideToClose(true)
+							.title('Greska')
+							.textContent('Poslovna godina sa tim brojem godine vec postoji u okviru preduzeca.')
+							.ok('OK')
+						);
+					}else{
+						$scope.godine.push(response.data);
+						$mdDialog.show($mdDialog.alert()
+							.clickOutsideToClose(true)
+							.title('Potvrda')
+							.textContent('Uspesno uneta poslovna godina.')
+							.ok('OK')
+						);
+					}
+				});
+			}else{
+				$mdDialog.show($mdDialog.alert()
+					.clickOutsideToClose(true)
+					.title('Greska')
+					.textContent('Morate uneti broj godine.')
+					.ok('OK')
+				);
+			}
 		}
-	}
-	
-	$scope.provera = function(){
-		/*if($scope.brojGodine.length > 4){
-			$mdDialog.show($mdDialog.alert()
-				.clickOutsideToClose(true)
-				.title('Greska')
-				.textContent('Broj godine mora biti cetvorocifreni broj.')
-				.ok('OK')
-			);
-		}*/
 	}
 	
 	$scope.dpChanged = function() {
@@ -90,6 +104,27 @@ app.controller('poslovnaGodinaController',['$scope', '$location', '$mdDialog', '
 		 $scope.itemsSize = $scope.items.length; 
 	});
 	
+	poslovnaGodinaService.sveGodine().then(function(response){
+		$scope.godine = response.data;
+		$scope.godineSize = $scope.godine.length;
+	});
+	
+	$scope.promeniStatus = function(brojGodine, firmaId){
+		poslovnaGodinaService.promenaStatusa(firmaId, brojGodine).then(function(response){
+			if(response.data.brojGodine == 0000){
+				$mdDialog.show($mdDialog.alert()
+					.clickOutsideToClose(true)
+					.title('Greska')
+					.textContent('Samo jedna poslovna godina moze biti aktivna u okviru preduzeca.')
+					.ok('OK')
+				);
+			}else{
+				$route.reload();
+			}
+		});
+		
+	}
+	
 	$scope.options = {
 			boundaryLinks: true,
 			rowSelection: true
@@ -102,11 +137,12 @@ app.controller('poslovnaGodinaController',['$scope', '$location', '$mdDialog', '
 		};
 		
 		$scope.queryStavke = {
-			order: 'naziv',
+			order: 'godina',
 			limit: 5,
 			page: 1
 		};
 		
 		$scope.selected = [];
+		$scope.selectedGodine = [];
 }]);
 
