@@ -1,4 +1,4 @@
-app.factory('loginService', function loginService($http){
+app.factory('loginService', 'authenticationService', function loginService($http, authenticationService){
 	
 	loginService.login = function(username){
 		return $http({

@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,11 +22,19 @@ public class Korisnik implements Serializable{
 	@Column(name = "id")
 	private Integer id;
 	
+	public enum Role{
+		ADMIN,
+		WORKER
+	}
+	
 	@Column(name = "username")
 	private String username;
 	
 	@Column(name = "password")
 	private String password;
+	
+	@Enumerated(EnumType.STRING)
+    private Role role;
 	
 	public Korisnik() {
 		// TODO Auto-generated constructor stub
@@ -53,6 +63,13 @@ public class Korisnik implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 	
 }
