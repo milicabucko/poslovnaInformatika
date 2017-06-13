@@ -62,6 +62,14 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
+	fakturaService.obrisiNarudzbenicu = function(brojDok){
+		return $http({
+			method: 'POST',
+			url: 'api/faktura/obrisiNarudzbenicu/' + brojDok
+		});
+	}
+	
+	
 	fakturaService.nadjiSledeciBrojDokumenta = function(){
 		return $http({
 			method: 'GET',
@@ -76,11 +84,26 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
+	fakturaService.nadjiPoBrojuNaruzbenice = function(brojDokumenta){
+		return $http({
+			method: 'GET',
+			url: 'api/faktura/nadjiPoBrojuNaruzbenice/' + brojDokumenta
+		});
+	}
+
+	
 	fakturaService.sveFakture = function(){
 		return $http({
 			method: 'GET',
 			url: 'api/faktura/sveFakture'
 		});
+	}
+	
+	fakturaService.sveNaruzbenice = function() {
+		return $http({
+			method: 'GET',
+			url: 'api/faktura/sveNarudzbenice'
+		})
 	}
 	
 	

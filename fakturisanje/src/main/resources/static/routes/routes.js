@@ -51,11 +51,15 @@ app.config(function($routeProvider){
 		templateUrl : "views/magacin.html",
 		controller : 'magacinController'
 	})
-
 	.when("/pregledCenovnika", {
 		templateUrl : "views/pregledCenovnika.html",
 		controller : 'pregledCenovnikaController'
 	})
+	.when("/listaSvihNarudzbenica", {
+		templateUrl : "views/listaSvihNarudzbenica.html",
+		controller : 'listaSvihNarudzbenicaController'
+	})
+	
 	.when("/pregledMagacina", {
 		templateUrl : "views/pregledMagacina.html",
 		controller : 'pregledMagacinaController'

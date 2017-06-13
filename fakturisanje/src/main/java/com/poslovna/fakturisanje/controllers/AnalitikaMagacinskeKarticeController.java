@@ -67,7 +67,7 @@ public class AnalitikaMagacinskeKarticeController {
 		
 		if(magacinskaKartica2 == null){
 			//System.out.println("aaaaaaaaaaaaaa");
-			MagacinskaKartica novaKartica = new MagacinskaKartica(0, 0, 0, 0, 0, 0, magacinskaKartica.getStavkaCenovnika(), artikal, magacin2);
+			MagacinskaKartica novaKartica = new MagacinskaKartica(0, 0, 0, 0, 0, 0, artikal, magacin2);
 			magKarticaService.saveKartica(novaKartica);
 			
 			AnalitikaMagacinskeKartice amk2 = new AnalitikaMagacinskeKartice();

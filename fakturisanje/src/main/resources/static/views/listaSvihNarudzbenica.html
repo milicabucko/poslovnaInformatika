@@ -1,12 +1,12 @@
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
-	<h2 flex md-truncate>Dokumenti</h2>
+	<h2 flex md-truncate>Naruzbenice</h2>
 	
 	<md-button class="md-icon-button" aria-label="Pretrazi">
         <ng-md-icon icon="search" style="fill: white" size="24"></ng-md-icon> 
     </md-button>
     
-    <input ng-model="brojZaPretragu" type="number" ng-change="pretraziPoBrojuDokumenta()">
+    <input ng-model="brojZaPretragu" type="number" ng-change="pretraziPoBrojuNaruzbenice()">
     
     
 </div>
@@ -24,7 +24,6 @@
         <th md-column>Vrsta dokumenta</th>
         <th md-column>Izdavaoc</th>
         <th md-column>Kupac</th>
-        <th md-column>Izvestaj</th>
       </tr>
     </thead>
     <tbody md-body>
@@ -37,7 +36,6 @@
       	<td md-cell>{{item.vrstaDokumenta}}</td>
         <td md-cell>{{item.izdavaocRacuna.name}}</td>
       	<td md-cell>{{item.kupac.name}}</td>  
-      	<td md-cell><md-button class="md-raised md-primary" ng-click="izvestajFaktura(item.id, item.izdavaocRacuna.id, item.kupac.id)">Izvestaj</md-button></td> 	   	
       </tr>
     </tbody>
   </table>  
@@ -144,6 +142,45 @@
 
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Izmena stavke</h2>    
+    
+	</div>
+</md-toolbar>
+
+<div layout="row">
+				
+			<md-input-container>
+				<label>Sifra artikla</label>
+    			<input ng-model="sifraArtikla" ng-readonly="true">
+			</md-input-container>	
+				
+			<md-input-container>
+				<label>Naziv artikla</label>
+    			<input ng-model="nazArtikla" ng-readonly="true">
+			</md-input-container>
+
+			<md-input-container>
+				<label>Rabat</label>
+    			<input ng-model="rabat" type="number">
+			</md-input-container>
+			
+			<md-input-container>
+          		<label>Stopa PDV-a</label>
+          		<md-select ng-model="stopaPdva">
+            		<md-option ng-repeat="stopa in stope" ng-value="stopa">
+              		{{stopa.procenatPDVa}}
+            		</md-option>
+          		</md-select>
+        	</md-input-container>
+			
+			<div layout="column">
+				<md-button class="md-raised md-primary" ng-show="omogucenaIzmena" ng-click="izmeniStavku()">Izmeni</md-button>
+			</div>
+			
+</div>
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Stavke dokumenta</h2>
     
 	</div>
@@ -167,18 +204,18 @@
       </tr>
     </thead>
     <tbody md-body>
-      <tr md-row md-select="stavka" md-auto-select ng-repeat="stavka in stavke | orderBy: myOrder | limitTo: queryStavke.limit: (queryStavke.page - 1) * queryStavke.limit">
+      <tr md-row md-select="stavka" md-auto-select md-on-select="onSelectEventStavka()" ng-repeat="stavka in stavke | orderBy: myOrder | limitTo: queryStavke.limit: (queryStavke.page - 1) * queryStavke.limit">
         <td md-cell>{{$index+1}}</td>
         <td md-cell>{{stavka.artikal.sifra}}</td>
         <td md-cell>{{stavka.artikal.naziv}}</td>
-        <td md-cell>{{stavka.artikal.jedinicaMere.tipJedinice}}</td>
+        <td md-cell>{{stavka.artikal.jedinicaMere.oznakaJedinice}}</td>
         <td md-cell>{{stavka.kolicina}}</td>
         <td md-cell>{{stavka.cena}}</td>
-        <td md-cell>{{}}</td>
+        <td md-cell>{{stavka.rabat}}</td>
         <td md-cell>{{stavka.cena}}</td>
-      	<td md-cell>{{}}</td>
-      	<td md-cell>{{}}</td>
-      	<td md-cell>{{}}</td>      	
+      	<td md-cell>{{stavka.stopaPDV}}</td>
+      	<td md-cell>{{stavka.iznosPDV}}</td>
+      	<td md-cell>{{stavka.ukupno}}</td>      	
       </tr>
     </tbody>
   </table>  
@@ -190,13 +227,9 @@
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Zakljucak</h2>
 	
-	<md-button class="md-warn" aria-label="Posalji" ng-click="obracunajFakturu()" ng-show="showObracunaj">
-        Obracunaj
+	<md-button class="md-warn" aria-label="Posalji" ng-click="posaljiFakturu()">
+        Generisi fakturu
     </md-button>
-    
-    <md-button class="md-warn" aria-label="Posalji" ng-click="stornirajFakturu()" ng-show="showStorniraj">
-        Storniraj
-    </md-button>
-    
+  
 	</div>
 </md-toolbar>

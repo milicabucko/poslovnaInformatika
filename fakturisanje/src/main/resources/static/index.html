@@ -41,13 +41,9 @@
             <md-menu-content>
             
               <md-menu-item>
-                <md-menu>
-                  <md-button ng-click="$mdOpenMenu()">Faktura</md-button>
-                  <md-menu-content>
-                    <md-menu-item><md-button ng-click="goToFaktura()">Nova faktura</md-button></md-menu-item>
-                    <md-menu-item><md-button ng-click="goToSveFakture()">Lista postojecih faktura</md-button></md-menu-item>
-                  </md-menu-content>
-                </md-menu>
+                <md-button ng-click="goToFaktura()">
+                  Faktura
+                </md-button>
               </md-menu-item>
               
                <md-menu-item>
@@ -55,11 +51,19 @@
                   Narudzbenica
                 </md-button>
               </md-menu-item>
+              
                <md-menu-item>
-                <md-button ng-click="goToPrimka()">
-                  Primka
+                <md-button ng-click="goToSveFakture()">
+                  Lista svih dokumenata
                 </md-button>
               </md-menu-item>
+              
+              <md-menu-item>
+                <md-button ng-click="goToSveNarudzbenice()">
+                  Lista svih narudzbenica
+                </md-button>
+              </md-menu-item>
+              
              </md-menu-content>
        	 </md-menu>
        	 
@@ -202,6 +206,7 @@
 		<script src="controllers/pregledPreduzecaController.js"></script>
 		<script src="controllers/fakturaController.js"></script>
 		<script src="controllers/listaSvihFakturaController.js"></script>
+		<script src="controllers/listaSvihNarudzbenicaController.js"></script>
 		<script src="controllers/narudzbenicaController.js"></script>
 		<script src="controllers/cenovnikController.js"></script>
 		<script src="controllers/preduzeceController.js"></script>

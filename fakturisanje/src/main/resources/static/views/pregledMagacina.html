@@ -42,17 +42,14 @@
 	<div layout="row">
 		<md-input-container>
 			<label>Sifra</label>
-			<input type="text" required ng-model="sifraMagacina" ng-readonly="false">
+			<input type="text" required ng-model="sifraMagacina">
 		</md-input-container>
 		
 		<md-input-container>
 			<label>Naziv</label>
-			<input type="text" required ng-model="nazivMagacina" ng-readonly="false">
+			<input type="text" required ng-model="nazivMagacina">
 		</md-input-container>
 		
-		<div layout="column">
-			<md-button class="md-raised md-primary" ng-click="izmeniMagacin()">Izmeni</md-button>
-		</div>
 		<div layout="column">
 			<md-button class="md-raised md-second" ng-click="obrisiMagacin()">Obrisi</md-button>
 		</div>

@@ -3,6 +3,7 @@ package com.poslovna.fakturisanje.controllers;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -74,6 +75,16 @@ public class DokumentController {
     }
 	
 	@RequestMapping(
+            value    = "/api/faktura/sveNarudzbenice",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Dokument>> sveNarudzbenice() {
+		Collection<Dokument> sveNarudzbenice = fakturaService.sveNarudzbenice();
+        return new ResponseEntity<Collection<Dokument>>(sveNarudzbenice, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
             value    = "/api/faktura/promeniStatusDokumenta/{fakturaId}",
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -87,6 +98,20 @@ public class DokumentController {
     }
 	
 	@RequestMapping(
+            value    = "/api/faktura/obrisiNarudzbenicu/{brojDok}",
+            method   = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Integer> obrisiNarudzbenicu(@PathVariable Integer brojDok) {
+		ArrayList<Dokument> narudzbenice = (ArrayList<Dokument>) fakturaService.findByBrojDokumentaAndVrstaDokumenta(brojDok);
+		Dokument dokument = narudzbenice.get(0);	
+		Integer brojDokumenta = dokument.getBrojDokumenta();
+		fakturaService.delete(dokument);
+        return new ResponseEntity<Integer>(brojDokumenta, HttpStatus.OK);
+    }
+	
+	
+	@RequestMapping(
             value    = "/api/faktura/nadjiPoBrojuDokumenta/{brojDokumenta}",
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -95,6 +120,18 @@ public class DokumentController {
 		Collection<Dokument> faktura = fakturaService.findByBrojDokumenta(brojDokumenta);
         return new ResponseEntity<Collection<Dokument>>(faktura, HttpStatus.OK);
     }
+	
+	
+	@RequestMapping(
+            value    = "/api/faktura/nadjiPoBrojuNaruzbenice/{brojDokumenta}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Dokument>> nadjiPoBrojuNaruzbenice(@PathVariable Integer brojDokumenta) {
+		Collection<Dokument> nar = fakturaService.findByBrojDokumentaAndVrstaDokumenta(brojDokumenta);
+        return new ResponseEntity<Collection<Dokument>>(nar, HttpStatus.OK);
+    }
+	
 	
 	@RequestMapping(
             value    = "/api/faktura/izvestaj/{fakturaId}/{dobavljacId}/{kupacId}",

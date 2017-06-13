@@ -97,7 +97,7 @@ app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'co
 	
 	$scope.unesiKolicinu = function() {
 			magacinService.findByPreduzecePib($scope.dpib).then(function(response){
-				magacinService.nadjiMagacinskuKarticuArtikla(response.data.id, $scope.sifraZaPretragu).then(function(response){
+				magacinService.nadjiMagacinskuKarticuArtikla(response.data[0].id, $scope.sifraZaPretragu).then(function(response){
 					if((response.data.pocStanjeKol + response.data.prometUlKol - response.data.prometIzKol) >= $scope.kolicina) {
 						
 					}

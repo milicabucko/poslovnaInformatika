@@ -22,5 +22,9 @@ public interface DokumentRepository extends JpaRepository<Dokument, Integer>{
 	@Query("update Dokument d set d.statusDokumenta = ?1 where d.id = ?2")
 	public Integer setStatusDokumentaForFaktura(String status, Integer id);
 	
+	public Collection<Dokument> findByVrstaDokumenta(String vrstaDokumenta);
+
+	public Collection<Dokument> findByBrojDokumentaAndVrstaDokumenta(Integer brojDokumenta, String vrstaDokumenta);
+	
 
 }

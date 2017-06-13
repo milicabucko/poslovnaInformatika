@@ -38,6 +38,10 @@ app.controller('indexController',['$scope', '$location', '$window','$mdDialog', 
 		$location.path("/listaSvihFaktura");
 	}
 	
+	$scope.goToSveNarudzbenice = function() {
+		$location.path("/listaSvihNarudzbenica");
+	}
+	
 	$scope.goToNarudzbenica = function() {
 		$location.path("/narudzbenica");
 	}
