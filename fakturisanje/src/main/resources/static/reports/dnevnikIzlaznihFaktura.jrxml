@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-13T12:59:55 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dnevnikIzlaznihFaktura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a40a73e3-08ac-4349-8564-b7c27a1fe4d7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="675"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="311"/>
+	<parameter name="poslovnaGodinaId" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT fakturisanje.dokument.broj_dokumenta,
+	fakturisanje.dokument.datum_dokumenta,
+	fakturisanje.dokument.datum_knjizenja,
+	fakturisanje.dokument.datum_valute,
+	fakturisanje.dokument.ukupno_za_placanje,
+	fakturisanje.company.name,
+	fakturisanje.company.address,
+	fakturisanje.poslovna_godina.broj_godine,
+	fakturisanje.poslovna_godina.datum_pocetka,
+	fakturisanje.poslovna_godina.datum_zavrsetka
+FROM fakturisanje.dokument
+	INNER JOIN fakturisanje.company ON 
+	 fakturisanje.dokument.kupac_id = fakturisanje.company.id 
+	 AND fakturisanje.dokument.izdavaoc_racuna_id = fakturisanje.company.id 
+	INNER JOIN fakturisanje.poslovna_godina ON 
+	 fakturisanje.dokument.poslovna_godina_id = fakturisanje.poslovna_godina.id
+WHERE fakturisanje.dokument.poslovna_godina_id = $P{poslovnaGodinaId}]]>
+	</queryString>
+	<field name="broj_dokumenta" class="java.lang.Integer"/>
+	<field name="datum_dokumenta" class="java.lang.String"/>
+	<field name="datum_knjizenja" class="java.lang.String"/>
+	<field name="datum_valute" class="java.lang.String"/>
+	<field name="ukupno_za_placanje" class="java.lang.Float"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="broj_godine" class="java.lang.Integer"/>
+	<field name="datum_pocetka" class="java.lang.String"/>
+	<field name="datum_zavrsetka" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="48" y="4" width="100" height="30" uuid="4e65eebf-ae0a-4855-9bdb-83d2c9f900c5"/>
+				<textFieldExpression><![CDATA[$F{broj_godine}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="188" y="6" width="100" height="30" uuid="7512a497-1552-4eba-a29c-3b89fd7d526d"/>
+				<textFieldExpression><![CDATA[$F{datum_pocetka}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="337" y="8" width="100" height="30" uuid="7c25505e-b9ab-433d-a7ba-0ef91863a3c7"/>
+				<textFieldExpression><![CDATA[$F{datum_zavrsetka}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="89" y="27" width="100" height="30" uuid="331a551d-1001-4cd7-b033-b1a9d24c30e5"/>
+				<textFieldExpression><![CDATA[$F{broj_dokumenta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-11" y="27" width="100" height="30" uuid="7b711e1d-3b2c-43df-8f35-6448cf826425"/>
+				<text><![CDATA[broj_dokumenta]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="71" width="100" height="30" uuid="36b53ec6-5705-4ade-b05f-a748a4bbb2e1"/>
+				<textFieldExpression><![CDATA[$F{datum_dokumenta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="31" y="71" width="100" height="30" uuid="67e5dee1-9e33-4a91-9d69-282cd68ff658"/>
+				<text><![CDATA[datum_dokumenta]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="299" y="24" width="100" height="30" uuid="8ad11328-4d09-458c-80cb-4eb38b2ee41c"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="199" y="24" width="100" height="30" uuid="9255389f-4fff-406a-bf76-38448e4c06a3"/>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="400" y="65" width="100" height="30" uuid="4fe17e55-9195-4671-8489-9db8721ce2d6"/>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="65" width="100" height="30" uuid="9aeade9c-e143-40bb-8e2c-14c0ded7d2b6"/>
+				<text><![CDATA[address]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="6" width="187" height="30" uuid="7082aa63-68a1-4532-b252-3f458b0fc369"/>
+				<textElement>
+					<font fontName="SansSerif" size="14"/>
+				</textElement>
+				<text><![CDATA[AAAAAAA]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

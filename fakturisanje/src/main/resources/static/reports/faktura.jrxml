@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-13T00:32:58 -->
+<!-- 2017-06-13T11:57:39 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="faktura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a5ecfbca-e360-4e77-834e-d20648bbc700">
 	<property name="com.jaspersoft.studio.data.sql.tables" value="ZmFrdHVyaXNhbmplLnN0YXZrYV9kb2t1bWVudGEgLDIwLDIwLDk0OGQwNjg3LWFkNzItNGRlYy1i&#xA;ZjI0LThhMGYyZjA0ZGExNDtmYWt0dXJpc2FuamUuZG9rdW1lbnQgLDE3NSwxNTUsZjM5NTY1YjAt&#xA;OGVkZC00ZGVhLWEwODYtZThjYWQ1YzU2ZjNiO2Zha3R1cmlzYW5qZS5hcnRpa2FsICw1MTQsNTYs&#xA;MGMyMzlkYzEtZjZmYS00ZDk0LTljZTgtZGRiMGM4Mzg3NGRjO2Zha3R1cmlzYW5qZS5jb21wYW55&#xA;IEFTICwzNjUsMTc5LGEyM2U3NjNmLTQ4ODgtNDc2ZS1iMmUzLTg2MzViYTI2NzYwNTtmYWt0dXJp&#xA;c2FuamUuY29tcGFueSBBUyAsMzAsMjU0LDFmODcwNDBmLTlhMTEtNGJlNC04YWJiLTk1N2M0MWI1&#xA;N2VlZTs="/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
@@ -107,7 +107,7 @@ WHERE
 		<band height="242" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField>
-				<reportElement x="1" y="28" width="129" height="30" forecolor="#0000FF" uuid="3115cf35-3757-400b-965e-d4aa32984219"/>
+				<reportElement x="1" y="28" width="156" height="30" forecolor="#0000FF" uuid="3115cf35-3757-400b-965e-d4aa32984219"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="22" isBold="true"/>
 					<paragraph lineSpacing="Double"/>
@@ -115,7 +115,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="37" y="56" width="100" height="21" uuid="6ae13cbf-7145-4686-bb7d-b6f0ceb6e5c7"/>
+				<reportElement x="37" y="56" width="173" height="21" uuid="6ae13cbf-7145-4686-bb7d-b6f0ceb6e5c7"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
@@ -178,28 +178,28 @@ WHERE
 				<text><![CDATA[Tekuci racun: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="90" y="179" width="150" height="20" uuid="ede99247-de3a-49c1-af6e-edd7ad8b7032"/>
+				<reportElement x="90" y="179" width="154" height="20" uuid="ede99247-de3a-49c1-af6e-edd7ad8b7032"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{account}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="50" y="162" width="160" height="20" uuid="d64f4112-a63c-4c55-9080-539323dfe38d"/>
+				<reportElement x="50" y="162" width="191" height="20" uuid="d64f4112-a63c-4c55-9080-539323dfe38d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="54" y="141" width="149" height="22" uuid="5b791cfc-1590-4d71-90eb-3913f0f2dcda"/>
+				<reportElement x="54" y="141" width="181" height="22" uuid="5b791cfc-1590-4d71-90eb-3913f0f2dcda"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{phonenumber}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="51" y="120" width="159" height="20" uuid="f365456a-e2a6-43ba-b996-57f4a7f75fd4"/>
+				<reportElement x="51" y="120" width="184" height="20" uuid="f365456a-e2a6-43ba-b996-57f4a7f75fd4"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
@@ -213,7 +213,7 @@ WHERE
 				<textFieldExpression><![CDATA[$F{activitycode}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="83" y="75" width="120" height="22" uuid="d4b17b4e-c821-48cf-869f-851ecf04fb37"/>
+				<reportElement x="83" y="75" width="157" height="22" uuid="d4b17b4e-c821-48cf-869f-851ecf04fb37"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
@@ -275,14 +275,14 @@ WHERE
 				<text><![CDATA[Tekuci racun: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="313" y="29" width="106" height="30" forecolor="#FF0000" uuid="bba9dc0d-22d3-49f3-aa24-cfa534fc2077"/>
+				<reportElement x="313" y="29" width="121" height="30" forecolor="#FF0000" uuid="bba9dc0d-22d3-49f3-aa24-cfa534fc2077"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="22"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{COLUMN_16}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="334" y="179" width="210" height="21" uuid="b5d3c065-847e-4650-8c8b-b4beceae04b8"/>
+				<reportElement x="334" y="179" width="219" height="21" uuid="b5d3c065-847e-4650-8c8b-b4beceae04b8"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
@@ -296,21 +296,21 @@ WHERE
 				<text><![CDATA[Faktura-otpremnica]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="-3" width="23" height="31" uuid="53e6906c-c23a-4a03-be59-660c03d485e5"/>
+				<reportElement x="180" y="-3" width="30" height="31" uuid="53e6906c-c23a-4a03-be59-660c03d485e5"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="20"/>
 				</textElement>
 				<text><![CDATA[br. ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="203" y="-3" width="47" height="30" uuid="85d215b2-9a3f-4ed9-869e-04eac4fedb22"/>
+				<reportElement x="206" y="-3" width="47" height="30" uuid="85d215b2-9a3f-4ed9-869e-04eac4fedb22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="20" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{broj_dokumenta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="446" y="22" width="105" height="27" uuid="518e69fa-a812-4fd1-a891-3443f86771dc">
+				<reportElement x="435" y="22" width="116" height="27" uuid="518e69fa-a812-4fd1-a891-3443f86771dc">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -333,7 +333,7 @@ WHERE
 				<text><![CDATA[Datum valute: ]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="448" y="63" width="105" height="27" uuid="19514641-c9b7-423d-a6fe-8f93219c0dc8">
+				<reportElement x="435" y="63" width="118" height="27" uuid="19514641-c9b7-423d-a6fe-8f93219c0dc8">
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -349,14 +349,14 @@ WHERE
 				<textFieldExpression><![CDATA[$F{COLUMN_18}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="298" y="139" width="192" height="21" uuid="e1ec0f24-d516-4ede-acf7-606e12e19c7d"/>
+				<reportElement x="298" y="139" width="246" height="21" uuid="e1ec0f24-d516-4ede-acf7-606e12e19c7d"/>
 				<textElement>
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{COLUMN_17}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="288" y="161" width="256" height="21" uuid="5cda0cc6-8b42-4c25-879b-0b84daf9dd49"/>
+				<reportElement x="288" y="161" width="272" height="21" uuid="5cda0cc6-8b42-4c25-879b-0b84daf9dd49"/>
 				<textElement>
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
@@ -370,14 +370,14 @@ WHERE
 				<textFieldExpression><![CDATA[$F{COLUMN_14}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="295" y="117" width="195" height="20" uuid="d78713cc-2d4c-4603-8cb5-1948b0247aab"/>
+				<reportElement x="295" y="117" width="249" height="20" uuid="d78713cc-2d4c-4603-8cb5-1948b0247aab"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{COLUMN_12}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="343" y="95" width="136" height="23" uuid="652b5008-a236-4594-a4d3-5f744399a5bb"/>
+				<reportElement x="343" y="95" width="177" height="23" uuid="652b5008-a236-4594-a4d3-5f744399a5bb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
@@ -432,7 +432,7 @@ WHERE
 				<text><![CDATA[Osnovica PDV]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="384" y="200" width="36" height="36" uuid="33b63c75-2258-48eb-8f7e-729dd2e7ce39"/>
+				<reportElement x="379" y="200" width="55" height="36" uuid="33b63c75-2258-48eb-8f7e-729dd2e7ce39"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
@@ -446,7 +446,7 @@ WHERE
 				<text><![CDATA[Iznos PDV]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="495" y="202" width="65" height="34" uuid="2757869f-a012-43ca-90fb-df1e44044f34"/>
+				<reportElement x="485" y="202" width="75" height="34" uuid="2757869f-a012-43ca-90fb-df1e44044f34"/>
 				<textElement>
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
@@ -493,14 +493,14 @@ WHERE
 				<textFieldExpression><![CDATA[$F{rabat}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="379" y="-3" width="43" height="27" uuid="6ef66196-8474-4cea-a2f1-34237521c3ea"/>
+				<reportElement x="376" y="-2" width="43" height="27" uuid="6ef66196-8474-4cea-a2f1-34237521c3ea"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{procenatpdva}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="301" y="2" width="85" height="22" uuid="c82c39ed-48ea-4f1e-97c8-82ffbfa9d70e"/>
+				<reportElement x="301" y="0" width="85" height="22" uuid="c82c39ed-48ea-4f1e-97c8-82ffbfa9d70e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14"/>
 				</textElement>

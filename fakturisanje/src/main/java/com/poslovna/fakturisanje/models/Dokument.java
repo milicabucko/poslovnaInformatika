@@ -47,6 +47,9 @@ public class Dokument implements Serializable{
 	@Column(name = "datumKnjizenja")
 	private String datumKnjizenja;
 	
+	@Column(name = "ukupnoZaPlacanje")
+	private Float ukupnoZaPlacanje;
+	
 	@ManyToOne
 	private Company izdavaocRacuna;
 	
@@ -151,5 +154,13 @@ public class Dokument implements Serializable{
 	@JsonIgnore
 	public void setPoslovnaGodina(PoslovnaGodina poslovnaGodina) {
 		this.poslovnaGodina = poslovnaGodina;
+	}
+
+	public Float getUkupnoZaPlacanje() {
+		return ukupnoZaPlacanje;
+	}
+
+	public void setUkupnoZaPlacanje(Float ukupnoZaPlacanje) {
+		this.ukupnoZaPlacanje = ukupnoZaPlacanje;
 	}
 }

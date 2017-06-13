@@ -15,7 +15,7 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
-	fakturaService.posaljiFakturu = function(izdId, kupId, brojDokumenta, statusDokumenta, datumDokumenta, datumValute){
+	fakturaService.posaljiFakturu = function(izdId, kupId, brojDokumenta, statusDokumenta, datumDokumenta, datumValute, ukupnoZaPlacanje){
 		return $http({
 			method: 'POST',
 			url: 'api/faktura/sacuvajFakturu/' + izdId + '/' + kupId,
@@ -24,7 +24,8 @@ app.factory('fakturaService', function fakturaService($http){
 				"statusDokumenta" : statusDokumenta,
 				"datumDokumenta" : datumDokumenta,
 				"datumValute" : datumValute,
-				"vrstaDokumenta" : "FO"
+				"vrstaDokumenta" : "FO",
+				"ukupnoZaPlacanje" : ukupnoZaPlacanje
 			}
 		});
 	}

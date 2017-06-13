@@ -8,12 +8,17 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 	
 	$scope.posaljiFakturu = function() {
 		console.log("posiljalac: " + $scope.selected[0].id + " kupac: " + $scope.bpselected[0].company2.id);
-		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal).then(function(response){ 
+		var ukupnoZaPlacanje = 0;
+		for(var i = 0; i < $scope.stavke.length; i++) {
+			ukupnoZaPlacanje += $scope.stavke[i].ukupno;
+		}
+		console.log(ukupnoZaPlacanje);
+		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, ukupnoZaPlacanje).then(function(response){ 
 			for(var i = 0; i < $scope.stavke.length; i++) {
 				console.log($scope.stavke[i].cenaPoJed);
 				stavkaDokumentaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla, $scope.stavke[i].kolicina, $scope.stavke[i].cenaPoJed, $scope.stavke[i].rabat, $scope.stavke[i].stopaPDV).then(function(response){ 
-					console.log(response.data);
-					/*magacinService.dodajAnalitikuMK(response.data.artikal.id, $scope.pib, $scope.kpib, response.data.id).then(function(response){ 
+					/*console.log(response.data);
+					magacinService.dodajAnalitikuMK(response.data.artikal.id, $scope.pib, $scope.kpib, response.data.id).then(function(response){ 
 						
 					});*/
 					

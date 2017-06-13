@@ -18,10 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poslovna.fakturisanje.models.BusinessPartner;
 import com.poslovna.fakturisanje.models.Company;
 import com.poslovna.fakturisanje.models.Dokument;
-import com.poslovna.fakturisanje.services.BusinessPartnerService;
 import com.poslovna.fakturisanje.services.CompanyService;
 import com.poslovna.fakturisanje.services.DokumentService;
 
@@ -49,7 +47,6 @@ public class DokumentController {
 		Integer brojDok = fakturaService.nadjiSlececiBrojDokumenta();
         return new ResponseEntity<Integer>(brojDok, HttpStatus.OK);
     }
-	
 	
 	@RequestMapping(
             value    = "/api/faktura/sacuvajFakturu/{izdId}/{kupId}",
