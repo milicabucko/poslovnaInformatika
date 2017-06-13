@@ -21,6 +21,13 @@ app.factory('companyService', function companyService($http){
 		});
 	}
 	
+	companyService.izvestajIzlaznihFaktura = function(firmaId, firmaNaziv, datumPocetka, datumKraja){
+		return $http({
+			method: 'GET',
+			url: 'api/company/izvestajIzlaznihFaktura/' + firmaId + '/' + firmaNaziv +'/' + datumPocetka + '/' + datumKraja
+		});
+	}
+	
 	companyService.getAllCompanies = function(){
 		return $http({
 			method: 'GET',

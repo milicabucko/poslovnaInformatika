@@ -39,8 +39,8 @@ public class PoslovnaGodinaController {
 			PoslovnaGodina novaGodina = new PoslovnaGodina();
 			novaGodina.setAktivna(false);
 			novaGodina.setBrojGodine(godina.getBrojGodine());
-			novaGodina.setDatumPocetka(godina.getDatumPocetka());
-			novaGodina.setDatumZavrsetka(godina.getDatumZavrsetka());
+			novaGodina.setDatumPocetka(godina.getDatumPocetka().substring(0, 10));
+			novaGodina.setDatumZavrsetka(godina.getDatumZavrsetka().substring(0, 10));
 			novaGodina.setPreduzece(company);
 			poslovnaGodinaService.sacuvajGodinu(novaGodina);
 			return new ResponseEntity<PoslovnaGodina>(novaGodina, HttpStatus.OK);

@@ -12,6 +12,7 @@
         <th md-column>Email</th>
         <th md-column md-numeric>Tekuci racun</th>
         <th md-column>Banka</th>
+        <th md-column>Izvestaj</th>
       </tr>
     </thead>
     <tbody md-body>
@@ -24,7 +25,8 @@
         <td md-cell>{{item.activitycode}}</td>
       	<td md-cell>{{item.email}}</td>
       	<td md-cell>{{item.account}}</td>
-      	<td md-cell>{{item.bank}}</td>      	
+      	<td md-cell>{{item.bank}}</td>   
+      	<td md-cell ><md-button class="md-raised md-primary" ng-click="izvestajIzlazneFakture(item.id, item.name)">Izvestaj</md-button></td>   	
       </tr>
     </tbody>
   </table>  
@@ -32,6 +34,16 @@
 <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="8" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
 
+<div layout="row">
+		<md-input-container>
+			<label>Datum pocetka</label>
+		    <md-datepicker ng-model="datumPocetakVazenja" md-placeholder="Enter date" ng-change="dpChanged()"></md-datepicker>
+		</md-input-container>
+		<md-input-container>
+			<label>Datum zavrsetka</label>
+		    <md-datepicker ng-model="datumKrajVazenja" md-placeholder="Enter date" ng-change="dkChanged()"></md-datepicker>
+		</md-input-container>
+</div>
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Poslovni partneri</h2>

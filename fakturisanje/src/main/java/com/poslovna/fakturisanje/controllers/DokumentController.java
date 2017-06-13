@@ -59,6 +59,9 @@ public class DokumentController {
 		Company kupac = companyService.findOne(kupId);
 		faktura.setIzdavaocRacuna(izdavaoc);
 		faktura.setKupac(kupac);
+		faktura.setDatumDokumenta(faktura.getDatumDokumenta().substring(0, 10));
+		faktura.setDatumKnjizenja(faktura.getDatumKnjizenja().substring(0, 10));
+		faktura.setDatumValute(faktura.getDatumValute().substring(0, 10));
 		Dokument fakturaa = fakturaService.save(faktura);
         return new ResponseEntity<Dokument>(fakturaa, HttpStatus.OK);
     }

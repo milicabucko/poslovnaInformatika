@@ -1,7 +1,15 @@
 package com.poslovna.fakturisanje.controllers;
 
+import java.io.IOException;
 import java.math.BigInteger;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +23,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poslovna.fakturisanje.models.Company;
 import com.poslovna.fakturisanje.services.CompanyService;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 @RestController
 public class CompanyController {
@@ -68,6 +82,62 @@ public class CompanyController {
 		Collection<Company> allCompanies = companyService.getAll();
         return new ResponseEntity<Collection<Company>>(allCompanies, HttpStatus.OK);
     }
+	
+	@RequestMapping(
+            value    = "/api/company/izvestajIzlaznihFaktura/{firmaId}/{firmaNaziv}/{datumPocetka}/{datumKraja}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_PDF_VALUE
+    )
+	public void izvestajFaktura(HttpServletResponse response, @PathVariable Integer firmaId, @PathVariable String firmaNaziv,
+			@PathVariable String datumPocetka, @PathVariable String datumKraja) throws JRException, IOException {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date datumPoc = new Date(datumPocetka);
+		Date datumKr = new Date(datumKraja);
+		String datum1 = format.format(datumPoc);
+		String datum2 = format.format(datumKr);
+		HashMap hm = null;
+
+		try {
+			System.out.println("Start ....");
+			String jrxmlFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\dnevnikIzlaznihFaktura.jrxml";
+			String jasperFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\dnevnikIzlaznihFaktura.jasper";
+			//String jasperFileName = "/reports/magacinskaKartica.jasper";
+			 //* fakturisanje/src/main/resources/static/reports
+			String pdfFileName = "C:\\Users\\Adam\\Desktop\\dnevnikIzlaznihFaktura.pdf";
+
+			JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
+
+			// String dbUrl = props.getProperty("jdbc.url");
+			String dbUrl = "jdbc:mysql://localhost:3306/fakturisanje";
+			// String dbDriver = props.getProperty("jdbc.driver");
+			String dbDriver = "com.mysql.jdbc.Driver";
+			// String dbUname = props.getProperty("db.username");
+			String dbUname = "root";
+			// String dbPwd = props.getProperty("db.password");
+			String dbPwd = "svitac94";
+
+			// Load the JDBC driver
+			Class.forName(dbDriver);
+			// Get the connection
+			Connection conn = DriverManager.getConnection(dbUrl, dbUname, dbPwd);
+
+			hm = new HashMap();
+			hm.put("izdavaocId", firmaId);
+			hm.put("izdavaocIme", firmaNaziv);
+			hm.put("datumPocetka", datum1);
+			hm.put("datumKraja", datum2);
+			// Generate jasper print
+			JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperFileName, hm, conn);
+			
+			// Export pdf file
+			JasperExportManager.exportReportToPdfFile(jprint, pdfFileName);
+
+			System.out.println("Done exporting reports to pdf");
+
+		} catch (Exception e) {
+			System.out.print("Exceptiion" + e);
+		}
+	}
 	
 	@RequestMapping(
             value    = "/api/company/findByIdNot/{id}",
