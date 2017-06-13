@@ -103,4 +103,5 @@ public class StavkaDokumenta implements Serializable{
 	public void setProcenatPDVa(int procenatPDVa) {
 		this.procenatPDVa = procenatPDVa;
 	}
+
 }

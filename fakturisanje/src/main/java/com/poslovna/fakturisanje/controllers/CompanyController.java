@@ -1,5 +1,6 @@
 package com.poslovna.fakturisanje.controllers;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -99,11 +100,11 @@ public class CompanyController {
 
 		try {
 			System.out.println("Start ....");
-			String jrxmlFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\dnevnikIzlaznihFaktura.jrxml";
-			String jasperFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\dnevnikIzlaznihFaktura.jasper";
+			String jrxmlFileName = "./src/main/resources/static/reports/dnevnikIzlaznihFaktura.jrxml";
+			String jasperFileName = "./src/main/resources/static/reports/dnevnikIzlaznihFaktura.jasper";
 			//String jasperFileName = "/reports/magacinskaKartica.jasper";
 			 //* fakturisanje/src/main/resources/static/reports
-			String pdfFileName = "C:\\Users\\Adam\\Desktop\\dnevnikIzlaznihFaktura.pdf";
+			String pdfFileName = "./src/main/resources/static/pdfFiles/dnevnikIzlaznihFaktura.pdf";
 
 			JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
 
@@ -114,7 +115,7 @@ public class CompanyController {
 			// String dbUname = props.getProperty("db.username");
 			String dbUname = "root";
 			// String dbPwd = props.getProperty("db.password");
-			String dbPwd = "svitac94";
+			String dbPwd = "1234";
 
 			// Load the JDBC driver
 			Class.forName(dbDriver);
@@ -133,6 +134,23 @@ public class CompanyController {
 			JasperExportManager.exportReportToPdfFile(jprint, pdfFileName);
 
 			System.out.println("Done exporting reports to pdf");
+			
+			File file = new File("./src/main/resources/static/pdfFiles/dnevnikIzlaznihFaktura.pdf");
+			if (file.exists()) {
+				System.out.println("Ima ga!");
+				System.out.println(file.getAbsolutePath());
+			}
+			
+			try{
+		         Process p = Runtime
+		        		 .getRuntime()
+		        		 .exec("rundll32 url.dll,FileProtocolHandler " + file.getAbsolutePath());
+		         p.waitFor();
+
+		    } catch (Exception ex) {
+		    	ex.printStackTrace();
+		    }
+			
 
 		} catch (Exception e) {
 			System.out.print("Exceptiion" + e);

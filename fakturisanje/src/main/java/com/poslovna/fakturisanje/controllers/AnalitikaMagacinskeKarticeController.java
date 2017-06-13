@@ -17,6 +17,7 @@ import com.poslovna.fakturisanje.models.Artikal;
 import com.poslovna.fakturisanje.models.Company;
 import com.poslovna.fakturisanje.models.Magacin;
 import com.poslovna.fakturisanje.models.MagacinskaKartica;
+import com.poslovna.fakturisanje.models.StavkaCenovnika;
 import com.poslovna.fakturisanje.models.StavkaDokumenta;
 import com.poslovna.fakturisanje.services.AnalitikaMagacinskeKarticeService;
 import com.poslovna.fakturisanje.services.ArtikalService;
@@ -67,7 +68,7 @@ public class AnalitikaMagacinskeKarticeController {
 		
 		if(magacinskaKartica2 == null){
 			//System.out.println("aaaaaaaaaaaaaa");
-			MagacinskaKartica novaKartica = new MagacinskaKartica(0, 0, 0, 0, 0, 0, artikal, magacin2);
+			MagacinskaKartica novaKartica = new MagacinskaKartica(0, 0, 0, 0, 0, 0, artikal, magacin2, new StavkaCenovnika());
 			magKarticaService.saveKartica(novaKartica);
 			
 			AnalitikaMagacinskeKartice amk2 = new AnalitikaMagacinskeKartice();

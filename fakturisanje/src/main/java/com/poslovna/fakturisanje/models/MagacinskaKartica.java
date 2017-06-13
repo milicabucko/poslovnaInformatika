@@ -57,6 +57,9 @@ public class MagacinskaKartica implements Serializable{
 	@ManyToOne
 	private Magacin magacin;
 	
+	@ManyToOne
+	private StavkaCenovnika stavkaCenovnika;
+	
 	//fali Poslovna godina 
 	
 	@OneToMany(mappedBy = "magacinskaKartica", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -67,7 +70,7 @@ public class MagacinskaKartica implements Serializable{
 	}
 	
 	public MagacinskaKartica(float i, float j, float k, float l,
-			float m, float n, Artikal artikal, Magacin magacin){
+			float m, float n, Artikal artikal, Magacin magacin, StavkaCenovnika stavkaCenovnika){
 		this.pocStanjeKol = i;
 		this.pocStanjeVred = j;
 		this.prometUlKol = k;
@@ -76,6 +79,7 @@ public class MagacinskaKartica implements Serializable{
 		this.prometIzVred = n;
 		this.artikal = artikal;
 		this.magacin = magacin;
+		this.stavkaCenovnika = stavkaCenovnika;
 	}
 	
 	public Integer getId() {
@@ -158,6 +162,14 @@ public class MagacinskaKartica implements Serializable{
 
 	public void setPrometIzVred(Float prometIzVred) {
 		this.prometIzVred = prometIzVred;
+	}
+
+	public StavkaCenovnika getStavkaCenovnika() {
+		return stavkaCenovnika;
+	}
+
+	public void setStavkaCenovnika(StavkaCenovnika stavkaCenovnika) {
+		this.stavkaCenovnika = stavkaCenovnika;
 	}	
 	
 }  

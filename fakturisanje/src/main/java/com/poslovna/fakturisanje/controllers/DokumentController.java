@@ -1,5 +1,7 @@
 package com.poslovna.fakturisanje.controllers;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -60,7 +62,7 @@ public class DokumentController {
 		faktura.setIzdavaocRacuna(izdavaoc);
 		faktura.setKupac(kupac);
 		faktura.setDatumDokumenta(faktura.getDatumDokumenta().substring(0, 10));
-		faktura.setDatumKnjizenja(faktura.getDatumKnjizenja().substring(0, 10));
+		//faktura.setDatumKnjizenja(faktura.getDatumKnjizenja().substring(0, 10));
 		faktura.setDatumValute(faktura.getDatumValute().substring(0, 10));
 		Dokument fakturaa = fakturaService.save(faktura);
         return new ResponseEntity<Dokument>(fakturaa, HttpStatus.OK);
@@ -148,12 +150,13 @@ public class DokumentController {
 
 		try {
 			System.out.println("Start ....");
-			String jrxmlFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\faktura.jrxml";
-			String jasperFileName = "D:\\MILAN_CETVRTA_GODINA\\PI\\Git-projekat\\poslovnaInformatika\\fakturisanje\\src\\main\\resources\\static\\reports\\faktura.jasper";
+			//
+			String jrxmlFileName = "./src/main/resources/static/reports/faktura.jrxml";
+			String jasperFileName = "./src/main/resources/static/reports/faktura.jasper";
 			//String jasperFileName = "/reports/magacinskaKartica.jasper";
 			 //* fakturisanje/src/main/resources/static/reports
-			String pdfFileName = "C:\\Users\\Adam\\Desktop\\faktura-otpremnica.pdf";
-
+			String pdfFileName = "./src/main/resources/static/pdfFiles/faktura-otpremnica.pdf";  
+		      
 			JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
 
 			// String dbUrl = props.getProperty("jdbc.url");
@@ -163,7 +166,7 @@ public class DokumentController {
 			// String dbUname = props.getProperty("db.username");
 			String dbUname = "root";
 			// String dbPwd = props.getProperty("db.password");
-			String dbPwd = "svitac94";
+			String dbPwd = "1234";
 
 			// Load the JDBC driver
 			Class.forName(dbDriver);
@@ -182,6 +185,23 @@ public class DokumentController {
 			JasperExportManager.exportReportToPdfFile(jprint, pdfFileName);
 
 			System.out.println("Done exporting reports to pdf");
+			
+			File file = new File("./src/main/resources/static/pdfFiles/faktura-otpremnica.pdf");
+			if (file.exists()) {
+				System.out.println("Ima ga!");
+				System.out.println(file.getAbsolutePath());
+			}
+			
+			try{
+		         Process p = Runtime
+		        		 .getRuntime()
+		        		 .exec("rundll32 url.dll,FileProtocolHandler " + file.getAbsolutePath());
+		         p.waitFor();
+
+		    } catch (Exception ex) {
+		    	ex.printStackTrace();
+		    }
+		
 
 		} catch (Exception e) {
 			System.out.print("Exceptiion" + e);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-11T09:03:02 -->
+<!-- 2017-06-13T23:58:17 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="lager" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="216955d1-36e0-4e03-a86e-b865b43b7390">
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="ZmFrdHVyaXNhbmplLm1hZ2FjaW4gLDE2NSwxNSwxMGY1N2Q0NC0wOTVhLTQxMzctYjRkMy0zZDNk&#xA;MDI4NWQ2OTQ7ZmFrdHVyaXNhbmplLmFydGlrYWwgLDE2NSwxODQsN2Y2ZGI1NTMtZDc0Ny00NWI2&#xA;LWJhYTctMGY2ZmMwOGZiMzNjO2Zha3R1cmlzYW5qZS5jb21wYW55ICwzMzksNDEsMTYzNmE0MTgt&#xA;NGRlNy00MTY1LTk3MjItNDgwMzY2YmY5MmU4O2Zha3R1cmlzYW5qZS5rYXJ0aWNhICwxNSw1NCw2&#xA;OGE0Y2VmYi1lZGY2LTQ1ZTktYjY4My1kMGE1NDU4ZTRiZmE7"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="fakturisanje"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="635"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="351"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="228"/>
@@ -17,8 +17,7 @@
 	fakturisanje.artikal.naziv,
 	fakturisanje.kartica.poc_stanje_kol,
 	fakturisanje.kartica.promet_iz_kol,
-	fakturisanje.kartica.promet_ul_kol,
-	fakturisanje.stavkacenovnika.cena
+	fakturisanje.kartica.promet_ul_kol
 FROM fakturisanje.kartica
 	INNER JOIN fakturisanje.magacin ON 
 	 fakturisanje.kartica.magacin_id = fakturisanje.magacin.id 
@@ -26,9 +25,8 @@ FROM fakturisanje.kartica
 	 fakturisanje.magacin.preduzece_id = fakturisanje.company.id 
 	INNER JOIN fakturisanje.artikal ON 
 	 fakturisanje.kartica.artikal_id = fakturisanje.artikal.id 
-	INNER JOIN fakturisanje.stavkacenovnika ON 
-	 fakturisanje.kartica.stavka_cenovnika_id = fakturisanje.stavkacenovnika.id
-WHERE fakturisanje.magacin.sifra = $P{sifrica}]]>
+WHERE 
+	 fakturisanje.magacin.sifra = $P{sifrica}]]>
 	</queryString>
 	<field name="sifra" class="java.lang.String"/>
 	<field name="naziv" class="java.lang.String"/>
@@ -38,7 +36,6 @@ WHERE fakturisanje.magacin.sifra = $P{sifrica}]]>
 	<field name="poc_stanje_kol" class="java.lang.Float"/>
 	<field name="promet_iz_kol" class="java.lang.Float"/>
 	<field name="promet_ul_kol" class="java.lang.Float"/>
-	<field name="cena" class="java.lang.Float"/>
 	<variable name="kolicina" class="java.lang.Float">
 		<variableExpression><![CDATA[$F{poc_stanje_kol}-$F{promet_iz_kol}+$F{promet_ul_kol}]]></variableExpression>
 	</variable>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-13T21:10:37 -->
+<!-- 2017-06-13T23:30:44 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dnevnikIzlaznihFaktura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a40a73e3-08ac-4349-8564-b7c27a1fe4d7">
-	<property name="com.jaspersoft.studio.data.sql.tables" value="ZmFrdHVyaXNhbmplLnBvc2xvdm5hX2dvZGluYSAsMjA1LDMzOSxlYzA2NTBmMS00NGY0LTQwNWUt&#xA;OWE5ZS1kNWIxMjZmOWM3NzM7ZmFrdHVyaXNhbmplLmNvbXBhbnkgLDIwNSwxNSwxNTRlYWEwMC0z&#xA;NzhjLTQwODQtOWYwMC1kMzlkOGI2MmEyN2E7ZmFrdHVyaXNhbmplLmRva3VtZW50ICwxNSwxMzcs&#xA;ZWZkZDljZWMtNTA4NS00ZDQ3LTkzMTctMmU1OWEwOWQ3MzkwOw=="/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="ZmFrdHVyaXNhbmplLnBvc2xvdm5hX2dvZGluYSAsMjA1LDMzOSxkNzg5NzZiNy1iYWQzLTQ0NTMt&#xA;YTFlNS1mYTBiNjAyMTE3NmY7ZmFrdHVyaXNhbmplLmNvbXBhbnkgLDIwNSwxNSxlMDI0MDU0Zi1l&#xA;MWVmLTQ3MjUtYTkxZi1mZGRmYzA2MjY5M2M7ZmFrdHVyaXNhbmplLmRva3VtZW50ICwxNSwxMzcs&#xA;ZDU4ZDU4MjEtMmM1ZC00YjU5LTk4NzktNTUzODgyNGM5NTIyOw=="/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="fakturisanje"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="758"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="228"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="215"/>
