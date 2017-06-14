@@ -17,6 +17,20 @@ app.factory('grupaArtikalaService', function grupaArtikalaService($http){
 		});
 	}
 	
+	grupaArtikalaService.findGrupu = function(id){
+		return $http({
+			method: 'GET',
+			url: 'api/grupe/nadjiGrupu/'+id
+		});
+	}
+	
+	grupaArtikalaService.deleteGrupu = function(id){
+		return $http({
+			method: 'DELETE',
+			url: 'api/grupe/obrisiGrupu/'+id
+		});
+	}
+	
 	
 	return grupaArtikalaService;
 	

@@ -51,7 +51,7 @@
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Lista grupi artikala</h2>    
 	
-	<md-button class="md-warn" aria-label="stopa" ng-click="dodajGrupu()">Dodaj grupu
+	<md-button class="md-warn" aria-label="grupaPDVa" ng-click="dodajGrupu()">Dodaj grupu
 	
     </md-button>
     
@@ -66,12 +66,19 @@
       <tr md-row>
         <th md-column>Naziv grupe</th>
         <th md-column>Vrsta PDV-a</th>
+        <th md-column>Obrisi</th>
+        <th md-column></th>
       </tr>
     </thead>
     <tbody md-body>
       <tr md-row md-select="grupa" md-select-id="name" ng-click="prikaziArtikle()" md-auto-select ng-repeat="grupa in grupe | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit">
         <td md-cell>{{grupa.nazivGrupe}}</td>
         <td md-cell>{{grupa.vrstaPDVa.nazivVrstePDVa}}</td>
+        <td md-cell><md-button class="md-warn" aria-label="grupa" ng-click="obrisiGrupu(grupa)">obrisi
+    </md-button>
+    </td>
+    <td md-cell><md-button class="md-warn" aria-label="grupa" ng-click="izmeniGrupu(grupa)">izmeni
+    </md-button></td>
       </tr>
     </tbody>
   </table>  

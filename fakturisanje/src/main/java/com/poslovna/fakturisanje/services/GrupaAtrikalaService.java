@@ -24,5 +24,13 @@ public class GrupaAtrikalaService {
 		return grupaArtikalaRepository.save(grupa);
 	}
 	
+	public GrupaArtikala findOne(Integer id){
+		return grupaArtikalaRepository.findOne(id);
+	}
+	
+	public void remove(GrupaArtikala g){
+		grupaArtikalaRepository.delete(g);
+	}
+	
 
 }

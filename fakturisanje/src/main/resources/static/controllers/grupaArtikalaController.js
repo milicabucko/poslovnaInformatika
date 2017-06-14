@@ -13,6 +13,13 @@ app.controller('grupaArtikalaController',['$scope', '$location', '$mdDialog', 'c
 	
 	var urlParams =  $location.search();
 	var id = urlParams.companyID;
+	var idGrupe = urlParams.grupaID;
+	
+	if(idGrupe != null){
+		grupaArtikalaService.findGrupu(idGrupe).then(function(response){
+			$scope.grupaa = response.data;
+		});
+	}
 	
 	
 	$scope.kreirajGrupuArtikala = function(){

@@ -84,6 +84,18 @@ app.controller('pregledGrupaController',['$scope', '$location', '$mdDialog', 'co
 			}
 		}
 		
+		$scope.obrisiGrupu = function(grupa){
+			var idToDelete = $scope.selectedGrupa[0].id;
+			grupaArtikalaService.deleteGrupu(idToDelete).then(function(response){
+				$scope.grupe = response.data;
+				 $scope.grupeSize = $scope.grupe.length;
+			});
+		}
+		
+		$scope.izmeniGrupu = function(grupa){
+			$location.path("/grupa").search({grupaID:$scope.selectedGrupa[0].id })
+		}
+		
 		
 			$scope.dodajArtikal = function(){
 			

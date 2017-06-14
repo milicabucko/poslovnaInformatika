@@ -32,6 +32,9 @@ public class GrupaArtikalaController {
 	private GrupaAtrikalaService grupaAtrikalaService;
 	
 	@Autowired
+	private GrupaArtikalaRepository grupaArtikalaRepository;
+	
+	@Autowired
 	private VrstaPDVaRepository vrstaPDVaRepository;
 	
 	@RequestMapping(
@@ -58,6 +61,29 @@ public class GrupaArtikalaController {
 		Company company = companyRepository.findOne(id);
 		Collection<GrupaArtikala> sveGrupe = grupaAtrikalaService.findByCompany(company);
         return new ResponseEntity<Collection<GrupaArtikala>>(sveGrupe, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "api/grupe/obrisiGrupu/{id}",
+            method   = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<GrupaArtikala>> deleteGrupu(@PathVariable Integer id) {
+		GrupaArtikala grupa = grupaAtrikalaService.findOne(id);
+		grupaAtrikalaService.remove(grupa);
+		//Collection<GrupaArtikala> sveGrupe = grupaAtrikalaService.findByCompany(company);
+		Collection<GrupaArtikala> sveGrupe = grupaArtikalaRepository.findAll();
+        return new ResponseEntity<Collection<GrupaArtikala>>(sveGrupe, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "api/grupe/nadjiGrupu/{id}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<GrupaArtikala> findOneGrupu(@PathVariable Integer id) {
+		GrupaArtikala grupa = grupaAtrikalaService.findOne(id);
+        return new ResponseEntity<GrupaArtikala> (grupa, HttpStatus.OK);
     }
 	
 	

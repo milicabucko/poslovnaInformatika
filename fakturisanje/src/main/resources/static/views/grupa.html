@@ -3,27 +3,35 @@
 	<h2 flex md-truncate>Dodaj grupu artikala</h2>
 </div>
 </md-toolbar>
-
+<form novalidate name="grupaForm" layout="column">
 <md-input-container class="md-block">
         		<label>Naziv grupe:</label>
-        		<input  type = "text" required name="nazivGrupe" ng-model="grupa.nazivGrupe" />
+        		<input  id = "nazivGrupe" type = "text" required name="nazivGrupe" ng-model="grupa.nazivGrupe" value = "{{grupaa.nazivGrupe}}" />
+        		<div ng-messages="grupaForm.name.$error"
+                         ng-if="grupaForm.nazivGrupe.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         	</md-input-container>
         	<md-input-container>
           <label>Vrsta PDV-a</label>
-          <md-select ng-model="grupa.vrstaPDVa">
+          <md-select required ng-model="grupa.vrstaPDVa" id = "vrstaPDVa">
             <md-option ng-repeat="vrsta in vrste" ng-value="vrsta">
               {{vrsta.nazivVrstePDVa}}
             </md-option>
           </md-select>
+          <div ng-messages="grupaForm.vrstaPDVa.$error"
+                         ng-if="grupaForm.vrstaPDVa.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         </md-input-container>
     	</md-dialog-content>
-    	
+    	</form>
     	
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Zakljucak</h2>
 	
-	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajGrupuArtikala()">
+	<md-button class="md-warn" aria-label="Posalji" ng-disabled="grupaForm.$invalid" ng-click="kreirajGrupuArtikala()">
         Kreiraj
     </md-button>
     
