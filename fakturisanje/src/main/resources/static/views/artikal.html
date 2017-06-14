@@ -3,39 +3,59 @@
 	<h2 flex md-truncate>Dodaj artikal</h2>
 </div>
 </md-toolbar>
-
+<form novalidate name="artikalForm" layout="column">
 <md-input-container class="md-block">
         		<label>Naziv artikla:</label>
-        		<input  type = "text" required name="nazivArtikla" ng-model="artikal.naziv" />
+        		<input  type = "text" required id="nazivArtikla" name="nazivArtikla" ng-model="artikal.naziv" />
+        		<div ng-messages="artikalForm.nazivArtikla.$error"
+                         ng-if="artikalForm.nazivArtikla.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         	</md-input-container>
         	<md-input-container class="md-block">
         		<label>Sifra artikla:</label>
-        		<input  type = "text" required name="sifraArtikla" ng-model="artikal.sifra" />
+        		<input  type = "text" required id="sifraArtikla" name="sifraArtikla" ng-model="artikal.sifra" />
+        		<div ng-messages="artikalForm.sifraArtikla.$error"
+                         ng-if="artikalForm.sifraArtikla.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         	</md-input-container>
         	<md-input-container class="md-block">
         		<label>Opis artikla:</label>
-        		<input  type = "text" required name="opisArtikla" ng-model="artikal.opis" />
+        		<input  type = "text" required id="opisArtikla" name="opisArtikla" ng-model="artikal.opis" />
+        		<div ng-messages="artikalForm.opisArtikla.$error"
+                         ng-if="artikalForm.opisArtikla.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         	</md-input-container>
         	<md-input-container class="md-block">
         		<label>Vrsta artikla:</label>
-        		<input  type = "text" required name="vrstaArtikla" ng-model="artikal.vrsta" />
+        		<input  type = "text" required id="vrstaArtikla" name="vrstaArtikla" ng-model="artikal.vrsta" />
+        		<div ng-messages="artikalForm.vrstaArtikla.$error"
+                         ng-if="artikalForm.vrstaArtikla.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         	</md-input-container>
         	<md-input-container>
           <label>Jedinica Mere:</label>
-          <md-select ng-model="artikal.jedinicaMere">
+          <md-select required id="jedinicaMere" ng-model="artikal.jedinicaMere">
             <md-option ng-repeat="jed in jedinice" ng-value="jed">
               {{jed.nazivJedinice}}
             </md-option>
           </md-select>
+           <div ng-messages="artikalForm.jedinicaMere.$error"
+                         ng-if="artikalForm.jedinicaMere.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         </md-input-container>	
     	</md-dialog-content>
-    	
+    	</form>
     	
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Zakljucak</h2>
 	
-	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajArtikal()">
+	<md-button class="md-warn" aria-label="Posalji" ng-disabled="artikalForm.$invalid" ng-click="kreirajArtikal()">
         Kreiraj
     </md-button>
     

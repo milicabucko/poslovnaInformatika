@@ -3,28 +3,36 @@
 	<h2 flex md-truncate>Dodaj vrstu PDV-a</h2>
 </div>
 </md-toolbar>
-
+<form novalidate name="vrstaForm" layout="column">
 
         	<md-input-container class="md-block">
         		<label>Naziv vrste:</label>
-        		<input  type = "text" required name="nazivvrstePDVa" ng-model="vrsta.nazivVrstePDVa" />
+        		<input  type = "text" required id="nazivvrstePDVa" name="nazivvrstePDVa" ng-model="vrsta.nazivVrstePDVa" />
+        		<div ng-messages="vrstaForm.nazivvrstePDVa.$error"
+                         ng-if="vrstaForm.nazivvrstePDVa.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         	</md-input-container>
         	<md-input-container>
           <label>Stopa PDV-a</label>
-          <md-select ng-model="vrsta.stopaPDVa">
+          <md-select required ng-model="vrsta.stopaPDVa" id="stopaPDVa">
             <md-option ng-repeat="stopa in stope" ng-value="stopa">
               {{stopa.procenatPDVa}}
             </md-option>
           </md-select>
+          <div ng-messages="vrstaForm.stopaPDVa.$error"
+                         ng-if="vrstaForm.stopaPDVa.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         </md-input-container>
     	</md-dialog-content>
-    	
+    	</form>
     	
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Zakljucak</h2>
 	
-	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajVrstuPDVa()">
+	<md-button class="md-warn" aria-label="Posalji" ng-disabled="vrstaForm.$invalid" ng-click="kreirajVrstuPDVa()">
         Kreiraj
     </md-button>
     

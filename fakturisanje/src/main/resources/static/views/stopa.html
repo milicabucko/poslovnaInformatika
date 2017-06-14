@@ -3,23 +3,31 @@
 	<h2 flex md-truncate>Dodaj stopu PDV-a</h2>
 </div>
 </md-toolbar>
-
+<form novalidate name="stopaForm" layout="column">
 <md-input-container class="md-block">
         		<label>Datum: </label>
-        		<md-datepicker ng-model="stopa.datumStope" md-placeholder="Enter date"></md-datepicker>
+        		<md-datepicker required id="datumStope" ng-model="stopa.datumStope" md-placeholder="Enter date"></md-datepicker>
+        		<div ng-messages="stopaForm.datumStope.$error"
+                         ng-if="stopaForm.datumStope.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         	</md-input-container>	
         	<md-input-container class="md-block">
         		<label>Procenat:</label>
-        		<input md-maxlength="2" required name="procenatPDVa" ng-model="stopa.procenatPDVa" />
+        		<input md-maxlength="2" type="number" required name="procenatPDVa" id="procenatPDVa" ng-model="stopa.procenatPDVa" />
+        		<div ng-messages="stopaForm.procenatPDVa.$error"
+                         ng-if="stopaForm.procenatPDVa.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         	</md-input-container>	
     	</md-dialog-content>
-    	
+    	</form>
     	
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Zakljucak</h2>
 	
-	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajStopuPDVa()">
+	<md-button class="md-warn" aria-label="Posalji" ng-disabled="stopaForm.$invalid" ng-click="kreirajStopuPDVa()">
         Kreiraj
     </md-button>
     

@@ -4,23 +4,31 @@
 </div>
 </md-toolbar>
 
-	
+	<form novalidate name="jedinicaMereForm" layout="column">
         	<md-input-container class="md-block">
         		<label>Oznaka:</label>
-        		<input  required name="oznakaJedinice" ng-model="jedinica.oznakaJedinice" />
+        		<input  required name="oznakaJedinice" id="oznakaJedinice" ng-model="jedinica.oznakaJedinice" />
+        		<div ng-messages="jedinicaMereForm.oznakaJedinice.$error"
+                         ng-if="jedinicaMereForm.oznakaJedinice.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         	</md-input-container>
         	<md-input-container class="md-block">
         		<label>Naziv:</label>
-        		<input  required name="nazivJedinice" ng-model="jedinica.nazivJedinice" />
+        		<input  required id="nazivJedinice" name="nazivJedinice" ng-model="jedinica.nazivJedinice" />
+        		<div ng-messages="jedinicaMereForm.nazivJedinice.$error"
+                         ng-if="jedinicaMereForm.nazivJedinice.$dirty">
+                        <div ng-message="required">Morate popuniti.</div>
+                    </div>
         	</md-input-container>	
     	</md-dialog-content>
-    	
+    	</form>
     	
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Zakljucak</h2>
 	
-	<md-button class="md-warn" aria-label="Posalji" ng-click="kreirajJedinicuMere()">
+	<md-button class="md-warn" aria-label="Posalji" ng-disabled="jedinicaMereForm.$invalid" ng-click="kreirajJedinicuMere()">
         Kreiraj
     </md-button>
     
