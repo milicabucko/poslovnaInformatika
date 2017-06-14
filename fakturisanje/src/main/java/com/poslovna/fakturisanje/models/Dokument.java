@@ -12,6 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -20,6 +26,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "dokument")
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = { "stavkeDokumenta", "izdavaocRacuna", "kupac", "poslovnaGodina"})
+@XmlRootElement(name = "faktura")
 public class Dokument implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -27,40 +37,52 @@ public class Dokument implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
+	@XmlAttribute(name = "id", required = true)
 	private Integer id;
 	
 	@Column(name = "brojDokumenta")
+	@XmlAttribute(name = "brojDokumenta", required = true)
 	private Integer brojDokumenta;
 	
 	@Column(name = "statusDokumenta")
+	@XmlAttribute(name = "statusDokumenta", required = true)
 	private String statusDokumenta;
 	
 	@Column(name = "datumDokumenta")
+	@XmlAttribute(name = "datumDokumenta", required = true)
 	private String datumDokumenta;
 	
 	@Column(name = "vrstaDokumenta")
+	@XmlAttribute(name = "vrstaDokumenta", required = true)
 	private String vrstaDokumenta;
 	
 	@Column(name = "datumValute")
+	@XmlAttribute(name = "datumValute", required = true)
 	private String datumValute;
 	
 	@Column(name = "datumKnjizenja")
+	@XmlAttribute(name = "datumKnjizenja", required = true)
 	private String datumKnjizenja;
 	
 	@Column(name = "ukupnoZaPlacanje")
+	@XmlAttribute(name = "ukupnoZaPlacanje", required = true)
 	private Float ukupnoZaPlacanje;
 	
 	@ManyToOne
+	@XmlElement(required = true)
 	private Company izdavaocRacuna;
 	
 	@ManyToOne
+	@XmlElement(required = true)
 	private Company kupac;
 	
 	@ManyToOne
+	@XmlElement(required = true)
 	private PoslovnaGodina poslovnaGodina;
 	
 	@OneToMany(mappedBy = "dokument", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@XmlElement(required = true)
 	private Collection<StavkaDokumenta> stavkeDokumenta;
 	
 	public Dokument() {

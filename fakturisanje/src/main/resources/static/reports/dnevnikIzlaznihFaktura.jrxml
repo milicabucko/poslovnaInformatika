@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-13T23:30:44 -->
+<!-- 2017-06-14T14:10:47 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dnevnikIzlaznihFaktura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a40a73e3-08ac-4349-8564-b7c27a1fe4d7">
-	<property name="com.jaspersoft.studio.data.sql.tables" value="ZmFrdHVyaXNhbmplLnBvc2xvdm5hX2dvZGluYSAsMjA1LDMzOSxkNzg5NzZiNy1iYWQzLTQ0NTMt&#xA;YTFlNS1mYTBiNjAyMTE3NmY7ZmFrdHVyaXNhbmplLmNvbXBhbnkgLDIwNSwxNSxlMDI0MDU0Zi1l&#xA;MWVmLTQ3MjUtYTkxZi1mZGRmYzA2MjY5M2M7ZmFrdHVyaXNhbmplLmRva3VtZW50ICwxNSwxMzcs&#xA;ZDU4ZDU4MjEtMmM1ZC00YjU5LTk4NzktNTUzODgyNGM5NTIyOw=="/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="fakturisanje"/>
-	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="758"/>
-	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="228"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="ZmFrdHVyaXNhbmplLmRva3VtZW50ICwxNSwxMzcsY2RhZGNiMGEtMTA0My00ZTExLWFiZjktOTE4&#xA;ZWU4ZjgxN2RlO2Zha3R1cmlzYW5qZS5jb21wYW55ICwyMDUsMTUsNTlhYWMzN2ItMWI5OS00Zjlm&#xA;LTg0ZWMtYmM2OGZlYWI5MjVmO2Zha3R1cmlzYW5qZS5wb3Nsb3ZuYV9nb2RpbmEgLDIwNSwzMzks&#xA;MTM2ZDBlMTQtZWM5My00Y2JkLWJlZTYtYzUyNzk3NTI1OWQ4Ow=="/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="708"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="278"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="215"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="776"/>
 	<parameter name="datumPocetka" class="java.lang.String"/>
@@ -25,12 +25,10 @@
 	fakturisanje.poslovna_godina.datum_zavrsetka
 FROM fakturisanje.dokument
 	INNER JOIN fakturisanje.company ON 
-	 fakturisanje.dokument.kupac_id = fakturisanje.company.id 
+	 fakturisanje.dokument.kupac_id = fakturisanje.company.id
 	INNER JOIN fakturisanje.poslovna_godina ON 
-	 fakturisanje.dokument.poslovna_godina_id = fakturisanje.poslovna_godina.id 
-WHERE 
-	 fakturisanje.dokument.datum_dokumenta BETWEEN $P{datumPocetka} AND $P{datumKraja} 
-	 AND fakturisanje.dokument.izdavaoc_racuna_id = $P{izdavaocId}]]>
+	 fakturisanje.dokument.poslovna_godina_id = fakturisanje.poslovna_godina.id
+WHERE fakturisanje.dokument.datum_dokumenta BETWEEN $P{datumPocetka} AND $P{datumKraja}]]>
 	</queryString>
 	<field name="broj_dokumenta" class="java.lang.Integer"/>
 	<field name="datum_dokumenta" class="java.lang.String"/>
@@ -48,22 +46,6 @@ WHERE
 	<pageHeader>
 		<band height="124" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-			<textField>
-				<reportElement x="268" y="53" width="108" height="30" uuid="7512a497-1552-4eba-a29c-3b89fd7d526d">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-				</reportElement>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{datum_pocetka}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="461" y="51" width="109" height="30" uuid="7c25505e-b9ab-433d-a7ba-0ef91863a3c7"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{datum_zavrsetka}]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="125" y="0" width="329" height="30" uuid="68c25f18-65a2-4d58-9e65-6c30949e6f5f"/>
 				<textElement verticalAlignment="Middle">
@@ -86,7 +68,7 @@ WHERE
 				<text><![CDATA[Datum pocetka: ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="352" y="53" width="118" height="30" uuid="86c48a1e-c412-4700-a89b-a188f93e0d1a"/>
+				<reportElement x="357" y="53" width="118" height="30" uuid="86c48a1e-c412-4700-a89b-a188f93e0d1a"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="14" isBold="true"/>
 				</textElement>
@@ -174,52 +156,66 @@ WHERE
 				</textElement>
 				<textFieldExpression><![CDATA[$P{izdavaocIme}]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="266" y="55" width="94" height="25" uuid="7434f971-3802-4f53-a7af-dd4e7107965e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datum_pocetka}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="53" width="100" height="30" uuid="4101b912-b612-4cde-a403-8df0b136b14e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{datum_zavrsetka}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="35" splitType="Stretch">
+		<band height="38" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
 			<textField>
-				<reportElement x="-10" y="0" width="50" height="30" uuid="331a551d-1001-4cd7-b033-b1a9d24c30e5"/>
+				<reportElement x="-10" y="0" width="50" height="30" uuid="c987b727-7bdd-40b6-82f5-5386eec9add9"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{broj_dokumenta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="40" y="0" width="115" height="30" uuid="36b53ec6-5705-4ade-b05f-a748a4bbb2e1"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="50" y="0" width="100" height="30" uuid="e997dbe6-516d-469c-a18b-587546356c0d"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{datum_dokumenta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="282" y="0" width="100" height="30" uuid="8ad11328-4d09-458c-80cb-4eb38b2ee41c"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="354" y="0" width="100" height="30" uuid="4fe17e55-9195-4671-8489-9db8721ce2d6"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="461" y="1" width="100" height="30" uuid="4fc0c0a4-92d7-492c-8361-930ca75b2e9b"/>
+				<reportElement x="458" y="3" width="100" height="30" uuid="65e471fa-cda2-448d-8a90-417ce4f579c3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ukupno_za_placanje}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="155" y="0" width="125" height="30" uuid="a547549d-e598-4d3c-a640-db0ab7e36624"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="161" y="2" width="100" height="30" uuid="f0a29908-feb1-4d7d-8639-d23f877bb854"/>
+				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{datum_valute}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="272" y="2" width="100" height="30" uuid="907a3a5c-3c93-47bb-8f45-db7ddb85aa3d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="3" width="114" height="30" uuid="7ed793c9-f37f-4297-9907-4cf9a8c69270"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

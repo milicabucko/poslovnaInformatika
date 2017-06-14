@@ -13,12 +13,19 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 @Entity
 @Table(name = "company")
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = { "cenovnici", "grupeArtikala"})
+@XmlRootElement(name = "company")
 public class Company implements Serializable{
 	
 	/**
@@ -29,40 +36,52 @@ public class Company implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
+	@XmlAttribute(name = "id", required = true)
 	private Integer id;
 	
 	@Column(name = "name")
+	@XmlAttribute(name = "name", required = true)
 	private String name;
 	
 	@Column(name = "pib")
+	@XmlAttribute(name = "pib", required = true)
 	private BigInteger pib;
 	
 	@Column(name = "address")
+	@XmlAttribute(name = "address", required = true)
 	private String address;
 	
 	@Column(name = "phonenumber")
+	@XmlAttribute(name = "phonenumber", required = true)
 	private String phonenumber;
 	
 	@Column(name = "cidnumber")
+	@XmlAttribute(name = "cidnumber", required = true)
 	private BigInteger cidnumber;
 	
 	@Column(name = "activitycode")
+	@XmlAttribute(name = "activitycode", required = true)
 	private Integer activitycode;
 	
 	@Column(name = "email")
+	@XmlAttribute(name = "email", required = true)
 	private String email;
 	
 	@Column(name = "account")
+	@XmlAttribute(name = "account", required = true)
 	private String account;
 	
 	@Column(name = "bank")
+	@XmlAttribute(name = "bank", required = true)
 	private String bank;
 	
 	
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@XmlElement(required = false)
 	private Collection<Cenovnik> cenovnici;
 	
 	@OneToMany(mappedBy = "company", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@XmlElement(required = false)
 	private Collection<GrupaArtikala> grupeArtikala;
 
 	public Company() {

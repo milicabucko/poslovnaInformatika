@@ -1,6 +1,5 @@
 package com.poslovna.fakturisanje.controllers;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -10,6 +9,9 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -149,12 +151,9 @@ public class DokumentController {
 		HashMap hm = null;
 
 		try {
-			System.out.println("Start ....");
-			//
+			//System.out.println("Start ....");
 			String jrxmlFileName = "./src/main/resources/static/reports/faktura.jrxml";
 			String jasperFileName = "./src/main/resources/static/reports/faktura.jasper";
-			//String jasperFileName = "/reports/magacinskaKartica.jasper";
-			 //* fakturisanje/src/main/resources/static/reports
 			String pdfFileName = "./src/main/resources/static/pdfFiles/faktura-otpremnica.pdf";  
 		      
 			JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
@@ -166,7 +165,7 @@ public class DokumentController {
 			// String dbUname = props.getProperty("db.username");
 			String dbUname = "root";
 			// String dbPwd = props.getProperty("db.password");
-			String dbPwd = "1234";
+			String dbPwd = "svitac94";
 
 			// Load the JDBC driver
 			Class.forName(dbDriver);
@@ -183,28 +182,52 @@ public class DokumentController {
 			
 			// Export pdf file
 			JasperExportManager.exportReportToPdfFile(jprint, pdfFileName);
-
-			System.out.println("Done exporting reports to pdf");
-			
+			//System.out.println("Done exporting reports to pdf");		
 			File file = new File("./src/main/resources/static/pdfFiles/faktura-otpremnica.pdf");
 			if (file.exists()) {
-				System.out.println("Ima ga!");
-				System.out.println(file.getAbsolutePath());
-			}
-			
+				//System.out.println("Ima ga!");
+				//System.out.println(file.getAbsolutePath());
+			}		
 			try{
 		         Process p = Runtime
 		        		 .getRuntime()
 		        		 .exec("rundll32 url.dll,FileProtocolHandler " + file.getAbsolutePath());
 		         p.waitFor();
-
 		    } catch (Exception ex) {
 		    	ex.printStackTrace();
-		    }
-		
-
+		    }	
 		} catch (Exception e) {
 			System.out.print("Exceptiion" + e);
+		}
+	}
+	
+	@RequestMapping(
+            value    = "/api/faktura/exportToXML/{fakturaId}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_XML_VALUE
+    )
+	public void exportFakture(HttpServletResponse response, @PathVariable Integer fakturaId){
+		//System.out.println(fakturaId);
+		Dokument faktura = fakturaService.findOne(fakturaId);
+		
+		try {
+			System.out.println("[INFO] Example 2: JAXB unmarshalling/marshalling.\n");
+			
+			// Definiše se JAXB kontekst (putanja do paketa sa JAXB bean-ovima)
+			JAXBContext context = JAXBContext.newInstance("com.poslovna.fakturisanje.models");
+			
+			// Marshaller je objekat zadužen za konverziju iz objektnog u XML model
+			Marshaller marshaller = context.createMarshaller();
+			
+			// Podešavanje marshaller-a
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			
+			// Umesto System.out-a, može se koristiti FileOutputStream
+			marshaller.marshal(faktura, System.out);
+			
+			
+		} catch (JAXBException e) {
+			e.printStackTrace();
 		}
 	}
 }

@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,6 +34,7 @@ public class GrupaArtikala implements Serializable{
 	private String nazivGrupe;
 	
 	@OneToMany(mappedBy = "grupaArtikala", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@XmlTransient
 	private Collection<Artikal> artikli;
 	
 	@ManyToOne

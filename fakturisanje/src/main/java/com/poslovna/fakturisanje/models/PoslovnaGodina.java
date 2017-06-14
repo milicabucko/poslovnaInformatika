@@ -12,12 +12,22 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "poslovnaGodina")
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = { "preduzece", "dokumenti"})
+@XmlRootElement(name = "poslovnaGodina")
 public class PoslovnaGodina implements Serializable{
 
 	/**
@@ -28,25 +38,32 @@ public class PoslovnaGodina implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
+	@XmlAttribute(name = "id", required = true)
 	private Integer id;
 	
 	@Column(name = "brojGodine")
+	@XmlAttribute(name = "brojGodine", required = true)
 	private Integer brojGodine;
 	
 	@Column(name = "aktivna")
+	@XmlAttribute(name = "aktivna", required = true)
 	private Boolean aktivna;
 	
 	@Column(name = "datumPocetka")
+	@XmlAttribute(name = "datumPocetka", required = true)
 	private String datumPocetka;
 	
 	@Column(name = "datumZavrsetka")
+	@XmlAttribute(name = "datumZavrsetka", required = true)
 	private String datumZavrsetka;
 	
 	@ManyToOne
+	@XmlElement(required = false)
 	private Company preduzece;
 	
 	@OneToMany(mappedBy = "poslovnaGodina", cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@XmlElement(required = false)
 	private Collection<Dokument> dokumenti;
 	
 	public PoslovnaGodina() {

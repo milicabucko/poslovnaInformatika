@@ -51,10 +51,11 @@ public class AnalitikaMagacinskeKarticeController {
 	private MagacinskaKarticaService magKarticaService;
 	
 	@RequestMapping(
-			value = "/api/amk/addAMK/{artikalId}/{pib}/{pib2}/{stavkaId}",
+			value = "/api/amk/addAMK/{artikalId}/{pib}/{pib2}/{stavkaDokumentaId}",
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<AnalitikaMagacinskeKartice> addAMK(@RequestBody AnalitikaMagacinskeKartice amk, @PathVariable Integer artikalId, @PathVariable BigInteger pib, @PathVariable BigInteger pib2, @PathVariable Integer stavkaId) {
+	public ResponseEntity<AnalitikaMagacinskeKartice> addAMK(@RequestBody AnalitikaMagacinskeKartice amk, @PathVariable Integer artikalId,
+			@PathVariable BigInteger pib, @PathVariable BigInteger pib2, @PathVariable Integer stavkaDokumentaId) {
 		Company company = companyService.findByPib(pib);
 		Company company2 = companyService.findByPib(pib2);
 		
@@ -67,8 +68,8 @@ public class AnalitikaMagacinskeKarticeController {
 		MagacinskaKartica magacinskaKartica2 = mkService.nadjiMagacinskuKarticuArtikla(magacin2, artikal);
 		
 		if(magacinskaKartica2 == null){
-			//System.out.println("aaaaaaaaaaaaaa");
-			MagacinskaKartica novaKartica = new MagacinskaKartica(0, 0, 0, 0, 0, 0, artikal, magacin2, new StavkaCenovnika());
+			//ovde uzimam stavku cenovnika iz cenovnika prve firme!!!
+			MagacinskaKartica novaKartica = new MagacinskaKartica(0, 0, 0, 0, 0, 0, artikal, magacin2, magacinskaKartica.getStavkaCenovnika());
 			magKarticaService.saveKartica(novaKartica);
 			
 			AnalitikaMagacinskeKartice amk2 = new AnalitikaMagacinskeKartice();
@@ -81,7 +82,7 @@ public class AnalitikaMagacinskeKarticeController {
 				amk2.setVrstaPrometa("FO");
 			}
 			
-			StavkaDokumenta stavkaDokumenta = stavkaDokumentaService.findOne(stavkaId);
+			StavkaDokumenta stavkaDokumenta = stavkaDokumentaService.findOne(stavkaDokumentaId);
 			amk.setStavkaDokumenta(stavkaDokumenta);	
 			amk2.setStavkaDokumenta(stavkaDokumenta);
 			
@@ -110,7 +111,7 @@ public class AnalitikaMagacinskeKarticeController {
 				amk2.setVrstaPrometa("FO");
 			}
 			
-			StavkaDokumenta stavkaDokumenta = stavkaDokumentaService.findOne(stavkaId);
+			StavkaDokumenta stavkaDokumenta = stavkaDokumentaService.findOne(stavkaDokumentaId);
 			amk.setStavkaDokumenta(stavkaDokumenta);	
 			amk2.setStavkaDokumenta(stavkaDokumenta);
 			

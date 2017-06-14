@@ -32,17 +32,7 @@ app.controller('pregledPreduzecaController',['$scope', '$location', '$mdDialog',
 	}
 	
 	$scope.dpChanged = function() {
-		var danasnjiDatum = new Date();
-		
-		if ($scope.datumPocetakVazenja < danasnjiDatum) {
-			$scope.datumPocetakVazenja = null;
-			$mdDialog.show($mdDialog.alert()
-				.clickOutsideToClose(true)
-				.title('Greska')
-				.textContent('Datum ne moze biti manji od danasnjeg.')
-				.ok('OK')
-			);
-		}else if ($scope.datumKrajVazenja < $scope.datumPocetakVazenja ) {
+		if ($scope.datumKrajVazenja < $scope.datumPocetakVazenja ) {
 			$scope.datumPocetakVazenja = null;
 			$mdDialog.show($mdDialog.alert()
 				.clickOutsideToClose(true)
@@ -54,18 +44,7 @@ app.controller('pregledPreduzecaController',['$scope', '$location', '$mdDialog',
 	}
 	
 	$scope.dkChanged = function() {
-		var danasnjiDatum = new Date();
-		
-		if ($scope.datumKrajVazenja < danasnjiDatum) {
-			$scope.datumKrajVazenja = null;
-			$mdDialog.show($mdDialog.alert()
-				.clickOutsideToClose(true)
-				.title('Greska')
-				.textContent('Datum ne moze biti manji od danasnjeg.')
-				.ok('OK')
-			);
-		}
-		else if ($scope.datumKrajVazenja < $scope.datumPocetakVazenja) {
+		if ($scope.datumKrajVazenja < $scope.datumPocetakVazenja) {
 			$scope.datumKrajVazenja = null;
 			$mdDialog.show($mdDialog.alert()
 				.clickOutsideToClose(true)

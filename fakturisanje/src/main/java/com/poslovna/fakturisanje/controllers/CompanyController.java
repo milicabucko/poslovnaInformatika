@@ -89,7 +89,7 @@ public class CompanyController {
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_PDF_VALUE
     )
-	public void izvestajFaktura(HttpServletResponse response, @PathVariable Integer firmaId, @PathVariable String firmaNaziv,
+	public void izvestajDnevnikIzlaznihFaktura(HttpServletResponse response, @PathVariable Integer firmaId, @PathVariable String firmaNaziv,
 			@PathVariable String datumPocetka, @PathVariable String datumKraja) throws JRException, IOException {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date datumPoc = new Date(datumPocetka);
@@ -99,11 +99,9 @@ public class CompanyController {
 		HashMap hm = null;
 
 		try {
-			System.out.println("Start ....");
+			//System.out.println("Start ....");
 			String jrxmlFileName = "./src/main/resources/static/reports/dnevnikIzlaznihFaktura.jrxml";
 			String jasperFileName = "./src/main/resources/static/reports/dnevnikIzlaznihFaktura.jasper";
-			//String jasperFileName = "/reports/magacinskaKartica.jasper";
-			 //* fakturisanje/src/main/resources/static/reports
 			String pdfFileName = "./src/main/resources/static/pdfFiles/dnevnikIzlaznihFaktura.pdf";
 
 			JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
@@ -115,7 +113,7 @@ public class CompanyController {
 			// String dbUname = props.getProperty("db.username");
 			String dbUname = "root";
 			// String dbPwd = props.getProperty("db.password");
-			String dbPwd = "1234";
+			String dbPwd = "svitac94";
 
 			// Load the JDBC driver
 			Class.forName(dbDriver);
@@ -133,25 +131,21 @@ public class CompanyController {
 			// Export pdf file
 			JasperExportManager.exportReportToPdfFile(jprint, pdfFileName);
 
-			System.out.println("Done exporting reports to pdf");
+			//System.out.println("Done exporting reports to pdf");
 			
 			File file = new File("./src/main/resources/static/pdfFiles/dnevnikIzlaznihFaktura.pdf");
 			if (file.exists()) {
-				System.out.println("Ima ga!");
-				System.out.println(file.getAbsolutePath());
-			}
-			
+				//System.out.println("Ima ga!");
+				//System.out.println(file.getAbsolutePath());
+			}			
 			try{
 		         Process p = Runtime
 		        		 .getRuntime()
 		        		 .exec("rundll32 url.dll,FileProtocolHandler " + file.getAbsolutePath());
 		         p.waitFor();
-
 		    } catch (Exception ex) {
 		    	ex.printStackTrace();
 		    }
-			
-
 		} catch (Exception e) {
 			System.out.print("Exceptiion" + e);
 		}

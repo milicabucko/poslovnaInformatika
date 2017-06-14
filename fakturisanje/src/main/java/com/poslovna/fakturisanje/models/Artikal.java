@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -46,6 +47,7 @@ public class Artikal implements Serializable {
 	private JedinicaMere jedinicaMere;
 	
 	@ManyToOne
+	@XmlTransient
 	private GrupaArtikala grupaArtikala;
 	
 	

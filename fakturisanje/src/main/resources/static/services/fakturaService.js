@@ -37,6 +37,13 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
+	fakturaService.exportToXML = function(fakturaId) {
+		return $http({
+			method: 'GET',
+			url: 'api/faktura/exportToXML/' + fakturaId
+		});
+	}
+	
 	fakturaService.posaljiNarudzbenicu = function(izdId, kupId, brojDokumenta, statusDokumenta, datumDokumenta, datumValute){
 		return $http({
 			method: 'POST',

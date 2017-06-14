@@ -25,6 +25,7 @@
         <th md-column>Izdavaoc</th>
         <th md-column>Kupac</th>
         <th md-column>Izvestaj</th>
+        <th md-column>XML</th>
       </tr>
     </thead>
     <tbody md-body>
@@ -38,6 +39,7 @@
         <td md-cell>{{item.izdavaocRacuna.name}}</td>
       	<td md-cell>{{item.kupac.name}}</td>  
       	<td md-cell><md-button class="md-raised md-primary" ng-click="izvestajFaktura(item.id, item.izdavaocRacuna.id, item.kupac.id)">Izvestaj</md-button></td> 	   	
+      	<td md-cell><md-button class="md-raised md-second" ng-click="exportToXML(item.id)">Export</md-button></td> 	   	
       </tr>
     </tbody>
   </table>  

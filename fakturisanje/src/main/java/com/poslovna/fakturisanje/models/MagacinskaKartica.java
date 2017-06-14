@@ -60,8 +60,6 @@ public class MagacinskaKartica implements Serializable{
 	@ManyToOne
 	private StavkaCenovnika stavkaCenovnika;
 	
-	//fali Poslovna godina 
-	
 	@OneToMany(mappedBy = "magacinskaKartica", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Collection<AnalitikaMagacinskeKartice> analitike;
 	

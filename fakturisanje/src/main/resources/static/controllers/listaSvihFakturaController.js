@@ -113,6 +113,17 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 		);
 	}
 	
+	$scope.exportToXML = function(fakturaId){
+		fakturaService.exportToXML(fakturaId);
+		$mdDialog.show(
+				$mdDialog.alert()
+			    .clickOutsideToClose(true)
+			    .title('Potvrda')
+			    .textContent('Faktura-otpremnica u xml formatu se nalazi u "faktura-otpremnica.xml".')
+			    .ok('OK')
+		);
+	}
+	
 	$scope.onSelectEvent = function() {
 		if ($scope.selected[0] === undefined) {
 			

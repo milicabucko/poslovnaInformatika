@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-13T22:58:44 -->
+<!-- 2017-06-14T14:33:46 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="faktura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a5ecfbca-e360-4e77-834e-d20648bbc700">
 	<property name="com.jaspersoft.studio.data.sql.tables" value="ZmFrdHVyaXNhbmplLnN0YXZrYV9kb2t1bWVudGEgLDIwLDIwLDk0OGQwNjg3LWFkNzItNGRlYy1i&#xA;ZjI0LThhMGYyZjA0ZGExNDtmYWt0dXJpc2FuamUuZG9rdW1lbnQgLDE3NSwxNTUsZjM5NTY1YjAt&#xA;OGVkZC00ZGVhLWEwODYtZThjYWQ1YzU2ZjNiO2Zha3R1cmlzYW5qZS5hcnRpa2FsICw1MTQsNTYs&#xA;MGMyMzlkYzEtZjZmYS00ZDk0LTljZTgtZGRiMGM4Mzg3NGRjO2Zha3R1cmlzYW5qZS5jb21wYW55&#xA;IEFTICwzNjUsMTc5LGEyM2U3NjNmLTQ4ODgtNDc2ZS1iMmUzLTg2MzViYTI2NzYwNTtmYWt0dXJp&#xA;c2FuamUuY29tcGFueSBBUyAsMzAsMjU0LDFmODcwNDBmLTlhMTEtNGJlNC04YWJiLTk1N2M0MWI1&#xA;N2VlZTs="/>
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="fakturisanje"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="226"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="764"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="750"/>
