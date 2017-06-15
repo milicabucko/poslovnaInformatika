@@ -14,11 +14,22 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlInlineBinaryData;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "stavkacenovnika")
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = { "artikal", "cenovnik"})
+@XmlRootElement(name = "stavkacenovnika")
 public class StavkaCenovnika implements Serializable {
 
 	
@@ -27,15 +38,19 @@ public class StavkaCenovnika implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
+	@XmlAttribute(name = "id", required = true)
 	private Integer id;
 	
 	@Column(name = "cena")
+	@XmlAttribute(name = "cena", required = true)
 	private Float cena;
 	
 	@ManyToOne
+	@XmlElement(required = false)
 	private Artikal artikal;	
 	
 	@ManyToOne
+	@XmlElement(required = false)
 	private Cenovnik cenovnik;
 	
 	public StavkaCenovnika() {

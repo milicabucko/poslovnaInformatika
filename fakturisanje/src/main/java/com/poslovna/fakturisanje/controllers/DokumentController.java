@@ -25,8 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poslovna.fakturisanje.models.Company;
 import com.poslovna.fakturisanje.models.Dokument;
+import com.poslovna.fakturisanje.models.PoslovnaGodina;
 import com.poslovna.fakturisanje.services.CompanyService;
 import com.poslovna.fakturisanje.services.DokumentService;
+import com.poslovna.fakturisanje.services.PoslovnaGodinaService;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -42,6 +44,9 @@ public class DokumentController {
 	
 	@Autowired
 	private CompanyService companyService;
+	
+	@Autowired
+	private PoslovnaGodinaService poslovnaGodinaService;
 	
 	@RequestMapping(
             value    = "/api/faktura/nadjiSledeciBrojDokumenta",
@@ -61,6 +66,13 @@ public class DokumentController {
     public ResponseEntity<Dokument> sacuvajFakturu(@RequestBody Dokument faktura, @PathVariable Integer izdId, @PathVariable Integer kupId) {
 		Company izdavaoc = companyService.findOne(izdId);
 		Company kupac = companyService.findOne(kupId);
+		PoslovnaGodina godina = poslovnaGodinaService.findByPreduzeceAndAktivna(izdavaoc, true);
+		
+		if(godina == null){
+			faktura.setStatusDokumenta("nevazeca");
+			return new ResponseEntity<Dokument>(faktura, HttpStatus.OK);
+		}
+		faktura.setPoslovnaGodina(godina);
 		faktura.setIzdavaocRacuna(izdavaoc);
 		faktura.setKupac(kupac);
 		faktura.setDatumDokumenta(faktura.getDatumDokumenta().substring(0, 10));

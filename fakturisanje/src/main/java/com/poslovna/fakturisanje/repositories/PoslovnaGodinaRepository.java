@@ -12,4 +12,6 @@ public interface PoslovnaGodinaRepository extends JpaRepository<PoslovnaGodina, 
 	public PoslovnaGodina findByPreduzeceAndBrojGodine(Company company, Integer brojGodine);
 	
 	public Collection<PoslovnaGodina> findAllByPreduzece(Company company);
+	
+	public PoslovnaGodina findByPreduzeceAndAktivna(Company company, Boolean aktivna);
 }

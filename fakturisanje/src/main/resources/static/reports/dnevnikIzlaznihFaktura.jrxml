@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-06-14T14:10:47 -->
+<!-- 2017-06-15T11:36:36 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dnevnikIzlaznihFaktura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a40a73e3-08ac-4349-8564-b7c27a1fe4d7">
-	<property name="com.jaspersoft.studio.data.sql.tables" value="ZmFrdHVyaXNhbmplLmRva3VtZW50ICwxNSwxMzcsY2RhZGNiMGEtMTA0My00ZTExLWFiZjktOTE4&#xA;ZWU4ZjgxN2RlO2Zha3R1cmlzYW5qZS5jb21wYW55ICwyMDUsMTUsNTlhYWMzN2ItMWI5OS00Zjlm&#xA;LTg0ZWMtYmM2OGZlYWI5MjVmO2Zha3R1cmlzYW5qZS5wb3Nsb3ZuYV9nb2RpbmEgLDIwNSwzMzks&#xA;MTM2ZDBlMTQtZWM5My00Y2JkLWJlZTYtYzUyNzk3NTI1OWQ4Ow=="/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Fakturisanje"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="708"/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="278"/>
@@ -28,7 +28,8 @@ FROM fakturisanje.dokument
 	 fakturisanje.dokument.kupac_id = fakturisanje.company.id
 	INNER JOIN fakturisanje.poslovna_godina ON 
 	 fakturisanje.dokument.poslovna_godina_id = fakturisanje.poslovna_godina.id
-WHERE fakturisanje.dokument.datum_dokumenta BETWEEN $P{datumPocetka} AND $P{datumKraja}]]>
+WHERE fakturisanje.dokument.datum_dokumenta BETWEEN $P{datumPocetka} AND $P{datumKraja}
+	AND fakturisanje.dokument.izdavaoc_racuna_id = $P{izdavaocId}]]>
 	</queryString>
 	<field name="broj_dokumenta" class="java.lang.Integer"/>
 	<field name="datum_dokumenta" class="java.lang.String"/>
@@ -150,7 +151,7 @@ WHERE fakturisanje.dokument.datum_dokumenta BETWEEN $P{datumPocetka} AND $P{datu
 				<text><![CDATA[Iznos fakture]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="44" y="54" width="111" height="30" forecolor="#0000FF" uuid="5ba1bc46-99f5-41e2-aa8a-3e7e7c90dced"/>
+				<reportElement x="43" y="54" width="111" height="30" forecolor="#0000FF" uuid="5ba1bc46-99f5-41e2-aa8a-3e7e7c90dced"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="16" isBold="true"/>
 				</textElement>

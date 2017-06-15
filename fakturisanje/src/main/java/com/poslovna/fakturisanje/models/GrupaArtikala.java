@@ -14,13 +14,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "grupaartikala")
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "", propOrder = { "artikli", "company", "vrstaPDVa"})
+@XmlRootElement(name = "grupaartikala")
 public class GrupaArtikala implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -28,20 +38,25 @@ public class GrupaArtikala implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
+	@XmlAttribute(name = "id", required = true)
 	private Integer id;
 	
 	@Column(name = "nazivgrupe")
+	@XmlAttribute(name = "nazivgrupe", required = true)
 	private String nazivGrupe;
 	
 	@OneToMany(mappedBy = "grupaArtikala", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@XmlTransient
+	//@XmlTransient
+	//@XmlElement(required = false)
 	private Collection<Artikal> artikli;
 	
 	@ManyToOne
 	@JsonBackReference
+	@XmlElement(required = false)
 	private Company company;
 	
 	@ManyToOne
+	@XmlElement(required = false)
 	private VrstaPDVa vrstaPDVa;
 	
 	public GrupaArtikala(){

@@ -30,4 +30,8 @@ public class PoslovnaGodinaService {
 	public Collection<PoslovnaGodina> findAllByPreduzece(Company company){
 		return poslovnaGodinaRepository.findAllByPreduzece(company);
 	}
+	
+	public PoslovnaGodina findByPreduzeceAndAktivna(Company company, Boolean aktivna){
+		return poslovnaGodinaRepository.findByPreduzeceAndAktivna(company, aktivna);
+	}
 }

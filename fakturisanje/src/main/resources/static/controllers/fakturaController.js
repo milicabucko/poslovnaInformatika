@@ -14,17 +14,24 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		}
 		console.log(ukupnoZaPlacanje);
 		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, ukupnoZaPlacanje).then(function(response){ 
-			for(var i = 0; i < $scope.stavke.length; i++) {
-				console.log($scope.stavke[i].cenaPoJed);
-				stavkaDokumentaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla, $scope.stavke[i].kolicina, $scope.stavke[i].cenaPoJed, $scope.stavke[i].rabat, $scope.stavke[i].stopaPDV).then(function(response){ 
-					/*console.log(response.data);
-					magacinService.dodajAnalitikuMK(response.data.artikal.id, $scope.pib, $scope.kpib, response.data.id).then(function(response){ 
-						
-					});*/
-					
-				});
+			if(response.data.statusDokumenta == "nevazeca"){
+				$mdDialog.show(
+						$mdDialog.alert()
+					    .clickOutsideToClose(true)
+					    .title('Greska')
+					    .textContent('Ne postoji aktivna poslovna godina izdavaoca racuna.')
+					    .ok('OK')
+				);
+			}else{
+				for(var i = 0; i < $scope.stavke.length; i++) {
+					console.log($scope.stavke[i].cenaPoJed);
+					stavkaDokumentaService.sacuvajStavku(response.data.id, $scope.stavke[i].idArtikla, $scope.stavke[i].kolicina, $scope.stavke[i].cenaPoJed, $scope.stavke[i].rabat, $scope.stavke[i].stopaPDV).then(function(response){ 
+						/*console.log(response.data);
+						magacinService.dodajAnalitikuMK(response.data.artikal.id, $scope.pib, $scope.kpib, response.data.id).then(function(response){ 						
+						});*/
+					});
+				}
 			}
-			
 		});
 	}
 	
