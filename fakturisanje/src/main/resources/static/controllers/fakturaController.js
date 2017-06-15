@@ -41,6 +41,11 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		var now = $scope.datumDok;
 		now.setDate(now.getDate() + 30);
 		$scope.datumVal = now;
+		
+		cenovnikService.posaljiDatum($scope.selected[0].pib,$scope.datumDok).then(function(response){
+			 
+		 
+		});
 	}
 	
 	$scope.datumDok = new Date();

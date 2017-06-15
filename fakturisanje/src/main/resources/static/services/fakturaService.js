@@ -114,6 +114,8 @@ app.factory('fakturaService', function fakturaService($http){
 	}
 	
 	
+	
+	
 	return fakturaService;
 	
 });

@@ -6,7 +6,7 @@ app.factory('cenovnikService', function cenovnikService($http){
 			url: 'api/cenovnik/kreirajCenovnik/' + idFirma,
 			data: {
 				"datumVazenjaPocetak" : datumPV,
-				"datumVazenjaKraj" : datumKV,
+				"datumVazenjaKraj" : null,
 			}
 		});
 	}
@@ -16,6 +16,14 @@ app.factory('cenovnikService', function cenovnikService($http){
 			method: 'GET',
 			url: 'api/cenovnik/nadjiPoslednjiAktivan/' + companyPib + '/' + datum
 		});
+	}
+	
+	cenovnikSerice.posaljiDatum = function(companyPib,datumDokumenta){
+		return $http({
+			method: 'GET',
+			url: 'api/cenovnik/posaljiDatum/' + companyPib + '/'+ datumDokumenta
+		});
+		
 	}
 
 	return cenovnikService;

@@ -2,6 +2,7 @@ package com.poslovna.fakturisanje.controllers;
 
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,20 @@ public class CenovnikController {
 	public ResponseEntity<Cenovnik> dodajCenovnik(@RequestBody Cenovnik cenovnik, @PathVariable Integer idFirma) {
 		Company company = companyService.findOne(idFirma);
 		cenovnik.setCompany(company);
+		cenovnik.setAktivan(false);
+		cenovnik.setDatumVazenjaPocetak(cenovnik.getDatumVazenjaPocetak().substring(0, 10));
 		
-		if(cenovnikService.findByCompanyAndDatumVazenjaPocetakBetween(company, cenovnik.getDatumVazenjaPocetak(), cenovnik.getDatumVazenjaKraj()).size() != 0){
+		if(cenovnikService.findByCompanyAndDatumVazenjaPocetak(company, cenovnik.getDatumVazenjaPocetak()).size() != 0 ){
 			return new ResponseEntity<Cenovnik>(new Cenovnik(), HttpStatus.OK);
+		}
+		
+		
+	/*	if(cenovnikService.findByCompanyAndDatumVazenjaPocetakBetween(company, cenovnik.getDatumVazenjaPocetak(), cenovnik.getDatumVazenjaKraj()).size() != 0){
+			
 			
 		}else if(cenovnikService.findByCompanyAndDatumVazenjaKrajBetween(company, cenovnik.getDatumVazenjaPocetak(), cenovnik.getDatumVazenjaKraj()).size() != 0){
 			return new ResponseEntity<Cenovnik>(new Cenovnik(), HttpStatus.OK);
-		}
+		}*/
 		
 		
 		Cenovnik dodavanjeCenovnika= cenovnikService.add(cenovnik);
@@ -71,6 +79,21 @@ public class CenovnikController {
         return new ResponseEntity<Cenovnik>(cenovnik, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+            value    = "/api/cenovnik/posaljiDatum/{companyPib}/{datum}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Cenovnik> nadjiAktivan(@PathVariable BigInteger companyPib, @PathVariable String datum) {
+		Company company = companyService.findByPib(companyPib);
+		datum = datum.substring(0,10);
+		Collection<Cenovnik> cenovnici = cenovnikService.findByCompanyAndDatumVazenjaPocetakLessThanOrderByDatumVazenjaPocetakDesc(company, datum);
+		ArrayList<Cenovnik> cenovniciNiz = (ArrayList<Cenovnik>) cenovnici;
+		if(cenovniciNiz.size() != 0){
+			return new ResponseEntity<Cenovnik>(cenovniciNiz.get(0), HttpStatus.OK);
+		}
+        return new ResponseEntity<Cenovnik>(new Cenovnik(), HttpStatus.OK);
+    }
 	
-
 }
+	

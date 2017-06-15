@@ -17,6 +17,7 @@ public interface CenovnikRepository extends JpaRepository<Cenovnik, Integer> {
 
 	public Collection<Cenovnik> findByCompanyAndDatumVazenjaKrajBetween(Company company, String datumPocetakVazenja, String datumKrajVazenja);
 	
-	
+	public Collection<Cenovnik> findByCompanyAndDatumVazenjaPocetak(Company company, String datumPocetakVazenja);
 
+	public Collection<Cenovnik> findByCompanyAndDatumVazenjaPocetakLessThanOrderByDatumVazenjaPocetakDesc(Company company, String mojDatum);
 }
