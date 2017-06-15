@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.poslovna.fakturisanje.models.Company;
 import com.poslovna.fakturisanje.models.Dokument;
+import com.poslovna.fakturisanje.models.FakturaXML;
 import com.poslovna.fakturisanje.models.PoslovnaGodina;
+import com.poslovna.fakturisanje.models.StavkaXML;
 import com.poslovna.fakturisanje.services.CompanyService;
 import com.poslovna.fakturisanje.services.DokumentService;
 import com.poslovna.fakturisanje.services.PoslovnaGodinaService;
@@ -222,6 +224,21 @@ public class DokumentController {
 		//System.out.println(fakturaId);
 		Dokument faktura = fakturaService.findOne(fakturaId);
 		
+		FakturaXML fakturaXML = new FakturaXML();
+		fakturaXML.setNaziv("testNaziv");
+	
+		StavkaXML stavkaXML = new StavkaXML();
+		stavkaXML.setNaziv("stavka1");
+		StavkaXML stavkaXML2 = new StavkaXML();
+		stavkaXML2.setNaziv("stavka2");
+		StavkaXML stavkaXML3 = new StavkaXML();
+		stavkaXML3.setNaziv("stavka3");
+		
+		
+		fakturaXML.getStavka().add(stavkaXML);
+		fakturaXML.getStavka().add(stavkaXML2);
+		fakturaXML.getStavka().add(stavkaXML3);
+		
 		try {
 			System.out.println("[INFO] Example 2: JAXB unmarshalling/marshalling.\n");
 			
@@ -235,7 +252,7 @@ public class DokumentController {
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			
 			// Umesto System.out-a, može se koristiti FileOutputStream
-			marshaller.marshal(faktura, System.out);
+			marshaller.marshal(fakturaXML, System.out);
 			
 			
 		} catch (JAXBException e) {
