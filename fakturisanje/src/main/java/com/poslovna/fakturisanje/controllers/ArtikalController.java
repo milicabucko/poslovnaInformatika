@@ -1,5 +1,6 @@
 package com.poslovna.fakturisanje.controllers;
 
+import java.util.Collection;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.poslovna.fakturisanje.models.Artikal;
+import com.poslovna.fakturisanje.models.Cenovnik;
+import com.poslovna.fakturisanje.models.Company;
 import com.poslovna.fakturisanje.models.GrupaArtikala;
 import com.poslovna.fakturisanje.models.JedinicaMere;
 import com.poslovna.fakturisanje.repositories.GrupaArtikalaRepository;
@@ -69,6 +72,16 @@ public class ArtikalController {
 		a.setJedinicaMere(jm);
 		artikalService.saveArtikal(a);
         return new ResponseEntity<Artikal>(a, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "/api/artikal/nadjiSve",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Artikal>> findAll() {
+		Collection<Artikal> sviArtikli = artikalService.findAll();
+        return new ResponseEntity<Collection<Artikal>>(sviArtikli, HttpStatus.OK);
     }
 
 }

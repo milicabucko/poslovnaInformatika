@@ -22,6 +22,16 @@ app.factory('artikalService', function artikalService($http){
 		});
 	}
 	
+	artikalService.nadjiSveArtikle = function(){
+		return $http({
+			method: 'GET',
+			url: 'api/artikal/nadjiSve/' 
+		});
+	}
+	
+	
+	
+	
 	return artikalService;
 	
 });

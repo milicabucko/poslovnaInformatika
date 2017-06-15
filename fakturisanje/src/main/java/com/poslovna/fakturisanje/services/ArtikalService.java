@@ -36,6 +36,10 @@ public class ArtikalService {
 		return artikalRepository.save(a);
 	}
 	
+	public Collection<Artikal> findAll(){
+		return artikalRepository.findAll();
+	}
+	
 	
 
 }

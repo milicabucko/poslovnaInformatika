@@ -106,5 +106,7 @@ public class CenovnikController {
         return new ResponseEntity<Cenovnik>(new Cenovnik(), HttpStatus.OK);
     }
 	
+
+	
 }
 	

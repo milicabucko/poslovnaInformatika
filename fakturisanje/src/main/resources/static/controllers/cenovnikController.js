@@ -132,7 +132,7 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 			else {	
 				artikalService.findBySifra($scope.sifraZaPretragu).then(function(response){ 
 					$scope.nazArtikla = response.data.naziv;
-					$scope.jmArtikla = response.data.jedinicaMere.tipJedinice;
+					$scope.jmArtikla = response.data.jedinicaMere.oznakaJedinice;
 					if ($scope.nazArtikla !== undefined) {
 						
 						for(var i = 0; i < $scope.stavke.length; i++) {
@@ -159,6 +159,29 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 				
 			}
 		}
+		
+		artikalService.nadjiSveArtikle().then(function(response){
+			
+			$scope.artikli = response.data;
+			$scope.artikliSize = response.data.length;
+			
+		});
+		
+		
+	
+		
+		$scope.dodajArtikal = function(artikalSifra){
+			
+			$scope.omogucenoDodavanje = false;
+			$scope.omogucenaIzmena = false;
+			$scope.omogucenoBrisanje = false;
+			
+			$scope.sifraZaPretragu = artikalSifra;
+			$scope.pretraziPoSifriArtikla();
+			
+		
+		} 
+		
 		
 		$scope.dodajStavku = function(){
 			

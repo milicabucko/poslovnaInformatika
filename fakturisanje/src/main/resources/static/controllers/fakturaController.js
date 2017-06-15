@@ -119,7 +119,7 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 						
 					}
 					else {
-						
+						alert('Nema dovoljno artikala u magacinu');
 					}
 				});
 			});	
@@ -140,7 +140,7 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 				$scope.nazArtikla = response.data.naziv;
 				
 				if (response.data != "") {
-					$scope.jmArtikla = response.data.jedinicaMere.tipJedinice;
+					$scope.jmArtikla = response.data.jedinicaMere.oznakaJedinice;
 				}
 				else {
 					$scope.jmArtikla = "";
