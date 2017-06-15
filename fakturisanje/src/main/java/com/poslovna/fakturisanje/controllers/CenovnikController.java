@@ -2,8 +2,10 @@ package com.poslovna.fakturisanje.controllers;
 
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -86,9 +88,18 @@ public class CenovnikController {
     )
     public ResponseEntity<Cenovnik> nadjiAktivan(@PathVariable BigInteger companyPib, @PathVariable String datum) {
 		Company company = companyService.findByPib(companyPib);
-		datum = datum.substring(0,10);
-		Collection<Cenovnik> cenovnici = cenovnikService.findByCompanyAndDatumVazenjaPocetakLessThanOrderByDatumVazenjaPocetakDesc(company, datum);
+		//datum = datum.substring(0,16);
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date datumZaFormat= new Date(datum);
+		
+		String datumDok = format.format(datumZaFormat);
+		System.out.println(datumDok);
+		
+		Collection<Cenovnik> cenovnici = cenovnikService.findByCompanyAndDatumVazenjaPocetakLessThanOrderByDatumVazenjaPocetakDesc(company, datumDok);
 		ArrayList<Cenovnik> cenovniciNiz = (ArrayList<Cenovnik>) cenovnici;
+		
+		System.out.println(cenovniciNiz);
+		
 		if(cenovniciNiz.size() != 0){
 			return new ResponseEntity<Cenovnik>(cenovniciNiz.get(0), HttpStatus.OK);
 		}

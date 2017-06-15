@@ -18,7 +18,7 @@ app.factory('cenovnikService', function cenovnikService($http){
 		});
 	}
 	
-	cenovnikSerice.posaljiDatum = function(companyPib,datumDokumenta){
+	cenovnikService.posaljiDatum = function(companyPib,datumDokumenta){
 		return $http({
 			method: 'GET',
 			url: 'api/cenovnik/posaljiDatum/' + companyPib + '/'+ datumDokumenta

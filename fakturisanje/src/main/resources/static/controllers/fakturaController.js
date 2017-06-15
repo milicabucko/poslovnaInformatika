@@ -36,24 +36,9 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 	}
 	
 	$scope.statusDok = "U izdradi";
-	
-	$scope.promenaDatumaDokumenta = function() {
-		var now = $scope.datumDok;
-		now.setDate(now.getDate() + 30);
-		$scope.datumVal = now;
 		
-		cenovnikService.posaljiDatum($scope.selected[0].pib,$scope.datumDok).then(function(response){
-			 
-		 
-		});
-	}
-	
 	$scope.datumDok = new Date();
 	
-	var now = new Date();
-	now.setDate(now.getDate() + 30);
-	
-	$scope.datumVal = now;
 	
 	fakturaService.nadjiSledeciBrojDokumenta().then(function(response){ 
 		$scope.brDok = response.data + 1;
@@ -164,7 +149,7 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 				if ($scope.nazArtikla !== undefined) {
 					
 					//za cenu artikla
-					cenovnikService.nadjiPoslednjiAktivan($scope.pib, new Date()).then(function(response){ 
+					cenovnikService.posaljiDatum($scope.pib, $scope.datumDok).then(function(response){ 
 						var cenovnik = response.data;
 						console.log(cenovnik);
 						for(var i = 0; i < cenovnik.stavkecenovnika.length; i++) {
