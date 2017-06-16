@@ -1,6 +1,8 @@
 package com.poslovna.fakturisanje.controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,10 +25,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.poslovna.fakturisanje.models.ArtikalXML;
 import com.poslovna.fakturisanje.models.Company;
+import com.poslovna.fakturisanje.models.CompanyXML;
 import com.poslovna.fakturisanje.models.Dokument;
 import com.poslovna.fakturisanje.models.FakturaXML;
 import com.poslovna.fakturisanje.models.PoslovnaGodina;
+import com.poslovna.fakturisanje.models.StavkaDokumenta;
 import com.poslovna.fakturisanje.models.StavkaXML;
 import com.poslovna.fakturisanje.services.CompanyService;
 import com.poslovna.fakturisanje.services.DokumentService;
@@ -220,24 +225,74 @@ public class DokumentController {
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_XML_VALUE
     )
-	public void exportFakture(HttpServletResponse response, @PathVariable Integer fakturaId){
+	public void exportFakture(HttpServletResponse response, @PathVariable Integer fakturaId) throws FileNotFoundException{
 		//System.out.println(fakturaId);
 		Dokument faktura = fakturaService.findOne(fakturaId);
 		
+		
+		System.out.println(faktura);
+		
 		FakturaXML fakturaXML = new FakturaXML();
+		
+		fakturaXML.setBrojDokumenta(faktura.getBrojDokumenta());
+		fakturaXML.setStatusDokumenta(faktura.getStatusDokumenta());
+		fakturaXML.setDatumDokumenta(faktura.getDatumDokumenta());
+		fakturaXML.setDatumValute(faktura.getDatumValute());
+		fakturaXML.setDatumKnjizenja(faktura.getDatumKnjizenja());
+		fakturaXML.setUkupnoZaPlacanje(faktura.getUkupnoZaPlacanje());
+		
+		CompanyXML izdavaocRacuna = new CompanyXML();
+		izdavaocRacuna.setName(faktura.getIzdavaocRacuna().getName());
+		izdavaocRacuna.setPib(faktura.getIzdavaocRacuna().getPib());
+		izdavaocRacuna.setMbr(faktura.getIzdavaocRacuna().getCidnumber());
+		izdavaocRacuna.setAccount(faktura.getIzdavaocRacuna().getAccount());
+		
+		CompanyXML kupac = new CompanyXML();
+		kupac.setName(faktura.getKupac().getName());
+		kupac.setPib(faktura.getKupac().getPib());
+		kupac.setMbr(faktura.getKupac().getCidnumber());
+		kupac.setAccount(faktura.getKupac().getAccount());
+		
+		fakturaXML.setIzdavaocRacuna(izdavaocRacuna);
+		fakturaXML.setKupac(kupac);
+		
 		fakturaXML.setNaziv("testNaziv");
 	
-		StavkaXML stavkaXML = new StavkaXML();
+	/*	StavkaXML stavkaXML = new StavkaXML();
 		stavkaXML.setNaziv("stavka1");
 		StavkaXML stavkaXML2 = new StavkaXML();
 		stavkaXML2.setNaziv("stavka2");
 		StavkaXML stavkaXML3 = new StavkaXML();
-		stavkaXML3.setNaziv("stavka3");
+		stavkaXML3.setNaziv("stavka3");*/
+		
+		ArrayList<StavkaXML> sveStavke = new ArrayList<StavkaXML>();
+		
+		for (StavkaDokumenta stavkaDokumenta : faktura.getStavkeDokumenta()) {
+			
+			StavkaXML stavkaXML = new StavkaXML();
+			stavkaXML.setKolicina(stavkaDokumenta.getKolicina());
+			stavkaXML.setCena(stavkaDokumenta.getCena());
+			
+			ArtikalXML artikalXML = new ArtikalXML();
+			artikalXML.setNaziv(stavkaDokumenta.getArtikal().getNaziv());
+			artikalXML.setSifra(stavkaDokumenta.getArtikal().getSifra());
+			artikalXML.setVrsta(stavkaDokumenta.getArtikal().getVrsta());
+			artikalXML.setOpis(stavkaDokumenta.getArtikal().getOpis());
+			artikalXML.setJedinicaMere(stavkaDokumenta.getArtikal().getJedinicaMere().getOznakaJedinice());
+			stavkaXML.setArtikal(artikalXML);
+			
+			sveStavke.add(stavkaXML);
+			
+		}
 		
 		
-		fakturaXML.getStavka().add(stavkaXML);
-		fakturaXML.getStavka().add(stavkaXML2);
-		fakturaXML.getStavka().add(stavkaXML3);
+		//inicijalizacija klase FakturaXML.Stavke
+		FakturaXML.Stavke stavke = new FakturaXML.Stavke();	
+		fakturaXML.setStavke(stavke);
+		
+		for (StavkaXML stavka : sveStavke) {
+			fakturaXML.getStavke().getStavka().add(stavka);
+		}
 		
 		try {
 			System.out.println("[INFO] Example 2: JAXB unmarshalling/marshalling.\n");
@@ -252,7 +307,27 @@ public class DokumentController {
 			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 			
 			// Umesto System.out-a, može se koristiti FileOutputStream
-			marshaller.marshal(fakturaXML, System.out);
+			try {
+				marshaller.marshal(fakturaXML, new FileOutputStream(new File("./src/main/resources/static/xmlFiles/fakturaXML.txt")));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			File file = new File("./src/main/resources/static/xmlFiles/fakturaXML.txt");
+			if (file.exists()) {
+				//System.out.println("Ima ga!");
+				//System.out.println(file.getAbsolutePath());
+			}		
+			try{
+		         Process p = Runtime
+		        		 .getRuntime()
+		        		 .exec("rundll32 url.dll,FileProtocolHandler " + file.getAbsolutePath());
+		         p.waitFor();
+		    } catch (Exception ex) {
+		    	ex.printStackTrace();
+		    }	
+
 			
 			
 		} catch (JAXBException e) {

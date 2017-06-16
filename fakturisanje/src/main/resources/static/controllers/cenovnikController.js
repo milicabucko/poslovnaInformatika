@@ -23,6 +23,7 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 									.textContent('Datum ne moze biti veci od krajnjeg!')
 									.ok('Ok!')
 							);
+							
 			}
 		}else {
 			if ($scope.datumKrajVazenja < $scope.datumPocetakVazenja ) {
@@ -73,10 +74,7 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 					        .ok('Ok!')
 				);
 			}
-			
 		}
-			
-			
 	}
 		
 	companyService.getAllCompanies().then(function(response){
@@ -167,9 +165,6 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 			
 		});
 		
-		
-	
-		
 		$scope.dodajArtikal = function(artikalSifra){
 			
 			$scope.omogucenoDodavanje = false;
@@ -178,10 +173,7 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 			
 			$scope.sifraZaPretragu = artikalSifra;
 			$scope.pretraziPoSifriArtikla();
-			
-		
 		} 
-		
 		
 		$scope.dodajStavku = function(){
 			
@@ -201,8 +193,6 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 				$scope.omogucenoDodavanje = false;
 
 			});
-		
-		
 		}
 		
 		$scope.obrisiStavku = function() {
@@ -235,9 +225,6 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 		}
 		
 		$scope.kreirajCenovnik = function(){
-			
-			
-			
 			cenovnikService.kreirajCenovnik($scope.selected[0].id,$scope.datumPocetakVazenja,$scope.datumKrajVazenja).then(function(response){
 
 				console.log(response.data);
@@ -259,10 +246,7 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 				}
 			});
 			
-			
-			
 		};
-		
 		
 		$scope.stavke = [];
 		$scope.stavkeSize = 0;
@@ -270,10 +254,8 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 		$scope.omogucenoDodavanje = false;
 		$scope.omogucenaIzmena = false;
 		$scope.omogucenoBrisanje = false;
-
 		
 		$scope.selektovaneStavke = [];
 		$scope.selected = [];
-
 
 }]);

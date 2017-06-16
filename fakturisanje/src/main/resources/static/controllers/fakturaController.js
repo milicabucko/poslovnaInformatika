@@ -1,4 +1,4 @@
-app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', 'cenovnikService', 'stopaPDVaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService, cenovnikService, stopaPDVaService){
+app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', 'cenovnikService', 'stopaPDVaService', '$window', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService, cenovnikService, stopaPDVaService, $window){
 	
 	stopaPDVaService.getAllStope().then(function(response){
 		 
@@ -120,6 +120,9 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 					}
 					else {
 						alert('Nema dovoljno artikala u magacinu');
+						$scope.kolicina = $scope.kolicina + "";
+						$scope.kolicina = $scope.kolicina.substring(0, $scope.kolicina.length - 1);
+						$scope.kolicina = parseInt($scope.kolicina);
 					}
 				});
 			});	

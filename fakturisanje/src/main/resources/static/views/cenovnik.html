@@ -8,7 +8,6 @@
     
     <input ng-model="imeZaPretragu" ng-change="pretraziPoImenu()">
     
-    
 </div>
 </md-toolbar>
 
@@ -46,16 +45,15 @@
 <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{itemsSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
 </md-content>
 
-
 <md-input-container>
 			<label>Datum pocetka vazenja cenovnika</label>
     		<md-datepicker ng-model="datumPocetakVazenja" md-placeholder="Enter date" ng-change="dpChanged()"></md-datepicker>
-		</md-input-container>
+</md-input-container>
 		
-		<md-input-container>
+		<!-- <md-input-container>
 			<label>Datum isteka vazenja cenovnika</label>
     		<md-datepicker ng-model="datumKrajVazenja" md-placeholder="Enter date" ng-change="dkChanged()"></md-datepicker>
-</md-input-container>
+		</md-input-container> -->
 
 
 <md-toolbar class="md-hue-2">
@@ -131,7 +129,6 @@
 			</div>
 			
 </div>
-
 
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
