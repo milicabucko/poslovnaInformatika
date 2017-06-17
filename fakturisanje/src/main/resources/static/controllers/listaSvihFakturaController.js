@@ -6,24 +6,31 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 	
 	$scope.obracunajFakturu = function() {
 		var now = new Date();
-		if ($scope.selected[0].vrstaDokumenta == "PR") {
-			alert('Obracunavam primku');
-			fakturaService.promeniStatus($scope.selected[0].id, "obracunata").then(function(response){ 
-				
-				for(var i = 0; i < $scope.stavke.length; i++) {
+		
+		if ($scope.selected[0].vrstaDokumenta == "NAR") {
+		
+			$mdDialog.show(
+				$mdDialog.alert()
+			    .clickOutsideToClose(true)
+			    .title('Upozorenje')
+			    .textContent('Ne moze se izvrsiti izabrana operacija nad narudzbenicom.')
+			    .ok('OK')
+			);
 			
-					magacinService.dodajAnalitikuMKPrimka($scope.stavke[i].artikal.id, $scope.kpib, $scope.pib, $scope.stavke[i].id).then(function(response){ 
-				
-					});
-			
-				}
-			
-			});
+			return;
 		}
-		else {
-			alert('Obracunavam fakturu');
+		
+		
 			fakturaService.promeniStatus($scope.selected[0].id, "obracunata", now).then(function(response){ 
-			
+				
+				$mdDialog.show(
+						$mdDialog.alert()
+					    .clickOutsideToClose(true)
+					    .title('Obavestenje')
+					    .textContent('Faktura je obracunata.')
+					    .ok('OK')
+				);
+				
 				for(var i = 0; i < $scope.stavke.length; i++) {
 			
 					magacinService.dodajAnalitikuMK($scope.stavke[i].artikal.id, $scope.pib, $scope.kpib, $scope.stavke[i].id).then(function(response){ 
@@ -33,29 +40,35 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 				}
 			
 			});
-		}
+		
 	}
 	
 	
 	$scope.stornirajFakturu = function() {
 		
-		if ($scope.selected[0].vrstaDokumenta == "PR") {
-			alert('Storniram primku');
-			fakturaService.promeniStatus($scope.selected[0].id, "stornirana").then(function(response){ 
-				
-				for(var i = 0; i < $scope.stavke.length; i++) {
+		if ($scope.selected[0].vrstaDokumenta == "NAR") {
 			
-					magacinService.dodajAnalitikuMKPrimka($scope.stavke[i].artikal.id, $scope.pib, $scope.kpib, $scope.stavke[i].id).then(function(response){ 
-				
-					});
+			$mdDialog.show(
+				$mdDialog.alert()
+			    .clickOutsideToClose(true)
+			    .title('Upozorenje')
+			    .textContent('Ne moze se izvrsiti izabrana operacija nad narudzbenicom.')
+			    .ok('OK')
+			);
 			
-				}
-			
-			});
+			return;
 		}
-		else {
+	
 			fakturaService.promeniStatus($scope.selected[0].id, "stornirana").then(function(response){ 
 		
+				$mdDialog.show(
+						$mdDialog.alert()
+					    .clickOutsideToClose(true)
+					    .title('Obavestenje')
+					    .textContent('Faktura je stornirana.')
+					    .ok('OK')
+				);
+				
 				for(var i = 0; i < $scope.stavke.length; i++) {
 				
 					magacinService.dodajAnalitikuMK($scope.stavke[i].artikal.id, $scope.kpib, $scope.pib, $scope.stavke[i].id).then(function(response){ 
@@ -65,7 +78,6 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 				}
 			
 			});
-		}
 	}
 		
 		

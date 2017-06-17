@@ -124,12 +124,17 @@ app.controller('listaSvihNarudzbenicaController',['$scope', '$location', '$mdDia
 		}
 		
 		
-		fakturaService.posaljiFakturu($scope.selected[0].kupac.id, $scope.selected[0].izdavaocRacuna.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, ukupnoZaPlacanje).then(function(response){ 
+		fakturaService.posaljiFakturu($scope.selected[0].kupac.id, $scope.selected[0].izdavaocRacuna.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, ukupnoZaPlacanje, $scope.selected[0].id).then(function(response){ 
+			
+			$mdDialog.show(
+					$mdDialog.alert()
+				    .clickOutsideToClose(true)
+				    .title('Obavestenje')
+				    .textContent('Faktura je generisana na osnovu narudzbenice.')
+				    .ok('OK')
+			);
+			
 			for(var i = 0; i < $scope.stavke.length; i++) {
-				
-				fakturaService.obrisiNarudzbenicu(response.data.brojDokumenta).then(function(response){ 
-					
-				});
 				
 				stavkaDokumentaService.sacuvajStavku(response.data.id, $scope.stavke[i].artikal.id, $scope.stavke[i].kolicina, $scope.stavke[i].cena, $scope.stavke[i].rabat, $scope.stavke[i].stopaPDV).then(function(response){ 
 				

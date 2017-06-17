@@ -241,11 +241,6 @@
         <th md-column>Jedinica mere</th>
         <th md-column md-numeric>Kolicina</th>
         <th md-column md-numeric>Cena po jedinici</th>
-        <th md-column md-numeric>Rabat (%)</th>
-        <th md-column md-numeric>Poreska osnovica</th>
-        <th md-column md-numeric>Stopa PDV</th>
-        <th md-column md-numeric>Iznos PDV</th>
-        <th md-column md-numeric>Ukupna naknada</th>
       </tr>
     </thead>
     <tbody md-body>
@@ -255,12 +250,7 @@
         <td md-cell>{{stavka.naziv}}</td>
         <td md-cell>{{stavka.jedMere}}</td>
         <td md-cell>{{stavka.kolicina}}</td>
-        <td md-cell>{{stavka.cenaPoJed}}</td>
-        <td md-cell>{{stavka.rabat}}</td>
-        <td md-cell>{{stavka.porOsnovica}}</td>
-      	<td md-cell>{{stavka.stopaPDV}}</td>
-      	<td md-cell>{{stavka.iznosPDV}}</td>
-      	<td md-cell>{{stavka.jedMere*stavka.kolicina}}</td>      	
+        <td md-cell>{{stavka.cenaPoJed}}</td>  	
       </tr>
     </tbody>
   </table>  

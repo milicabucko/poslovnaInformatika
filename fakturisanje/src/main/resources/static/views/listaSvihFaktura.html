@@ -173,14 +173,14 @@
         <td md-cell>{{$index+1}}</td>
         <td md-cell>{{stavka.artikal.sifra}}</td>
         <td md-cell>{{stavka.artikal.naziv}}</td>
-        <td md-cell>{{stavka.artikal.jedinicaMere.tipJedinice}}</td>
+        <td md-cell>{{stavka.artikal.jedinicaMere.oznakaJedinice}}</td>
         <td md-cell>{{stavka.kolicina}}</td>
         <td md-cell>{{stavka.cena}}</td>
-        <td md-cell>{{}}</td>
-        <td md-cell>{{stavka.cena}}</td>
-      	<td md-cell>{{}}</td>
-      	<td md-cell>{{}}</td>
-      	<td md-cell>{{}}</td>      	
+        <td md-cell>{{stavka.rabat}}</td>
+        <td md-cell>{{stavka.cena * stavka.kolicina -  (stavka.cena * stavka.kolicina) * stavka.rabat / 100}}</td>
+      	<td md-cell>{{stavka.procenatPDVa}}</td>
+      	<td md-cell>{{(stavka.procenatPDVa/100) * ((stavka.cena * stavka.kolicina) -  (stavka.cena * stavka.kolicina) * stavka.rabat / 100)}}</td>
+      	<td md-cell>{{((stavka.cena * stavka.kolicina) + ((stavka.procenatPDVa/100) * ((stavka.cena * stavka.kolicina) -  (stavka.cena * stavka.kolicina) * stavka.rabat / 100)) - ((stavka.cena * stavka.kolicina) * stavka.rabat / 100))}}</td>      	
       </tr>
     </tbody>
   </table>  

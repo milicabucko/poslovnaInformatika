@@ -227,7 +227,7 @@
 	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Zakljucak</h2>
 	
-	<md-button class="md-warn" aria-label="Posalji" ng-click="posaljiFakturu()">
+	<md-button ng-if="selected[0].statusDokumenta=='poslata'" class="md-warn" aria-label="Posalji" ng-click="posaljiFakturu()">
         Generisi fakturu
     </md-button>
   

@@ -13,7 +13,7 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 			ukupnoZaPlacanje += $scope.stavke[i].ukupno;
 		}
 		console.log(ukupnoZaPlacanje);
-		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, ukupnoZaPlacanje).then(function(response){ 
+		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, ukupnoZaPlacanje, -1).then(function(response){ 
 			if(response.data.statusDokumenta == "nevazeca"){
 				$mdDialog.show(
 						$mdDialog.alert()
@@ -31,6 +31,14 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 						});*/
 					});
 				}
+				
+				$mdDialog.show(
+						$mdDialog.alert()
+					    .clickOutsideToClose(true)
+					    .title('Obavestenje')
+					    .textContent('Faktura je poslata.')
+					    .ok('OK')
+				);
 			}
 		});
 	}
@@ -95,12 +103,13 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 					jedMere: $scope.jmArtikla,
 					idArtikla : response.data.id,
 					cenaPoJed : $scope.cena,
-					rabat : $scope.rabat,
-					porOsnovica : $scope.cena * $scope.kolicina,
+					rabat : $scope.rabat,	//vrednost = kol * cena         vrednost *                  procenat / 100			
+					porOsnovica : $scope.cena * $scope.kolicina -  ($scope.cena * $scope.kolicina) * $scope.rabat / 100,
 					stopaPDV : $scope.stopaPdva.procenatPDVa,
-					iznosPDV : ($scope.stopaPdva.procenatPDVa/100) * $scope.cena * $scope.kolicina,
-					ukupno : (($scope.cena * $scope.kolicina) + (($scope.stopaPdva.procenatPDVa/100) * $scope.cena * $scope.kolicina)) - (($scope.rabat/100) * (($scope.cena * $scope.kolicina) + (($scope.stopaPdva.procenatPDVa/100) * $scope.cena * $scope.kolicina)))
-				};
+					iznosPDV : ($scope.stopaPdva.procenatPDVa/100) * (($scope.cena * $scope.kolicina) -  ($scope.cena * $scope.kolicina) * $scope.rabat / 100),
+					ukupno : (($scope.cena * $scope.kolicina) + (($scope.stopaPdva.procenatPDVa/100) * (($scope.cena * $scope.kolicina) -  ($scope.cena * $scope.kolicina) * $scope.rabat / 100)) - (($scope.cena * $scope.kolicina) * $scope.rabat / 100))
+								//vrednost                         // iznos pdv																																//iznos rabata													
+			};
 			$scope.stavke.push(stavkaZaDodavanje);
 			$scope.stavkeSize = $scope.stavke.length;
 			$scope.omogucenaIzmena = true;

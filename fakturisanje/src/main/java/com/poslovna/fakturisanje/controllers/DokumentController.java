@@ -66,11 +66,18 @@ public class DokumentController {
     }
 	
 	@RequestMapping(
-            value    = "/api/faktura/sacuvajFakturu/{izdId}/{kupId}",
+            value    = "/api/faktura/sacuvajFakturu/{izdId}/{kupId}/{id}",
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<Dokument> sacuvajFakturu(@RequestBody Dokument faktura, @PathVariable Integer izdId, @PathVariable Integer kupId) {
+    public ResponseEntity<Dokument> sacuvajFakturu(@RequestBody Dokument faktura, @PathVariable Integer izdId, @PathVariable Integer kupId, @PathVariable Integer id) {
+		
+		if (id !=- 1)  {
+			Dokument narudzbenica = fakturaService.findOne(id);
+			narudzbenica.setStatusDokumenta("generisana");
+			fakturaService.save(narudzbenica);
+		}
+		
 		Company izdavaoc = companyService.findOne(izdId);
 		Company kupac = companyService.findOne(kupId);
 		PoslovnaGodina godina = poslovnaGodinaService.findByPreduzeceAndAktivna(izdavaoc, true);

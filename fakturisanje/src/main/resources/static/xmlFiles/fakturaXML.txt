@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<fakturaXML xmlns="http://www.ftn.uns.ac.rs/fakturisanje/models" naziv="testNaziv" brojDokumenta="1" statusDokumenta="obracunata" datumDokumenta="2017-06-14" datumValute="2017-07-14" datumKnjizenja="2017-06-14T13:56:44.385Z" ukupnoZaPlacanje="419.04">
-    <izdavaocRacuna name="F2" pib="1111111112" mbr="11111112" account="111111111111111112"/>
-    <kupac name="F1" pib="1111111111" mbr="11111111" account="111111111111111111"/>
+<fakturaXML xmlns="http://www.ftn.uns.ac.rs/fakturisanje/models" naziv="testNaziv" brojDokumenta="1" statusDokumenta="obracunata" datumDokumenta="2017-06-16T21:19:11.106Z" datumValute="2017-06-16T21:19:11.106Z" datumKnjizenja="2017-06-16T21:19:11.106Z" ukupnoZaPlacanje="711.0">
+    <izdavaocRacuna name="a" pib="1111111111" mbr="11111111" account="111111111111111111"/>
+    <kupac name="b" pib="1111111112" mbr="11111112" account="111111111111111112"/>
     <stavke>
-        <stavka kolicina="2" cena="200.0">
-            <artikal sifra="1" naziv="koka kola" opis="sok" vrsta="sokovi" jedinicaMere="ml"/>
+        <stavka kolicina="20" cena="20.0">
+            <artikal sifra="1" naziv="a" opis="a" vrsta="a" jedinicaMere="kg"/>
+        </stavka>
+        <stavka kolicina="20" cena="30.0">
+            <artikal sifra="2" naziv="b" opis="b" vrsta="b" jedinicaMere="kg"/>
         </stavka>
     </stavke>
 </fakturaXML>

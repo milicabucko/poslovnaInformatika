@@ -15,10 +15,10 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
-	fakturaService.posaljiFakturu = function(izdId, kupId, brojDokumenta, statusDokumenta, datumDokumenta, datumValute, ukupnoZaPlacanje){
+	fakturaService.posaljiFakturu = function(izdId, kupId, brojDokumenta, statusDokumenta, datumDokumenta, datumValute, ukupnoZaPlacanje, id){
 		return $http({
 			method: 'POST',
-			url: 'api/faktura/sacuvajFakturu/' + izdId + '/' + kupId,
+			url: 'api/faktura/sacuvajFakturu/' + izdId + '/' + kupId + '/' + id,
 			data: {
 				"brojDokumenta" : brojDokumenta,
 				"statusDokumenta" : statusDokumenta,
@@ -44,10 +44,10 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
-	fakturaService.posaljiNarudzbenicu = function(izdId, kupId, brojDokumenta, statusDokumenta, datumDokumenta, datumValute){
+	fakturaService.posaljiNarudzbenicu = function(izdId, kupId, brojDokumenta, statusDokumenta, datumDokumenta, datumValute, id){
 		return $http({
 			method: 'POST',
-			url: 'api/faktura/sacuvajFakturu/' + izdId + '/' + kupId,
+			url: 'api/faktura/sacuvajFakturu/' + izdId + '/' + kupId + '/' + id,
 			data: {
 				"brojDokumenta" : brojDokumenta,
 				"statusDokumenta" : statusDokumenta,

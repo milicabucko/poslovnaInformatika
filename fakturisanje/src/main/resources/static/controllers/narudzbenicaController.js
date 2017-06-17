@@ -2,7 +2,15 @@ app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'co
 
 	$scope.posaljiFakturu = function() {
 
-		fakturaService.posaljiNarudzbenicu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal).then(function(response){ 
+		fakturaService.posaljiNarudzbenicu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, -1).then(function(response){ 
+			
+			$mdDialog.show(
+					$mdDialog.alert()
+				    .clickOutsideToClose(true)
+				    .title('Obavestenje')
+				    .textContent('Narudzbenica je poslata.')
+				    .ok('OK')
+			);
 			
 			for(var i = 0; i < $scope.stavke.length; i++) {
 				
@@ -87,22 +95,30 @@ app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'co
 	
 	
 	$scope.unesiKolicinu = function() {
+				
 			magacinService.findByPreduzecePib($scope.dpib).then(function(response){
+				//response je lista magacina,pa uzmem samo karticu od prvog magacina
 				magacinService.nadjiMagacinskuKarticuArtikla(response.data[0].id, $scope.sifraZaPretragu).then(function(response){
 					if((response.data.pocStanjeKol + response.data.prometUlKol - response.data.prometIzKol) >= $scope.kolicina) {
 						
 					}
 					else {
-						
+						alert('Nema dovoljno artikala u magacinu');
+						$scope.kolicina = $scope.kolicina + "";
+						$scope.kolicina = $scope.kolicina.substring(0, $scope.kolicina.length - 1);
+						$scope.kolicina = parseInt($scope.kolicina);
 					}
 				});
 			});	
+			
+			
 	}
 	
 	$scope.pretraziPoSifriArtikla = function(){
 		if($scope.sifraZaPretragu == "") {
 			$scope.nazArtikla = "";
 			$scope.jmArtikla = "";
+			$scope.cena = "";
 			$scope.omogucenaIzmena = false;
 			$scope.omogucenoBrisanje = false;
 		}
@@ -112,6 +128,15 @@ app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'co
 			artikalService.findBySifra($scope.sifraZaPretragu).then(function(response){ 
 				$scope.nazArtikla = response.data.naziv;
 				$scope.jmArtikla = response.data.jedMere;
+				
+				if (response.data != "") {
+					$scope.jmArtikla = response.data.jedinicaMere.oznakaJedinice;
+				}
+				else {
+					$scope.jmArtikla = "";
+					$scope.cena = "";
+				}
+				
 				if ($scope.nazArtikla !== undefined) {
 					
 					//za cenu artikla
