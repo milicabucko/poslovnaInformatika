@@ -16,6 +16,23 @@ app.controller('stopaController',['$scope', '$location', '$mdDialog', 'companySe
 		});
 	}
 	
+	$scope.dpChanged = function() {
+		var danasnjiDatum = new Date();
+		
+			if ($scope.stopa.datumStope < danasnjiDatum ) {
+				$scope.stopa.datumStope = null;
+					$mdDialog.show(
+							$mdDialog.alert()
+							.clickOutsideToClose(true)
+							.title('Greska!')
+							.textContent('Datum ne moze biti manji od danasnjeg!')
+							.ok('Ok!')
+					);
+			}
+		
+	}
+	
+	
 	$scope.kreirajStopuPDVa = function(){
 		if(!("undefined" === typeof $scope.stopaa)){
 			$scope.stopa.id = $scope.stopaa.id;

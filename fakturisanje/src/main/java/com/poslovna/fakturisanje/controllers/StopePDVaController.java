@@ -40,7 +40,7 @@ public class StopePDVaController {
         StopaPDVa novaStopa = new StopaPDVa();
         //VrstaPDVa vrsta = vrstaPDVaRepository.findOne(id);
        // novaStopa.setVrstaPDVa(vrsta);
-        novaStopa.setDatumStope(stopaPDVa.getDatumStope());
+        novaStopa.setDatumStope(stopaPDVa.getDatumStope().substring(0, 10));
         novaStopa.setProcenatPDVa(stopaPDVa.getProcenatPDVa());
         //System.out.println(novaStopa.getVrstaPDVa());
         stopaPDVaService.save(novaStopa);
@@ -78,7 +78,7 @@ public class StopePDVaController {
         StopaPDVa novaStopa = stopaPDVaService.findStopu(stopaPDVa.getId());
         //VrstaPDVa vrsta = vrstaPDVaRepository.findOne(id);
        // novaStopa.setVrstaPDVa(vrsta);
-        novaStopa.setDatumStope(stopaPDVa.getDatumStope());
+        novaStopa.setDatumStope(stopaPDVa.getDatumStope().substring(0, 10));
         novaStopa.setProcenatPDVa(stopaPDVa.getProcenatPDVa());
         //System.out.println(novaStopa.getVrstaPDVa());
         stopaPDVaService.save(novaStopa);

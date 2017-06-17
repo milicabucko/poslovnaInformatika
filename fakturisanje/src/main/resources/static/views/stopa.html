@@ -6,7 +6,7 @@
 <form novalidate name="stopaForm" layout="column">
 <md-input-container class="md-block">
         		<label>Datum: </label>
-        		<md-datepicker required id="datumStope" ng-model="stopa.datumStope" md-placeholder="Enter date" ></md-datepicker>
+        		<md-datepicker required id="datumStope" ng-model="stopa.datumStope" md-placeholder="Enter date" ng-change="dpChanged()"></md-datepicker>
         		<div ng-messages="stopaForm.datumStope.$error"
                          ng-if="stopaForm.datumStope.$dirty">
                         <div ng-message="required">Morate popuniti.</div>
