@@ -1,4 +1,4 @@
-app.controller('grupaArtikalaController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService', 'vrstaPDVaService', 'grupaArtikalaService', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService, vrstaPDVaService, grupaArtikalaService){
+app.controller('grupaArtikalaController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService', 'vrstaPDVaService', 'grupaArtikalaService','authenticationService', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService, vrstaPDVaService, grupaArtikalaService, authenticationService){
 	
 	vrstaPDVaService.getAllVrste().then(function(response){
 		 
@@ -7,12 +7,15 @@ app.controller('grupaArtikalaController',['$scope', '$location', '$mdDialog', 'c
 	 
 	});
 	
+	$scope.user = authenticationService.getUser();
+	$scope.authService = authenticationService;
+	
 	companyService.getAllCompanies().then(function(response){
 		$scope.firme = response.data;
 	});
 	
 	var urlParams =  $location.search();
-	var id = urlParams.companyID;
+	var id = $scope.user.company.id;
 	var idGrupe = urlParams.grupaID;
 	
 	if(idGrupe != null){
@@ -24,10 +27,15 @@ app.controller('grupaArtikalaController',['$scope', '$location', '$mdDialog', 'c
 	
 	$scope.kreirajGrupuArtikala = function(){
 		var vrstaID = $scope.grupa.vrstaPDVa.id;
+		if(!("undefined" === typeof $scope.grupaa)){
+			grupaArtikalaService.updateGrupu($scope.grupa, vrstaID).then(function(response){
+				$location.path('/grupeArtikala');
+			});
+		}else{
 		grupaArtikalaService.createGrupu($scope.grupa, id, vrstaID).then(function(response){
-			alert("dodato");
-			
+			$location.path('/grupeArtikala');
 		});
+		}
 	}
 	
 	

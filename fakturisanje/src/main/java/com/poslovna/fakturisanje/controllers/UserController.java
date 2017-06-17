@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,12 @@ public class UserController {
 		Korisnik user = userService.findByUsername(username);
 		return new ResponseEntity<Korisnik>(user,HttpStatus.OK);
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/api/users/me/")
+    public ResponseEntity<Korisnik> setLoginUser(@RequestBody Korisnik k) {
+        final Korisnik user = userService.findByUsernameAndPassword(k.getUsername(), k.getPassword());
+        return new ResponseEntity<Korisnik>(user, HttpStatus.OK);
+    }
 	
 
 }

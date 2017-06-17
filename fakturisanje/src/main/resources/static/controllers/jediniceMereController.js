@@ -1,5 +1,7 @@
-app.controller('pregledJedinicaMereController',['$scope', '$location', '$mdDialog','$routeParams', 'companyService', 'jediniceMereService', function($scope, $location, $mdDialog, $routeParams, companyService, jediniceMereService){
+app.controller('pregledJedinicaMereController',['$scope', '$location', '$mdDialog','$routeParams', 'companyService', 'jediniceMereService','authenticationService', function($scope, $location, $mdDialog, $routeParams, companyService, jediniceMereService, authenticationService){
 
+	$scope.user = authenticationService.getUser();
+	 $scope.authService = authenticationService;
 		
 	companyService.getAllCompanies().then(function(response){
 		 
@@ -45,34 +47,29 @@ app.controller('pregledJedinicaMereController',['$scope', '$location', '$mdDialo
 			    page: 1
 		};
 		
-		$scope.prikaziJedinice = function() {
-			if ($scope.selected[0] === undefined) {
-				$scope.jedinice = [];
-				$scope.jediniceSize = 0;
-			}
-			else{
-				//$scope.grupe = $scope.selected[0].grupe;
-				var id = $scope.selected[0].id;
-				console.log(id);
-				jediniceMereService.getAllJedinice(id).then(function(response){
-					$scope.jedinice = response.data;
-				});
-				$scope.jediniceSize = $scope.jedinice.length;
-			}
-		}
+		jediniceMereService.getAllJedinice($scope.user.company.id).then(function(response){
+			$scope.jedinice = response.data;
+		});
 		
 		$scope.dodajJedinicu = function(){
 			$location.path("/jedinicaMere").search({companyId:  $scope.selected[0].id })
 		}
 		
-		$scope.kreirajJedinicuMere = function(){
-			var urlParams = $location.search();
-			console.log(urlParams.companyId + " url param");
-			var idToSend = urlParams.companyId;// urlParams.companyId;
-			jediniceMereService.createJedinicu($scope.jedinica, idToSend).then(function(response){
-				 alert("dodato");
-			 
+		$scope.obrisiJedinicu = function(jedinica){
+			var idJedinice = $scope.selectedJedinica[0].id;
+			jediniceMereService.deleteJedinica(idJedinice).then(function(response){
+				$scope.jedinice = response.data
+				$scope.jediniceSize = $scope.jedinice.length;
 			});
+		}
+		
+		$scope.izmeniJedinicu = function(jedinica){
+			$location.path("/jedinicaMere").search({jedinicaID:$scope.selectedJedinica[0].id })
+		}
+		
+		
+		$scope.goToHome = function(){
+			$location.path('/home');
 		}
 		
 	
@@ -86,7 +83,7 @@ app.controller('pregledJedinicaMereController',['$scope', '$location', '$mdDialo
 		$scope.omogucenoBrisanje = false;
 
 		
-		$scope.selectedGrupa = [];
+		$scope.selectedJedinica = [];
 		$scope.selected = [];
 
 

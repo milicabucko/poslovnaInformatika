@@ -75,6 +75,33 @@ public class ArtikalController {
     }
 	
 	@RequestMapping(
+            value    = "api/artikal/obrisiArtikal/{id}",
+            method   = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<HashSet<Artikal>> deleteArtikal(@PathVariable Integer id) {
+		Artikal a = artikalService.findOne(id);
+		GrupaArtikala g = a.getGrupaArtikala();
+		artikalService.remove(a);
+		HashSet<Artikal> sviArtikli = artikalService.findByGrupaArtikala(g.getId());
+        return new ResponseEntity<HashSet<Artikal>>(sviArtikli, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+			value = "api/artikal/promeniArtikal/",
+			method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Artikal> updateArtikal(@RequestBody Artikal artikal) {
+		Artikal a = artikalService.findOne(artikal.getId());
+		a.setNaziv(artikal.getNaziv());
+		a.setOpis(artikal.getOpis());
+		a.setSifra(artikal.getSifra());
+		a.setVrsta(artikal.getVrsta());
+		artikalService.saveArtikal(a);
+        return new ResponseEntity<Artikal>(a, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
             value    = "/api/artikal/nadjiSve",
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE

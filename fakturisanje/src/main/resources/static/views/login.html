@@ -1,15 +1,24 @@
-<div>
+<div >
+ <form novalidate name="loginForm" layout="column">
 	<md-input-container>
-		<label>Username</label>
-    	<input ng-model="username">
+		<label>Korisnicko ime</label>
+    	<input ng-model="user.username" id="username" required autofocus type="text">
+    	<div ng-messages="loginForm.username.$error" ng-if="loginForm.username.$dirty">
+                                    <div ng-message="required">Morate uneti.</div>
+                                </div>
 	</md-input-container>
 
 	<md-input-container>
-		<label>Password</label>
-    	<input type="password" ng-model="password">
+		<label>Lozinka</label>
+    	<input type="password" ng-model="user.password" id="password" required>
+    	<div ng-messages="loginForm.password.$error" ng-if="loginForm.password.$dirty">
+                                    <div ng-message="required">Morate uneti.</div>
+                                </div>
+	</md-input-container>
 	</md-input-container>
 
-	<md-button class="md-success" ng-click="login()">Login</md-button>
+	<md-button class="md-success" ng-click="login()">Prijavi se</md-button>
 
-
+</form>
 </div>
+

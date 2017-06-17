@@ -7,7 +7,7 @@
 	<form novalidate name="jedinicaMereForm" layout="column">
         	<md-input-container class="md-block">
         		<label>Oznaka:</label>
-        		<input  required name="oznakaJedinice" id="oznakaJedinice" ng-model="jedinica.oznakaJedinice" />
+        		<input  required name="oznakaJedinice" id="oznakaJedinice" ng-model="jedinica.oznakaJedinice" value = {{jedinicaa.oznakaJedinice}}/>
         		<div ng-messages="jedinicaMereForm.oznakaJedinice.$error"
                          ng-if="jedinicaMereForm.oznakaJedinice.$dirty">
                         <div ng-message="required">Morate popuniti.</div>
@@ -15,7 +15,7 @@
         	</md-input-container>
         	<md-input-container class="md-block">
         		<label>Naziv:</label>
-        		<input  required id="nazivJedinice" name="nazivJedinice" ng-model="jedinica.nazivJedinice" />
+        		<input  required id="nazivJedinice" name="nazivJedinice" ng-model="jedinica.nazivJedinice"  value = {{jedinicaa.nazivJedinice}} />
         		<div ng-messages="jedinicaMereForm.nazivJedinice.$error"
                          ng-if="jedinicaMereForm.nazivJedinice.$dirty">
                         <div ng-message="required">Morate popuniti.</div>

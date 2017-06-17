@@ -86,6 +86,19 @@ public class GrupaArtikalaController {
         return new ResponseEntity<GrupaArtikala> (grupa, HttpStatus.OK);
     }
 	
+	@RequestMapping(
+			value = "api/grupe/promeniGrupu/{vrstaId}",
+			method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<GrupaArtikala> updateGrupu(@RequestBody GrupaArtikala grupaArtikala, @PathVariable Integer vrstaId) {
+        GrupaArtikala grupa = grupaAtrikalaService.findOne(grupaArtikala.getId());
+        grupa.setNazivGrupe(grupaArtikala.getNazivGrupe());
+        VrstaPDVa vrstaPDVa = vrstaPDVaRepository.findOne(vrstaId);
+        grupa.setVrstaPDVa(vrstaPDVa);
+        grupaAtrikalaService.add(grupa);
+        return new ResponseEntity<GrupaArtikala>(grupa, HttpStatus.OK);
+    }
+	
 	
 
 }

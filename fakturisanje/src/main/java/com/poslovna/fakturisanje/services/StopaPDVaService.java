@@ -20,5 +20,12 @@ public class StopaPDVaService {
 	public Collection<StopaPDVa> getAll() {
 		return stopaPDVaRepository.findAll();
 	}
+	public StopaPDVa findStopu(Integer id){
+		return stopaPDVaRepository.findOne(id);
+	}
+	
+	public void deleteStopu(StopaPDVa stopaPDVa){
+		stopaPDVaRepository.delete(stopaPDVa);
+	}
 
 }

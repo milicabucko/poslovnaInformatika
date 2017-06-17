@@ -6,7 +6,7 @@
 <form novalidate name="artikalForm" layout="column">
 <md-input-container class="md-block">
         		<label>Naziv artikla:</label>
-        		<input  type = "text" required id="nazivArtikla" name="nazivArtikla" ng-model="artikal.naziv" />
+        		<input  type = "text" required id="nazivArtikla" name="nazivArtikla" ng-model="artikal.naziv" value = "{{artikaal.naziv}}"/>
         		<div ng-messages="artikalForm.nazivArtikla.$error"
                          ng-if="artikalForm.nazivArtikla.$dirty">
                         <div ng-message="required">Morate popuniti.</div>
@@ -14,7 +14,7 @@
         	</md-input-container>
         	<md-input-container class="md-block">
         		<label>Sifra artikla:</label>
-        		<input  type = "text" required id="sifraArtikla" name="sifraArtikla" ng-model="artikal.sifra" />
+        		<input  type = "text" required id="sifraArtikla" name="sifraArtikla" ng-model="artikal.sifra" value="{{artikaal.sifra}}" />
         		<div ng-messages="artikalForm.sifraArtikla.$error"
                          ng-if="artikalForm.sifraArtikla.$dirty">
                         <div ng-message="required">Morate popuniti.</div>
@@ -22,7 +22,7 @@
         	</md-input-container>
         	<md-input-container class="md-block">
         		<label>Opis artikla:</label>
-        		<input  type = "text" required id="opisArtikla" name="opisArtikla" ng-model="artikal.opis" />
+        		<input  type = "text" required id="opisArtikla" name="opisArtikla" ng-model="artikal.opis" value="{{artikaal.opis}}" />
         		<div ng-messages="artikalForm.opisArtikla.$error"
                          ng-if="artikalForm.opisArtikla.$dirty">
                         <div ng-message="required">Morate popuniti.</div>
@@ -30,7 +30,7 @@
         	</md-input-container>
         	<md-input-container class="md-block">
         		<label>Vrsta artikla:</label>
-        		<input  type = "text" required id="vrstaArtikla" name="vrstaArtikla" ng-model="artikal.vrsta" />
+        		<input  type = "text" required id="vrstaArtikla" name="vrstaArtikla" ng-model="artikal.vrsta" value="{{artikaal.vrsta}}"/>
         		<div ng-messages="artikalForm.vrstaArtikla.$error"
                          ng-if="artikalForm.vrstaArtikla.$dirty">
                         <div ng-message="required">Morate popuniti.</div>

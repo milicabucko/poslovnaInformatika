@@ -1,5 +1,8 @@
-app.controller('pregledStopaController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService', 'stopaPDVaService', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService, stopaPDVaService){
+app.controller('pregledStopaController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService', 'stopaPDVaService','authenticationService', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService, stopaPDVaService, authenticationService){
 
+	$scope.user = authenticationService.getUser();
+	$scope.authService = authenticationService;
+	
 	companyService.getAllCompanies().then(function(response){
 		 
 		 $scope.items = response.data;
@@ -53,18 +56,24 @@ app.controller('pregledStopaController',['$scope', '$location', '$mdDialog', 'co
 		$scope.dodajStopu = function(){
 			
 			$location.path("/stopa");
+		} 
+		
+		$scope.izmeniStopu = function(stopa){
+			$location.path("/stopa").search({stopaID:$scope.selectedStopa[0].id })
 		}
 		
-//		$scope.onSelectEvent = function() {
-//			if ($scope.selected[0] === undefined) {
-//				$scope.stope = [];
-//				$scope.stopeSize = 0;
-//			}
-//			else{
-//				$scope.stope = $scope.selected[0].stope;
-//				$scope.stopeSize = $scope.stope.length;
-//			}
-//		}
+		
+		$scope.obrisiStopu = function(stopa){
+			var id = $scope.selectedStopa[0].id;
+			stopaPDVaService.removeStopu(id).then(function(response){
+				$scope.stope = response.data;
+				$scope.stopeSize = $scope.stope.length;
+			});
+		}
+		
+		$scope.goToHome = function(){
+			$location.path('/home');
+		}
 		
 		
 		

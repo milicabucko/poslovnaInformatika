@@ -21,5 +21,13 @@ public class VrstaPDVaService {
 	public Collection<VrstaPDVa> getAll() {
 		return vrstaPDVaRepository.findAll();
 	}
+	
+	public VrstaPDVa findVrstu(Integer id){
+		return vrstaPDVaRepository.findOne(id);
+	}
+	
+	public void deleteVrstu(VrstaPDVa vrstaPDVa){
+		vrstaPDVaRepository.delete(vrstaPDVa);
+	}
 
 }

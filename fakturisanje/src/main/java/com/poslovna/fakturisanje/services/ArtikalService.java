@@ -40,6 +40,10 @@ public class ArtikalService {
 		return artikalRepository.findAll();
 	}
 	
+	public void remove(Artikal a){
+		artikalRepository.delete(a);
+	}
+	
 	
 
 }

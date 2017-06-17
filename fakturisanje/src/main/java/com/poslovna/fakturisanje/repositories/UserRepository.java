@@ -7,4 +7,5 @@ import com.poslovna.fakturisanje.models.Korisnik;
 public interface UserRepository extends JpaRepository<Korisnik, Integer> {
 	
 	public Korisnik findByUsername(String username);
+	public Korisnik findByUsernameAndPassword(String username, String password);
 }

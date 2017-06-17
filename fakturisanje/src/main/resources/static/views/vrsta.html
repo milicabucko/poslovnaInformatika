@@ -7,7 +7,7 @@
 
         	<md-input-container class="md-block">
         		<label>Naziv vrste:</label>
-        		<input  type = "text" required id="nazivvrstePDVa" name="nazivvrstePDVa" ng-model="vrsta.nazivVrstePDVa" />
+        		<input  type = "text" required id="nazivvrstePDVa" name="nazivvrstePDVa" ng-model="vrsta.nazivVrstePDVa" value={{vrstaa.nazivvrstePDVa}} />
         		<div ng-messages="vrstaForm.nazivvrstePDVa.$error"
                          ng-if="vrstaForm.nazivvrstePDVa.$dirty">
                         <div ng-message="required">Morate popuniti.</div>

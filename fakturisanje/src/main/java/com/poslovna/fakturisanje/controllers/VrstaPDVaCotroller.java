@@ -48,5 +48,41 @@ public class VrstaPDVaCotroller {
         vrstaPDVaService.save(vrsta);
         return new ResponseEntity<VrstaPDVa>(vrsta, HttpStatus.OK);
     }
+	
+	@RequestMapping(
+            value    = "api/vrste/nadjiVrstu/{id}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<VrstaPDVa> findVrstu(@PathVariable Integer id) {
+		VrstaPDVa vrsta = vrstaPDVaService.findVrstu(id);
+        return new ResponseEntity<VrstaPDVa>(vrsta, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+			value = "api/vrste/obrisiVrstu/{id}",
+			method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<VrstaPDVa>> removeVrsta(@PathVariable Integer id){
+		VrstaPDVa vrsta = vrstaPDVaService.findVrstu(id);
+		vrstaPDVaService.deleteVrstu(vrsta);
+		Collection<VrstaPDVa> sveVrste = vrstaPDVaService.getAll();
+		return new ResponseEntity<Collection<VrstaPDVa>>(sveVrste, HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(
+			value = "api/vrste/izmeniVrstu/{id}",
+			method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE,
+			consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<VrstaPDVa> updateVrstu(@RequestBody VrstaPDVa vrstaPDVa, @PathVariable Integer id) {
+        VrstaPDVa vrsta = vrstaPDVaService.findVrstu(vrstaPDVa.getId());
+        vrsta.setNazivVrstePDVa(vrstaPDVa.getNazivVrstePDVa());
+        StopaPDVa stopa = stopaPDVaRepository.findOne(id);
+        vrsta.setStopPDVa(stopa);
+        vrstaPDVaService.save(vrsta);
+        return new ResponseEntity<VrstaPDVa>(vrsta, HttpStatus.OK);
+    }
 
 }

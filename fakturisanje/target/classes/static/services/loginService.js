@@ -1,9 +1,11 @@
 app.factory('loginService', function loginService($http){
 	
-	loginService.login = function(username){
+loginService.loginUser = function(user){
+		
 		return $http({
-			method: 'GET',
-			url: 'api/users/findByUsername/' + username
+			method: 'POST',
+			url: 'api/users/me/',
+			data: user
 		});
 	}
 	

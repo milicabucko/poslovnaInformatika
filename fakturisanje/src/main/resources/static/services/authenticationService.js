@@ -4,12 +4,18 @@ app.service('authenticationService', function ($http, $window) {
     var LOCAL_STORAGE_INSTANCE = $window.localStorage;
 
     return {
-        login: function (user, successCallback, errorCallback) {
-            $http.post('/api/login', user, {
+    	login: function (user) {
+            $http.post('/login', user, {
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                transformRequest: function (obj) {
+                    var str = [];
+                    for (var p in obj)
+                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
                 }
-            }).success(successCallback).error(errorCallback);
+            });
         },
         logout: function (successCallback, errorCallback) {
             var loggedInUser = this.getUser();
@@ -36,5 +42,8 @@ app.service('authenticationService', function ($http, $window) {
         isAdmin: function () {
             return this.getUser().role === 'ADMIN';
         },
+        isEmployee : function() {
+        	return this.isWorker() || this.isAdmin();
+        }
     }
 });

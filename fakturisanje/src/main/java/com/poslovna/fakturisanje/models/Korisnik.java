@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +36,9 @@ public class Korisnik implements Serializable{
 	
 	@Enumerated(EnumType.STRING)
     private Role role;
+	
+	@ManyToOne
+	private Company company;
 	
 	public Korisnik() {
 		// TODO Auto-generated constructor stub
@@ -71,5 +75,15 @@ public class Korisnik implements Serializable{
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+	
+	
 	
 }

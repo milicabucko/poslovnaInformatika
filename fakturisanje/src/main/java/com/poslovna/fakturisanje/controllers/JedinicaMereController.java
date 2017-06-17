@@ -1,10 +1,8 @@
 package com.poslovna.fakturisanje.controllers;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,26 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.poslovna.fakturisanje.models.Artikal;
 import com.poslovna.fakturisanje.models.Company;
-import com.poslovna.fakturisanje.models.GrupaArtikala;
 import com.poslovna.fakturisanje.models.JedinicaMere;
 import com.poslovna.fakturisanje.repositories.CompanyRepository;
 import com.poslovna.fakturisanje.repositories.JedinicaMereRepository;
-import com.poslovna.fakturisanje.services.ArtikalService;
-import com.poslovna.fakturisanje.services.GrupaAtrikalaService;
 
 @RestController
 public class JedinicaMereController {
 	
 	@Autowired
 	private CompanyRepository companyRepository;
-	
-	@Autowired
-	private GrupaAtrikalaService grupaArtikalaService;
-	
-	@Autowired
-	private ArtikalService artikalService;
 	
 	@Autowired
 	private JedinicaMereRepository jedinicaMereRepository;
@@ -68,6 +56,42 @@ public class JedinicaMereController {
         jm.setNazivJedinice(jedinicaMere.getNazivJedinice());
         jm.setOznakaJedinice(jedinicaMere.getOznakaJedinice());
         jm.setCompany(company);
+        jedinicaMereRepository.save(jm);
+        return new ResponseEntity<JedinicaMere>(jm, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "api/jedinice/obrisiJedinicu/{id}",
+            method   = RequestMethod.DELETE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<JedinicaMere>> deleteJedinicu(@PathVariable Integer id) {
+		JedinicaMere jedinica = jedinicaMereRepository.findOne(id);
+		Company c = jedinica.getCompany();
+		jedinicaMereRepository.delete(jedinica);
+		List<JedinicaMere> sveJedinice = jedinicaMereRepository.findByCompanyId(c.getId());
+		Set<JedinicaMere> ostaleJedinice = sveJedinice.stream().collect(Collectors.toSet());
+        return new ResponseEntity<Collection<JedinicaMere>>(ostaleJedinice, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "api/jedinice/nadjiJednu/{id}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+	public ResponseEntity<JedinicaMere> findJedinicu(@PathVariable Integer id){
+		JedinicaMere jedinica = jedinicaMereRepository.findOne(id);
+		return new ResponseEntity<JedinicaMere>(jedinica, HttpStatus.OK);
+	}
+	
+	@RequestMapping(
+			value = "api/jedinice/promeniJedinicu/",
+			method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<JedinicaMere> updateJedinicu(@RequestBody JedinicaMere jedinicaMere) {
+        JedinicaMere jm = jedinicaMereRepository.findOne(jedinicaMere.getId());
+        jm.setNazivJedinice(jedinicaMere.getNazivJedinice());
+        jm.setOznakaJedinice(jedinicaMere.getOznakaJedinice());
         jedinicaMereRepository.save(jm);
         return new ResponseEntity<JedinicaMere>(jm, HttpStatus.OK);
     }

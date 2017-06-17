@@ -31,6 +31,15 @@ app.factory('grupaArtikalaService', function grupaArtikalaService($http){
 		});
 	}
 	
+grupaArtikalaService.updateGrupu =  function(grupa, vrstaId){
+		
+		return $http({
+			method: 'POST',
+			url: 'api/grupe/promeniGrupu/'+vrstaId,
+			data: grupa
+		});
+	}
+	
 	
 	return grupaArtikalaService;
 	

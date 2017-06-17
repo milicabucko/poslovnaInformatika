@@ -1,5 +1,8 @@
-app.controller('pregledVrstiPDVaController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService', 'vrstaPDVaService', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService, vrstaPDVaService){
+app.controller('pregledVrstiPDVaController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService', 'vrstaPDVaService','authenticationService', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService, vrstaPDVaService, authenticationService){
 
+	$scope.user = authenticationService.getUser();
+	$scope.authService = authenticationService;
+	
 	companyService.getAllCompanies().then(function(response){
 		 
 		 $scope.items = response.data;
@@ -66,8 +69,21 @@ app.controller('pregledVrstiPDVaController',['$scope', '$location', '$mdDialog',
 //			}
 //		}
 		
+		$scope.obrisiVrstu = function(){
+			console.log($scope.selectedVrsta[0].id);
+			vrstaPDVaService.removeVrstu($scope.selectedVrsta[0].id).then(function(response){
+				$scope.vrste = response.data;
+				$scope.vrsteSize = $scope.vrste.length;
+			});
+		}
 		
+		$scope.izmeniVrstu = function(vrsta){
+			$location.path("/vrsta").search({vrstaID:$scope.selectedVrsta[0].id })
+		}
 		
+		$scope.goToHome = function(){
+			$location.path('/home');
+		}
 		
 		$scope.selected = [];
 		$scope.selectedVrsta = [];

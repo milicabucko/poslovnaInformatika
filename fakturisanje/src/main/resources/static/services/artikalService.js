@@ -29,6 +29,21 @@ app.factory('artikalService', function artikalService($http){
 		});
 	}
 	
+	artikalService.updateArtikal = function(artikal, idGrupe, idJedinice){
+		return $http({
+			method: 'POST',
+			url: 'api/artikal/promeniArtikal/',
+			data : artikal
+		});
+	}
+	
+	artikalService.deleteArtikal = function(id){
+		return $http({
+			method: 'DELETE',
+			url: 'api/artikal/obrisiArtikal/'+id
+		});
+	}
+	
 	
 	
 	
