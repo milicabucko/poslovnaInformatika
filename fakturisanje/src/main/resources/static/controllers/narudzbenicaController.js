@@ -1,5 +1,25 @@
 app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'fakturaService', 'artikalService', 'cenovnikService', 'magacinService', 'stavkaDokumentaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, fakturaService, artikalService, cenovnikService, magacinService, stavkaDokumentaService){
 
+	$scope.selectedArtikal = [];
+	
+	artikalService.nadjiSveArtikle().then(function(response){
+		
+		$scope.artikli = response.data;
+		$scope.artikliSize = response.data.length;
+		
+	});
+	
+	$scope.dodajArtikal = function(artikalSifra){
+		
+		$scope.omogucenoDodavanje = false;
+		$scope.omogucenaIzmena = false;
+		$scope.omogucenoBrisanje = false;
+		
+		$scope.sifraZaPretragu = artikalSifra;
+		$scope.pretraziPoSifriArtikla();
+	}
+	
+	
 	$scope.posaljiFakturu = function() {
 
 		fakturaService.posaljiNarudzbenicu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, -1).then(function(response){ 

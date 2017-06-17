@@ -180,6 +180,39 @@
 
 <md-toolbar class="md-hue-2">
 	<div class="md-toolbar-tools">
+	<h2 flex md-truncate>Lista artikala:</h2>    
+    
+	</div>
+</md-toolbar>
+
+<md-content>
+<md-table-container>
+  <table md-table md-row-select  ng-model="selectedArtikal">
+    <thead md-head md-order="myOrder">
+      <tr md-row>
+        <th md-column>Sifra</th>
+        <th md-column>Naziv</th>
+        <th md-column>Jedinica mere</th>
+        <th md-column>Dodaj</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="artikal" md-on-select="" md-select-id="name"  md-auto-select ng-repeat="artikal in artikli | orderBy: myOrder | limitTo: query.limit: (query.page - 1) * query.limit" >
+        <td md-cell>{{artikal.sifra}}</td>
+        <td md-cell>{{artikal.naziv}}</td>
+        <td md-cell>{{artikal.jedinicaMere.oznakaJedinice}}</td>
+        <td md-cell><md-button class="md-raised md-primary" ng-click="dodajArtikal(artikal.sifra)">Dodaj</md-button></td>
+           	
+      </tr>
+    </tbody>
+  </table>  
+</md-table-container>	
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{artikliSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+</md-content>
+
+
+<md-toolbar class="md-hue-2">
+	<div class="md-toolbar-tools">
 	<h2 flex md-truncate>Dodavanje nove stavke</h2>    
     
 	</div>

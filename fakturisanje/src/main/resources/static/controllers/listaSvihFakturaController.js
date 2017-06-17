@@ -230,6 +230,8 @@ app.controller('listaSvihFakturaController',['$scope', '$location', '$mdDialog',
 		
 		$scope.selektovaneStavke = [];
 		$scope.selected = [];
+		
+		
 			
 	 
 }]);

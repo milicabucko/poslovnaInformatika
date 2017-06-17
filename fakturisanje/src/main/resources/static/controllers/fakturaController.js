@@ -1,5 +1,24 @@
 app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', 'cenovnikService', 'stopaPDVaService', '$window', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService, cenovnikService, stopaPDVaService, $window){
 	
+	
+	artikalService.nadjiSveArtikle().then(function(response){
+		
+		$scope.artikli = response.data;
+		$scope.artikliSize = response.data.length;
+		
+	});
+	
+	$scope.dodajArtikal = function(artikalSifra){
+		
+		$scope.omogucenoDodavanje = false;
+		$scope.omogucenaIzmena = false;
+		$scope.omogucenoBrisanje = false;
+		
+		$scope.sifraZaPretragu = artikalSifra;
+		$scope.pretraziPoSifriArtikla();
+	} 
+	
+	
 	stopaPDVaService.getAllStope().then(function(response){
 		 
 		 $scope.stope = response.data;
@@ -310,4 +329,5 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		$scope.selektovaneStavke = [];
 		$scope.selected = [];
 		$scope.bpselected = []; 
+		$scope.selectedArtikal = [];
 }]);
