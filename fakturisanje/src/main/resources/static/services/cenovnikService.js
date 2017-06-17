@@ -25,6 +25,13 @@ app.factory('cenovnikService', function cenovnikService($http){
 		});
 		
 	}
+	
+	cenovnikService.nadjiPoKompaniji = function(companyID){
+		return $http({
+			method: 'GET',
+			url: '/api/cenovnik/findByCompany/' + companyID
+		});
+	}
 
 	return cenovnikService;
 

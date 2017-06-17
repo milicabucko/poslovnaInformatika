@@ -1,11 +1,18 @@
-app.controller('pregledCenovnikaController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService','stavkaCenovnikaService','cenovnikService','$parse', '$window', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService, stavkaCenovnikaService, cenovnikService, $parse, $window){
-
+app.controller('pregledCenovnikaController',['$scope', '$location', '$mdDialog', 'companyService', '$timeout','businessPartnerService','stavkaCenovnikaService','cenovnikService','$parse', '$window','authenticationService', function($scope, $location, $mdDialog, companyService, $timeout, businessPartnerService, stavkaCenovnikaService, cenovnikService, $parse, $window, authenticationService){
+	$scope.user = authenticationService.getUser();
+	$scope.authService = authenticationService;
+	
+	cenovnikService.nadjiPoKompaniji($scope.user.company.id).then(function(response){
+		$scope.cenovnici = response.data;
+		$scope.cenovniciSize = $scope.cenovnici.length;
+	});
+	
 	
 	$scope.dpChanged = function() {
 		var danasnjiDatum = new Date();
 		
 		//kad nemamo nijedan cenovnik
-		if ($scope.selected[0].cenovnici.length == 0){
+		if ($scope.user.company.cenovnici.length == 0){
 			if ($scope.datumPocetakVazenja < danasnjiDatum) {
 				$scope.datumPocetakVazenja = null;
 				$mdDialog.show(
@@ -42,7 +49,7 @@ app.controller('pregledCenovnikaController',['$scope', '$location', '$mdDialog',
 		var danasnjiDatum = new Date();
 		
 		//kad nemamo nijedan cenovnik
-		if ($scope.selected[0].cenovnici.length == 0){
+		if ($scope.user.company.cenovnici.length == 0){
 			if ($scope.datumKrajVazenja < danasnjiDatum) {
 				$scope.datumKrajVazenja = null;
 				$mdDialog.show(
@@ -148,7 +155,7 @@ app.controller('pregledCenovnikaController',['$scope', '$location', '$mdDialog',
 
 				    $mdDialog.show(confirm).then(function(result) {
 				    	
-						cenovnikService.kreirajCenovnik($scope.selected[0].id,$scope.datumPocetakVazenja,$scope.datumKrajVazenja).then(function(response){
+						cenovnikService.kreirajCenovnik($scope.user.company.id,$scope.datumPocetakVazenja,$scope.datumKrajVazenja).then(function(response){
 
 							console.log(response.data);
 							if(response.data.id == null){
@@ -166,6 +173,10 @@ app.controller('pregledCenovnikaController',['$scope', '$location', '$mdDialog',
 								stavkaCenovnikaService.sacuvajStavku(response.data.id, $scope.stavke[i].artikal.id, $scope.stavke[i].cena+(parseInt(result)/100)*$scope.stavke[i].cena).then(function(response){ 
 								});
 							}
+							cenovnikService.nadjiPoKompaniji($scope.user.company.id).then(function(response){
+								$scope.cenovnici = response.data;
+								$scope.cenovniciSize = $scope.cenovnici.length;
+							});
 							
 							}
 						});
@@ -178,16 +189,6 @@ app.controller('pregledCenovnikaController',['$scope', '$location', '$mdDialog',
 			
 		}
 		
-		$scope.onSelectEvent = function() {
-			if ($scope.selected[0] === undefined) {
-				$scope.cenovnici = [];
-				$scope.cenovniciSize = 0;
-			}
-			else{
-				$scope.cenovnici = $scope.selected[0].cenovnici;
-				$scope.cenovniciSize = $scope.cenovnici.length;
-			}
-		}
 		
 		$scope.onSelectEventCenovnik = function() {
 			if ($scope.selectedCenovnik[0] === undefined) {

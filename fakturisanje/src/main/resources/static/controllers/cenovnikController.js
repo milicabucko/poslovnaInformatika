@@ -1,10 +1,13 @@
-app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'companyService', 'artikalService', 'stavkaCenovnikaService','cenovnikService', function($scope, $location, $mdDialog, companyService, artikalService, stavkaCenovnikaService, cenovnikService){
+app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'companyService', 'artikalService', 'stavkaCenovnikaService','cenovnikService','authenticationService', function($scope, $location, $mdDialog, companyService, artikalService, stavkaCenovnikaService, cenovnikService, authenticationService){
 
+	$scope.user = authenticationService.getUser();
+	$scope.authService = authenticationService;
+	
 	$scope.dpChanged = function() {
 		var danasnjiDatum = new Date();
 		
 		//kad nemamo nijedan cenovnik
-		if ($scope.selected[0].cenovnici.length == 0){
+		if ($scope.user.company.cenovnici.length == 0){
 			if ($scope.datumPocetakVazenja < danasnjiDatum) {
 				$scope.datumPocetakVazenja = null;
 				$mdDialog.show(
@@ -42,7 +45,7 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 		var danasnjiDatum = new Date();
 		
 		//kad nemamo nijedan cenovnik
-		if ($scope.selected[0].cenovnici.length == 0){
+		if ($scope.user.company.cenovnici.length == 0){
 			if ($scope.datumKrajVazenja < danasnjiDatum) {
 				$scope.datumKrajVazenja = null;
 				$mdDialog.show(
@@ -225,7 +228,7 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 		}
 		
 		$scope.kreirajCenovnik = function(){
-			cenovnikService.kreirajCenovnik($scope.selected[0].id,$scope.datumPocetakVazenja,$scope.datumKrajVazenja).then(function(response){
+			cenovnikService.kreirajCenovnik($scope.user.company.id,$scope.datumPocetakVazenja,$scope.datumKrajVazenja).then(function(response){
 
 				console.log(response.data);
 				if(response.data.id == null){

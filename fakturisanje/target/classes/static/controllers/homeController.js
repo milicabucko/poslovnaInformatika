@@ -162,7 +162,7 @@ app.controller('homeController',['$scope', '$location', '$mdDialog', 'companySer
 	$scope.logOut = function(){
 	        $scope.user.username = "";
 	        $scope.user.password = "";
-	           $location.path('/login');
+	           $location.path('/');
 	        
 	   
 	}
