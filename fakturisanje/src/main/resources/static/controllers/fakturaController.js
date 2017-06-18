@@ -1,14 +1,16 @@
-app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', 'cenovnikService', 'stopaPDVaService', '$window', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService, cenovnikService, stopaPDVaService, $window){
+app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'artikalService', 'fakturaService', 'stavkaDokumentaService', 'magacinService', 'cenovnikService', 'stopaPDVaService', '$window','authenticationService', function($scope, $location, $mdDialog, companyService, businessPartnerService, artikalService, fakturaService, stavkaDokumentaService, magacinService, cenovnikService, stopaPDVaService, $window, authenticationService){
 	
+	$scope.user = authenticationService.getUser();
+	$scope.authService = authenticationService;
 	
-	artikalService.nadjiSveArtikle().then(function(response){
+	artikalService.nadjArtikleFirme($scope.user.company.id).then(function(response){
 		
 		$scope.artikli = response.data;
 		$scope.artikliSize = response.data.length;
 		
 	});
 	
-	$scope.dodajArtikal = function(artikalSifra){
+	$scope.dodajArtikal = function(artikalSifra, artikalId){
 		
 		$scope.omogucenoDodavanje = false;
 		$scope.omogucenaIzmena = false;
@@ -16,6 +18,13 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		
 		$scope.sifraZaPretragu = artikalSifra;
 		$scope.pretraziPoSifriArtikla();
+		//stopaPdva.procenatPDVa ovo da setujem 
+		artikalService.getGrupuArtikla(artikalId).then(function(response){
+			console.log(response.data.procenatPDVa);
+			$scope.stopaPdva = response.data.procenatPDVa;
+			
+		});
+		
 	} 
 	
 	
@@ -26,13 +35,13 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 	});
 	
 	$scope.posaljiFakturu = function() {
-		console.log("posiljalac: " + $scope.selected[0].id + " kupac: " + $scope.bpselected[0].company2.id);
+		console.log("posiljalac: " + $scope.user.company.id + " kupac: " + $scope.bpselected[0].company2.id);
 		var ukupnoZaPlacanje = 0;
 		for(var i = 0; i < $scope.stavke.length; i++) {
 			ukupnoZaPlacanje += $scope.stavke[i].ukupno;
 		}
 		console.log(ukupnoZaPlacanje);
-		fakturaService.posaljiFakturu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, ukupnoZaPlacanje, -1).then(function(response){ 
+		fakturaService.posaljiFakturu($scope.user.company.id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, ukupnoZaPlacanje, -1).then(function(response){ 
 			if(response.data.statusDokumenta == "nevazeca"){
 				$mdDialog.show(
 						$mdDialog.alert()
@@ -219,6 +228,8 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		}
 	}
 	
+	//PROMENI OVO ZA PARTNERA!!!
+	
 	$scope.pretraziPoImenu = function() {
 
 		if($scope.imeZaPretragu == "") {
@@ -256,47 +267,66 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		}
 	}
 	
+	$scope.naziv = $scope.user.company.name; 
+	$scope.adresa = $scope.user.company.address;
+	$scope.pib = $scope.user.company.pib;
+	$scope.mbr = $scope.user.company.cidnumber;
+	$scope.racun = $scope.user.company.account;
 	
-	$scope.onSelectEvent = function() {
+	businessPartnerService.getAllBusinessPartners($scope.user.company.id).then(function(response){
+		console.log(response.data[0].company2);
+		$scope.businessPartners = response.data;
 		
-		
-		if ($scope.selected[0] === undefined) {
-			$scope.businessPartners = [];
 			
-			$scope.naziv = ""; 
-			$scope.adresa = ""; 
-			$scope.pib = ""; 
-			$scope.mbr = ""; 
-			$scope.racun = ""; 
-			
-			$scope.knaziv = ""; 
-			$scope.kadresa = ""; 
-			$scope.kpib = ""; 
-			$scope.kmbr = ""; 
-			$scope.kracun = ""; 
-		}
-		else {
-			
-			$scope.naziv = $scope.selected[0].name; 
-			$scope.adresa = $scope.selected[0].address;
-			$scope.pib = $scope.selected[0].pib;
-			$scope.mbr = $scope.selected[0].cidnumber;
-			$scope.racun = $scope.selected[0].account;
-			
-			businessPartnerService.getAllBusinessPartners($scope.selected[0].id).then(function(response){
-				console.log(response.data[0].company2);
-				$scope.businessPartners = response.data;
-					
-			});
-			
-			$scope.knaziv = ""; 
-			$scope.kadresa = ""; 
-			$scope.kpib = ""; 
-			$scope.kmbr = ""; 
-			$scope.kracun = ""; 
-			
-		}
-	}
+	});
+	
+	$scope.knaziv = ""; 
+	$scope.kadresa = ""; 
+	$scope.kpib = ""; 
+	$scope.kmbr = ""; 
+	$scope.kracun = ""; 
+	
+	
+//	$scope.onSelectEvent = function() {
+//		
+//		
+//		if ($scope.selected[0] === undefined) {
+//			$scope.businessPartners = [];
+//			
+//			$scope.naziv = ""; 
+//			$scope.adresa = ""; 
+//			$scope.pib = ""; 
+//			$scope.mbr = ""; 
+//			$scope.racun = ""; 
+//			
+//			$scope.knaziv = ""; 
+//			$scope.kadresa = ""; 
+//			$scope.kpib = ""; 
+//			$scope.kmbr = ""; 
+//			$scope.kracun = ""; 
+//		}
+//		else {
+//			
+//			$scope.naziv = $scope.selected[0].name; 
+//			$scope.adresa = $scope.selected[0].address;
+//			$scope.pib = $scope.selected[0].pib;
+//			$scope.mbr = $scope.selected[0].cidnumber;
+//			$scope.racun = $scope.selected[0].account;
+//			
+//			businessPartnerService.getAllBusinessPartners($scope.selected[0].id).then(function(response){
+//				console.log(response.data[0].company2);
+//				$scope.businessPartners = response.data;
+//					
+//			});
+//			
+//			$scope.knaziv = ""; 
+//			$scope.kadresa = ""; 
+//			$scope.kpib = ""; 
+//			$scope.kmbr = ""; 
+//			$scope.kracun = ""; 
+//			
+//		}
+//	}
 	
 	companyService.getAllCompanies().then(function(response){
 		 

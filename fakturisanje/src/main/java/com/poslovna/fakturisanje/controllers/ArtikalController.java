@@ -19,9 +19,13 @@ import com.poslovna.fakturisanje.models.Cenovnik;
 import com.poslovna.fakturisanje.models.Company;
 import com.poslovna.fakturisanje.models.GrupaArtikala;
 import com.poslovna.fakturisanje.models.JedinicaMere;
+import com.poslovna.fakturisanje.models.StopaPDVa;
 import com.poslovna.fakturisanje.repositories.GrupaArtikalaRepository;
 import com.poslovna.fakturisanje.repositories.JedinicaMereRepository;
 import com.poslovna.fakturisanje.services.ArtikalService;
+import com.poslovna.fakturisanje.services.CompanyService;
+import com.poslovna.fakturisanje.services.StopaPDVaService;
+import com.poslovna.fakturisanje.services.VrstaPDVaService;
 
 @RestController
 public class ArtikalController {
@@ -34,6 +38,15 @@ public class ArtikalController {
 	
 	@Autowired
 	private JedinicaMereRepository jedinicaMereRepository;
+	
+	@Autowired 
+	private CompanyService companyService;
+	
+	@Autowired
+	private StopaPDVaService stopaPDVaservice;
+	
+	@Autowired
+	private VrstaPDVaService vrstaPDVaService;
 	
 	
 	@RequestMapping(
@@ -53,6 +66,31 @@ public class ArtikalController {
     )
     public ResponseEntity<HashSet<Artikal>> findByGrupaId(@PathVariable Integer id) {
 		HashSet<Artikal> artikli = artikalService.findByGrupaArtikala(id);
+        return new ResponseEntity<HashSet<Artikal>>(artikli, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "api/artikal/findByArtikal/{id}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<StopaPDVa> findByArtikal(@PathVariable Integer id) {
+		Artikal artikal = artikalService.findOne(id);
+		StopaPDVa stopa = stopaPDVaservice.findStopu(vrstaPDVaService.findVrstu(grupaArtikalaRepository.findOne(artikal.getGrupaArtikala().getId()).getVrstaPDVa().getId()).getStopPDVa().getId());
+        return new ResponseEntity<StopaPDVa>(stopa, HttpStatus.OK);
+    }
+	
+	
+	@RequestMapping(
+            value    = "api/artikal/findByCompanyId/{companyId}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<HashSet<Artikal>> findByCompanyId(@PathVariable Integer companyId) {
+		Company company = companyService.findOne(companyId);
+		Collection<GrupaArtikala> grupe = grupaArtikalaRepository.findByCompany(company);
+		HashSet<Artikal> artikli = new HashSet<Artikal>();
+		grupe.forEach(grupa -> artikli.addAll(artikalService.findByGrupaArtikala(grupa.getId())));
         return new ResponseEntity<HashSet<Artikal>>(artikli, HttpStatus.OK);
     }
 	

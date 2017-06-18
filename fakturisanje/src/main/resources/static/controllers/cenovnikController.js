@@ -161,7 +161,7 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 			}
 		}
 		
-		artikalService.nadjiSveArtikle().then(function(response){
+		artikalService.nadjArtikleFirme($scope.user.company.id).then(function(response){
 			
 			$scope.artikli = response.data;
 			$scope.artikliSize = response.data.length;

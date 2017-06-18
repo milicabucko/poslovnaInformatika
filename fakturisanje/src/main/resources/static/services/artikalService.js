@@ -7,10 +7,24 @@ app.factory('artikalService', function artikalService($http){
 		});
 	}
 	
+	artikalService.nadjArtikleFirme = function(companyId){
+		return $http({
+			method: 'GET',
+			url: 'api/artikal/findByCompanyId/' + companyId
+		});
+	}
+	
 	artikalService.getAllArtikle = function(id){
 		return $http({
 			method: 'GET',
 			url: 'api/artikal/findByGrupaId/' + id
+		});
+	}
+	
+	artikalService.getGrupuArtikla = function(artikalId){
+		return $http({
+			method: 'GET',
+			url: 'api/artikal/findByArtikal/' + artikalId
 		});
 	}
 	
