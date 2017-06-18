@@ -1,16 +1,12 @@
-app.controller('poslovnaGodinaController',['$scope', '$route', '$location', '$mdDialog', 'companyService', 'poslovnaGodinaService', function($scope, $route, $location, $mdDialog, companyService, poslovnaGodinaService){
+app.controller('poslovnaGodinaController',['$scope', '$route', '$location', '$mdDialog', 'companyService', 'poslovnaGodinaService','authenticationService', function($scope, $route, $location, $mdDialog, companyService, poslovnaGodinaService, authenticationService){
+	
+	$scope.user = authenticationService.getUser();
+	$scope.authService = authenticationService;
 	
 	$scope.dodajPoslovnuGodinu = function() {
-		if ($scope.selected[0] === undefined) {
-			$mdDialog.show($mdDialog.alert()
-				.clickOutsideToClose(true)
-				.title('Greska')
-				.textContent('Morate izabrati preduzece.')
-				.ok('OK')
-			);
-		}else{
+		
 			if($scope.listaGodina.$valid){
-				poslovnaGodinaService.sacuvajGodinu($scope.selected[0].id, $scope.datumPocetakVazenja, $scope.datumKrajVazenja, $scope.brojGodine).then(function(response){
+				poslovnaGodinaService.sacuvajGodinu($scope.user.company.id, $scope.datumPocetakVazenja, $scope.datumKrajVazenja, $scope.brojGodine).then(function(response){
 					if(response.data.brojGodine == 0000){
 						$mdDialog.show($mdDialog.alert()
 							.clickOutsideToClose(true)
@@ -36,7 +32,7 @@ app.controller('poslovnaGodinaController',['$scope', '$route', '$location', '$md
 					.ok('OK')
 				);
 			}
-		}
+		
 	}
 	
 	$scope.dpChanged = function() {
@@ -104,7 +100,7 @@ app.controller('poslovnaGodinaController',['$scope', '$route', '$location', '$md
 		 $scope.itemsSize = $scope.items.length; 
 	});
 	
-	poslovnaGodinaService.sveGodine().then(function(response){
+	poslovnaGodinaService.pronadjiPoFirmi($scope.user.company.id).then(function(response){
 		$scope.godine = response.data;
 		$scope.godineSize = $scope.godine.length;
 	});

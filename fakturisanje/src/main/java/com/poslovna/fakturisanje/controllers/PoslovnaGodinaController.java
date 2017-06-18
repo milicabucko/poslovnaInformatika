@@ -86,4 +86,14 @@ public class PoslovnaGodinaController {
 			return new ResponseEntity<PoslovnaGodina>(godina, HttpStatus.OK);
 		}
 	}
+	
+	@RequestMapping(
+			value = "api/poslovnaGodina/nadjiPoFirmi/{firmaId}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Collection<PoslovnaGodina>> sveGodineFirme(@PathVariable Integer firmaId) {
+		Company comany = companyService.findOne(firmaId);
+		return new ResponseEntity<Collection<PoslovnaGodina>>(poslovnaGodinaService.findAllByPreduzece(comany), HttpStatus.OK); 
+	}
+	
 }

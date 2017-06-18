@@ -25,5 +25,13 @@ app.factory('poslovnaGodinaService', function poslovnaGodinaService($http){
 			url: 'api/poslovnaGodina/promenaStatusa/' + firmaId + '/' + brojGodine
 		});
 	}
+	
+	poslovnaGodinaService.pronadjiPoFirmi = function(firmaId){
+		return $http({
+			method: 'GET',
+			url: 'api/poslovnaGodina/nadjiPoFirmi/' + firmaId
+		});
+	}
+	
 	return poslovnaGodinaService;
 });

@@ -1,4 +1,6 @@
-app.controller('magacinController', [ '$scope', '$location', '$window', '$mdDialog', 'companyService', 'magacinService', function($scope, $location, $window, $mdDialog, companyService, magacinService) {
+app.controller('magacinController', [ '$scope', '$location', '$window', '$mdDialog', 'companyService', 'magacinService','authenticationService', function($scope, $location, $window, $mdDialog, companyService, magacinService, authenticationService) {
+	$scope.user = authenticationService.getUser();
+	$scope.authService = authenticationService;
 	
 			companyService.getAllCompanies().then(function(response) {
 
@@ -26,16 +28,7 @@ app.controller('magacinController', [ '$scope', '$location', '$window', '$mdDial
 			$scope.dodajMagacin = function() {
 				
 				if($scope.magacinForm.$valid){
-					if($scope.selected[0] === undefined){
-						$mdDialog.show(
-								$mdDialog.alert()
-							    .clickOutsideToClose(true)
-							    .title('Greska')
-							    .textContent('Morate izabrati preduzece.')
-							    .ok('OK')
-						);
-					}else{
-						magacinService.dodajMagacin($scope.sifraMagacina, $scope.nazivMagacina, $scope.selected[0].id).then(function(response){
+						magacinService.dodajMagacin($scope.sifraMagacina, $scope.nazivMagacina, $scope.user.company.id).then(function(response){
 							if(response.data.sifra == "greska"){
 								$mdDialog.show(
 									$mdDialog.alert()
@@ -57,7 +50,7 @@ app.controller('magacinController', [ '$scope', '$location', '$window', '$mdDial
 								$scope.nazivMagacina = "";
 							}
 						});
-					}
+					
 				}else {
 					$mdDialog.show(
 						$mdDialog.alert()
