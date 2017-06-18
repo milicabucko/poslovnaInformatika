@@ -1,22 +1,25 @@
-app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 'magacinService', function($scope, $location, $mdDialog, magacinService){
+app.controller('pregledMagacinaController',['$scope', '$location', '$mdDialog', 'magacinService','authenticationService', function($scope, $location, $mdDialog, magacinService, authenticationService){
 
 	$scope.vidiAnalitike = false;
 	$scope.vidiKartice = false;
 	
-	magacinService.sviMagacini().then(function(response){
+	$scope.user = authenticationService.getUser();
+	$scope.authService = authenticationService;
+	
+	magacinService.findByPreduzecePib($scope.user.company.pib).then(function(response){
 		$scope.items = response.data;
 		$scope.itemsSize = $scope.items.length;
 	});
 	
 	$scope.pretraziPoSifri = function() {
 		if($scope.sifraZaPretragu == ""){
-			magacinService.sviMagacini().then(function(response){
+			magacinService.findByPreduzecePib($scope.user.company.pib).then(function(response){
 				$scope.items = response.data;
 				$scope.itemsSize = $scope.items.length;
 				console.log($scope.items)
 			});
 		} else {
-			magacinService.findBySifraContaining($scope.sifraZaPretragu).then(function(response){ 
+			magacinService.findBySifraAndCompany($scope.sifraZaPretragu, $scope.user.company.id).then(function(response){ 
 				$scope.items = response.data;
 				$scope.itemsSize = $scope.items.length;
 			});

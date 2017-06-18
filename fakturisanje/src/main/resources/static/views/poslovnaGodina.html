@@ -1,6 +1,6 @@
 
 
-<form name="listaGodina">
+<form name="listaGodina" ng-if="authService.isAdmin()">
 	<div layout="row">
 		<md-input-container>
 			<label>Datum pocetka vazenja poslovne godine</label>
@@ -12,7 +12,7 @@
 		</md-input-container>
 		<md-input-container>
 			<label>Broj godine</label>
-		    <input type="text" ng-model="brojGodine" required ng-pattern="/^[0-9]{4}$/">
+		    <input type="number" ng-model="brojGodine" required ng-pattern="/^[0-9]{4}$/">
 		</md-input-container>
 		<div layout="column">
 			<md-button class="md-raised md-primary" ng-click="dodajPoslovnuGodinu()">Kreiraj</md-button>
@@ -36,7 +36,7 @@
       	<th md-column>Datum pocetka</th>
       	<th md-column>Datum zavrsetka</th>
       	<th md-column>Status godine</th>
-      	<th md-column>Promena statusa</th>
+      	<th md-column ng-if="authService.isAdmin()">Promena statusa</th>
       </tr>
      </thead>
      <tbody md-body>
@@ -47,7 +47,7 @@
         <td md-cell>{{godina.datumZavrsetka | date:'dd.MM.yyyy'}}</td>
         <td md-cell ng-if="godina.aktivna == false" style="background:red; text-align: center; font-size: 15; font-weight: bold;">Neaktivna </td>
         <td md-cell ng-if="godina.aktivna == true" style="background:green; text-align: center; font-size: 15; font-weight: bold;">Aktivna </td>
-        <td md-cell ><md-button ng-disabled="" class="md-raised md-primary" ng-click="promeniStatus(godina.brojGodine, godina.preduzece.id)">Izmeni</md-button></td>
+        <td md-cell ng-if="authService.isAdmin()"><md-button ng-disabled="" class="md-raised md-primary" ng-click="promeniStatus(godina.brojGodine, godina.preduzece.id)">Izmeni</md-button></td>
     </table>
   </md-table-container>
  <md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{godineSize}}" md-page-select="options.pageSelector" md-boundary-links="options.boundaryLinks"></md-table-pagination>

@@ -24,4 +24,8 @@ public interface MagacinRepository extends JpaRepository<Magacin, Integer>{
 	
 	public void delete(Magacin magacin);
 	
+	public Collection<Magacin> findByPreduzeceAndSifraContaining(Company preduzece, String sifra);
+	
+	public Collection<Magacin> findByPreduzeceId(Integer id);
+	
 }

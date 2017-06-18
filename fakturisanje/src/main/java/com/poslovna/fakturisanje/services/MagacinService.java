@@ -43,8 +43,16 @@ public class MagacinService {
 		return magacinRepository.findByPreduzece(preduzece);
 	}
 	
+	public Collection<Magacin> findByPreduzeceId(Integer preduzece) {
+		return magacinRepository.findByPreduzeceId(preduzece);
+	}
+	
 	public Collection<Magacin> findBySifraContaining(String sifra){
 		return magacinRepository.findBySifraContaining(sifra);
+	}
+	
+	public Collection<Magacin> findBySifraContainingAndPreduzece(String sifra, Company preduzece){
+		return magacinRepository.findByPreduzeceAndSifraContaining(preduzece, sifra);
 	}
 	
 	public void deleteMagacin(Magacin magacin){

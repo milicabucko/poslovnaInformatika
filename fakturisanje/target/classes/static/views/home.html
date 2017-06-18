@@ -303,7 +303,7 @@
               Magacin
             </button>
             <md-menu-content>
-              <md-menu-item>
+              <md-menu-item ng-if="authService.isAdmin()">
                 <md-button ng-click="dodajMagacin()">
                   Dodaj magacin
                 </md-button>

@@ -69,6 +69,17 @@ public class MagacinController {
     }
 	
 	@RequestMapping(
+            value    = "/api/magacin/findBySifraAndCompany/{sifra}/{companyId}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Magacin>> findBySifraAndCompany(@PathVariable String sifra, @PathVariable Integer companyId) {
+		Company company = companyService.findOne(companyId);
+		Collection<Magacin> magacini = magacinService.findBySifraContainingAndPreduzece(sifra, company);
+        return new ResponseEntity<Collection<Magacin>>(magacini, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
             value    = "/api/magacin/dodajMagacin/{firmaId}",
             method   = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE

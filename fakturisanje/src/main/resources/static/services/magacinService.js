@@ -14,10 +14,24 @@ app.factory('magacinService', function magacinService($http){
 		});
 	}
 	
+	magacinService.findByPreduzeceId = function(preduzeceId) {
+		return $http({
+			method: "GET",
+			url: 'api/magacin/findByPreduzeceId/' + preduzeceId
+		});
+	}
+	
 	magacinService.findBySifraContaining = function(sifra){
 		return $http({
 			method: 'GET',
-			url: 'api/magacin/findBySifraContaining/' + sifra
+			url: 'api/magacin/findBySifraContaining/' + sifra 
+		});
+	}
+	
+	magacinService.findBySifraAndCompany = function(sifra, companyId){
+		return $http({
+			method: 'GET',
+			url: 'api/magacin/findBySifraAndCompany/' + sifra + '/' + companyId
 		});
 	}
 	
