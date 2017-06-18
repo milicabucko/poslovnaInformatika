@@ -21,7 +21,7 @@ app.controller('fakturaController',['$scope', '$location', '$mdDialog', 'company
 		//stopaPdva.procenatPDVa ovo da setujem 
 		artikalService.getGrupuArtikla(artikalId).then(function(response){
 			console.log(response.data.procenatPDVa);
-			$scope.stopaPdva = response.data.procenatPDVa;
+			$scope.stopaPdva.procenatPDVa = response.data.procenatPDVa;
 			
 		});
 		

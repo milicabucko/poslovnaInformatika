@@ -58,6 +58,13 @@ app.factory('fakturaService', function fakturaService($http){
 		});
 	}
 	
+	fakturaService.svaDokumentaKompanije = function(companyId){
+		return $http({
+			method: 'GET',
+			url: 'api/faktura/faktureKompanije/' + companyId
+		});
+	}
+	
 	fakturaService.promeniStatus = function(fakturaId, status, datumKnjizenja){
 		return $http({
 			method: 'POST',
@@ -109,8 +116,8 @@ app.factory('fakturaService', function fakturaService($http){
 	fakturaService.sveNaruzbenice = function() {
 		return $http({
 			method: 'GET',
-			url: 'api/faktura/sveNarudzbenice'
-		})
+			url: '/api/faktura/sveNarudzbenice'
+		});
 	}
 	
 	

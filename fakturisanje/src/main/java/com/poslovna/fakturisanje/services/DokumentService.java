@@ -35,6 +35,10 @@ public class DokumentService {
 		return fakturaRepository.findByVrstaDokumenta("NAR");
 	}
 	
+	public Collection<Dokument> sveNarudzbeniceFirme(Integer companyId){
+		return fakturaRepository.findByIzdavaocRacunaIdAndVrstaDokumenta(companyId, "NAR");
+	}
+	
 	public Integer setStatusDokumentaForFaktura(String status, Integer id) {
 		return fakturaRepository.setStatusDokumentaForFaktura(status, id);
 	}
@@ -45,6 +49,10 @@ public class DokumentService {
 
 	public Collection<Dokument> findByBrojDokumentaAndVrstaDokumenta(Integer brojDokumenta) {
 		return fakturaRepository.findByBrojDokumentaAndVrstaDokumenta(brojDokumenta, "NAR");
+	}
+	
+	public Collection<Dokument> getByCompanyId(Integer companyId){
+		return fakturaRepository.getByIzdavaocRacunaId(companyId);
 	}
 	
 	public void delete(Dokument dokument) {

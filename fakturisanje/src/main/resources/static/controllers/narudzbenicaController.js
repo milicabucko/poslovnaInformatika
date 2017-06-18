@@ -1,13 +1,13 @@
-app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'fakturaService', 'artikalService', 'cenovnikService', 'magacinService', 'stavkaDokumentaService', function($scope, $location, $mdDialog, companyService, businessPartnerService, fakturaService, artikalService, cenovnikService, magacinService, stavkaDokumentaService){
+app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'companyService', 'businessPartnerService', 'fakturaService', 'artikalService', 'cenovnikService', 'magacinService', 'stavkaDokumentaService','authenticationService', function($scope, $location, $mdDialog, companyService, businessPartnerService, fakturaService, artikalService, cenovnikService, magacinService, stavkaDokumentaService, authenticationService){
 
+	$scope.user = authenticationService.getUser();
+	$scope.authService = authenticationService;
+	
 	$scope.selectedArtikal = [];
 	
-	artikalService.nadjiSveArtikle().then(function(response){
-		
-		$scope.artikli = response.data;
-		$scope.artikliSize = response.data.length;
-		
-	});
+	
+	
+	
 	
 	$scope.dodajArtikal = function(artikalSifra){
 		
@@ -22,7 +22,7 @@ app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'co
 	
 	$scope.posaljiFakturu = function() {
 
-		fakturaService.posaljiNarudzbenicu($scope.selected[0].id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, -1).then(function(response){ 
+		fakturaService.posaljiNarudzbenicu($scope.user.company.id, $scope.bpselected[0].company2.id, $scope.brDok, "poslata", $scope.datumDok, $scope.datumVal, -1).then(function(response){ 
 			
 			$mdDialog.show(
 					$mdDialog.alert()
@@ -217,14 +217,6 @@ app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'co
 	
 	
 	$scope.onSelectBPEvent = function() {
-		if ($scope.bpselected[0] === undefined) {
-			$scope.dnaziv = ""; 
-			$scope.dadresa = ""; 
-			$scope.dpib = ""; 
-			$scope.dmbr = ""; 
-			$scope.dracun = ""; 
-		}
-		else {
 			
 			$scope.dnaziv = $scope.bpselected[0].company2.name; 
 			$scope.dadresa = $scope.bpselected[0].company2.address;
@@ -232,37 +224,24 @@ app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'co
 			$scope.dmbr = $scope.bpselected[0].company2.cidnumber;
 			$scope.dracun = $scope.bpselected[0].company2.account;
 			
-		}
+			artikalService.nadjArtikleFirme($scope.bpselected[0].id).then(function(response){
+				
+				$scope.artikli = response.data;
+				$scope.artikliSize = response.data.length;
+				
+			});
+		
 	}
 	
 	
-	$scope.onSelectEvent = function() {
-		
-		
-		if ($scope.selected[0] === undefined) {
-			$scope.businessPartners = [];
 			
-			$scope.naziv = ""; 
-			$scope.adresa = ""; 
-			$scope.pib = ""; 
-			$scope.mbr = ""; 
-			$scope.racun = ""; 
+			$scope.naziv = $scope.user.company.name; 
+			$scope.adresa = $scope.user.company.address;
+			$scope.pib = $scope.user.company.pib;
+			$scope.mbr = $scope.user.company.cidnumber;
+			$scope.racun = $scope.user.company.account;
 			
-			$scope.dnaziv = ""; 
-			$scope.dadresa = ""; 
-			$scope.dpib = ""; 
-			$scope.dmbr = ""; 
-			$scope.dracun = ""; 
-		}
-		else {
-			
-			$scope.naziv = $scope.selected[0].name; 
-			$scope.adresa = $scope.selected[0].address;
-			$scope.pib = $scope.selected[0].pib;
-			$scope.mbr = $scope.selected[0].cidnumber;
-			$scope.racun = $scope.selected[0].account;
-			
-			businessPartnerService.getAllBusinessPartners($scope.selected[0].id).then(function(response){
+			businessPartnerService.getAllBusinessPartners($scope.user.company.id).then(function(response){
 				console.log(response.data[0].company2);
 				$scope.businessPartners = response.data;
 					
@@ -273,9 +252,7 @@ app.controller('narudzbenicaController',['$scope', '$location', '$mdDialog', 'co
 			$scope.dpib = ""; 
 			$scope.dmbr = ""; 
 			$scope.dracun = ""; 
-			
-		}
-	}
+	
 	
 	companyService.getAllCompanies().then(function(response){
 		 

@@ -25,6 +25,10 @@ public interface DokumentRepository extends JpaRepository<Dokument, Integer>{
 	public Collection<Dokument> findByVrstaDokumenta(String vrstaDokumenta);
 
 	public Collection<Dokument> findByBrojDokumentaAndVrstaDokumenta(Integer brojDokumenta, String vrstaDokumenta);
+
+	public Collection<Dokument> getByIzdavaocRacunaId(Integer companyId);
+
+	public Collection<Dokument> findByIzdavaocRacunaIdAndVrstaDokumenta(Integer companyId, String vrstaDokumenta);
 	
 
 }

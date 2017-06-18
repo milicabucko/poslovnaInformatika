@@ -108,12 +108,32 @@ public class DokumentController {
     }
 	
 	@RequestMapping(
+            value    = "api/faktura/faktureKompanije/{companyId}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Dokument>> sveFakturePreduzeca(@PathVariable Integer companyId) {
+		Collection<Dokument> sveFakture = fakturaService.getByCompanyId(companyId);
+        return new ResponseEntity<Collection<Dokument>>(sveFakture, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
             value    = "/api/faktura/sveNarudzbenice",
             method   = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     public ResponseEntity<Collection<Dokument>> sveNarudzbenice() {
 		Collection<Dokument> sveNarudzbenice = fakturaService.sveNarudzbenice();
+        return new ResponseEntity<Collection<Dokument>>(sveNarudzbenice, HttpStatus.OK);
+    }
+	
+	@RequestMapping(
+            value    = "/api/faktura/sveNarudzbeniceFirme/{companyId}",
+            method   = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<Collection<Dokument>> sveNarudzbeniceFirme(@PathVariable Integer companyId) {
+		Collection<Dokument> sveNarudzbenice = fakturaService.sveNarudzbeniceFirme(companyId);
         return new ResponseEntity<Collection<Dokument>>(sveNarudzbenice, HttpStatus.OK);
     }
 	
