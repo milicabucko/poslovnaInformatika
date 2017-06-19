@@ -47,6 +47,14 @@ app.controller('preduzeceController',['$scope', '$location', '$mdDialog', 'compa
 					}
 						    
 				 }
+				
+				$mdDialog.show(
+						$mdDialog.alert()
+					    .clickOutsideToClose(true)
+					    .title('Obavestenje')
+					    .textContent('Preduzece je dodato.')
+					    .ok('OK')
+				);
 				 
 				 
 			});

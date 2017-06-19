@@ -172,6 +172,13 @@ app.controller('pregledCenovnikaController',['$scope', '$location', '$mdDialog',
 								console.log("Result: " + result);
 								stavkaCenovnikaService.sacuvajStavku(response.data.id, $scope.stavke[i].artikal.id, $scope.stavke[i].cena+(parseInt(result)/100)*$scope.stavke[i].cena).then(function(response){ 
 								});
+								$mdDialog.show(
+										$mdDialog.alert()
+									    .clickOutsideToClose(true)
+									    .title('Obavestenje')
+									    .textContent('Cenovnik je kopiran.')
+									    .ok('OK')
+								);
 							}
 							cenovnikService.nadjiPoKompaniji($scope.user.company.id).then(function(response){
 								$scope.cenovnici = response.data;

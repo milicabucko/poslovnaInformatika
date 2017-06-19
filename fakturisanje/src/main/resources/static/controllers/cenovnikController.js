@@ -246,6 +246,14 @@ app.controller('cenovnikController',['$scope', '$location', '$mdDialog', 'compan
 					});
 				}
 				
+				$mdDialog.show(
+						$mdDialog.alert()
+					    .clickOutsideToClose(true)
+					    .title('Obavestenje')
+					    .textContent('Cenovnik je dodat.')
+					    .ok('OK')
+				);
+				
 				}
 			});
 			
