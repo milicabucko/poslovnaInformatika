@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<fakturaXML xmlns="http://www.ftn.uns.ac.rs/fakturisanje/models" naziv="testNaziv" brojDokumenta="1" statusDokumenta="obracunata" datumDokumenta="2017-06-16T21:19:11.106Z" datumValute="2017-06-16T21:19:11.106Z" datumKnjizenja="2017-06-16T21:19:11.106Z" ukupnoZaPlacanje="711.0">
-    <izdavaocRacuna name="a" pib="1111111111" mbr="11111111" account="111111111111111111"/>
-    <kupac name="b" pib="1111111112" mbr="11111112" account="111111111111111112"/>
-    <stavke>
-        <stavka kolicina="20" cena="20.0">
-            <artikal sifra="1" naziv="a" opis="a" vrsta="a" jedinicaMere="kg"/>
-        </stavka>
-        <stavka kolicina="20" cena="30.0">
-            <artikal sifra="2" naziv="b" opis="b" vrsta="b" jedinicaMere="kg"/>
-        </stavka>
-    </stavke>
+<fakturaXML xmlns="http://www.ftn.uns.ac.rs/fakturisanje/models" naziv="testNaziv" brojDokumenta="4" statusDokumenta="poslata" datumDokumenta="2017-06-15" datumValute="2017-07-15" ukupnoZaPlacanje="1588.66">
+    <izdavaocRacuna name="Atos" pib="1000000033" mbr="12345333" account="898888888888883333"/>
+    <kupac name="Sunoko" pib="1000000000" mbr="12345677" account="898888888888888888"/>
+    <stavke/>
 </fakturaXML>

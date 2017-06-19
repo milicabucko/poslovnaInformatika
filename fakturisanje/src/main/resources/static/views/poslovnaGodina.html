@@ -1,6 +1,6 @@
 
 
-<form name="listaGodina" ng-if="authService.isAdmin()">
+<form name="listaGodina" ng-show="authService.isAdmin()">
 	<div layout="row">
 		<md-input-container>
 			<label>Datum pocetka vazenja poslovne godine</label>
